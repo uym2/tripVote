@@ -1,0 +1,4 @@
+test_triplet 42 0.000835829
+test_quartet 65 0.000448884
+test_triplet_root 2 0.0067485
+---

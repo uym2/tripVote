@@ -1,0 +1,48 @@
+Start testing: Aug 04 21:55 PDT
+----------------------------------------------------------
+1/3 Testing: test_triplet
+1/3 Test: test_triplet
+Command: "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_triplet"
+Directory: /Users/uym2/Documents/my_gits/Triplet_rooting/bin
+"test_triplet" start time: Aug 04 21:55 PDT
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_triplet" end time: Aug 04 21:55 PDT
+"test_triplet" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/3 Testing: test_triplet_root
+2/3 Test: test_triplet_root
+Command: "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_triplet_root"
+Directory: /Users/uym2/Documents/my_gits/Triplet_rooting/bin
+"test_triplet_root" start time: Aug 04 21:55 PDT
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"test_triplet_root" end time: Aug 04 21:55 PDT
+"test_triplet_root" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/3 Testing: test_quartet
+3/3 Test: test_quartet
+Command: "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_quartet"
+Directory: /Users/uym2/Documents/my_gits/Triplet_rooting/bin
+"test_quartet" start time: Aug 04 21:55 PDT
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_quartet" end time: Aug 04 21:55 PDT
+"test_quartet" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Aug 04 21:55 PDT
