@@ -20,4 +20,6 @@ void HDT::handleLeaf()
 	// Sums and stuff (triplets)
     n_circ = 1;
 	n_circ_square = 0;
+    n_parent_zero_circ = 0;
+    n_parent_circ_square = 0;
 }

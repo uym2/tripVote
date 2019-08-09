@@ -69,5 +69,6 @@ void HDT::handleG()
     }
     
     tripResolved_root = g1->tripResolved_root + g2->tripResolved_root;
-    // TODO: update tripResolved_root !!!!!!
+    tripResolved_root += g1->get_n_parent_ii(0) * (g2->circ - g2->get_n_i(0)) + (g1->n_parent_circ_square - g1->n_parent_zero_circ) * g2->get_n_ii(0);
+    tripResolved_root += g2->get_n_parent_ii(0) * (g1->circ - g1->get_n_i(0)) + (g2->n_parent_circ_square - g2->n_parent_zero_circ) * g1->get_n_ii(0);
 }

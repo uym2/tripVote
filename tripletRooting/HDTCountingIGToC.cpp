@@ -12,6 +12,8 @@ void HDT::handleIGToC()
 	// These are just inherited from the G node
 	n_circ = right->n_circ;
 	n_circ_square = right->n_circ_square;
+    n_parent_zero_circ = right->n_parent_zero_circ;
+    n_parent_circ_square = right->n_parent_circ_square;
     tripResolved_root = right->tripResolved_root;
 
     // copy tripResolved and tripUnresolved and countingVars from the G component

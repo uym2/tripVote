@@ -75,6 +75,8 @@ class HDT
 		CountingArray *countingVars;
 		INTTYPE_REST n_circ;
 		INTTYPE_REST n_circ_square;
+        INTTYPE_REST n_parent_circ_square;
+        INTTYPE_REST n_parent_zero_circ;
 
 		// Summing resolved/resolved and unresolved/unresolved
 		INTTYPE_REST *tripResolved;
