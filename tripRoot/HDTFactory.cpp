@@ -13,27 +13,32 @@ HDTFactory::HDTFactory(int numD, HDTFactory *copyMemAllocFrom)
 	if (copyMemAllocFrom == NULL)
 	{
 		memHDT = new MemoryAllocator<HDT>(HDTFactorySize+1);
-		memCLL = new MemoryAllocator<CountingLinkedList>(HDTFactorySize+1);
-		memCLLNO = new MemoryAllocator<CountingLinkedListNumOnly>(HDTFactorySize+1);
+		memCLL = new MemoryAllocator<CountingLinkedList>(HDTFactorySize+1); // obsolete; to be deleted
+		memCLLNO = new MemoryAllocator<CountingLinkedListNumOnly>(HDTFactorySize+1); // obsolete; to be deleted
+        memARR = new MemoryAllocator<CountingArray>(HDTFactorySize+1); // uym2 added
 		memTLL = new MemoryAllocator<TemplatedLinkedList<HDT*> >(HDTFactorySize+1);
 	}
 	else
 	{
 		memHDT = copyMemAllocFrom->memHDT;
-		memCLL = copyMemAllocFrom->memCLL;
-		memCLLNO = copyMemAllocFrom->memCLLNO;
+		memCLL = copyMemAllocFrom->memCLL; // obsolete; to be deleted
+		memCLLNO = copyMemAllocFrom->memCLLNO; // obsolete; to be deleted
 		memTLL = copyMemAllocFrom->memTLL;
+        memARR = copyMemAllocFrom->memARR;
 	}
 	memHDT->numUses++;
-	memCLL->numUses++;
-	memCLLNO->numUses++;
+	memCLL->numUses++; // obsolete; to be deleted
+	memCLLNO->numUses++; // obsolete; to be deleted
 	memTLL->numUses++;
+    memARR->numUses++;
 
 	createdHDTs = memHDT->getMemory();
 	createdHDTs->left = NULL;
 	currentHDT = createdHDTs;
 	hdtLocation = 1;
 
+
+    /* obsolete; to be deleted */
 	createdLL = memCLL->getMemory();
 	createdLL->initialize();
 	currentLL = createdLL;
@@ -43,8 +48,16 @@ HDTFactory::HDTFactory(int numD, HDTFactory *copyMemAllocFrom)
 	createdLLNO->initialize();
 	currentLLNO = createdLLNO;
 	llnoLocation = 1;
-
-	createdTLL = memTLL->getMemory();
+    /***************************/
+	
+    /*       uym2 added         */
+    createdARR = memARR->getMemory();
+    currentARR = createdARR;
+    arrLocation = 1;
+    /***************************/
+    
+    
+    createdTLL = memTLL->getMemory();
 	createdTLL->initialize();
 	currentTLL = createdTLL;
 	currentLocationTLL = 1;
@@ -52,7 +65,9 @@ HDTFactory::HDTFactory(int numD, HDTFactory *copyMemAllocFrom)
 
 HDTFactory::~HDTFactory()
 {
-	{
+    memARR->releaseMemory(createdARR); // uym2 added; need revision! 
+    
+    {
 		HDT *current = createdHDTs;
 		while (current != NULL)
 		{
@@ -62,6 +77,7 @@ HDTFactory::~HDTFactory()
 		}
 	}
 
+    /* obsolete; to be deleted */
 	{
 		CountingLinkedList *current = createdLL;
 		while (current != NULL)
@@ -81,8 +97,9 @@ HDTFactory::~HDTFactory()
 			current = next;
 		}
 	}
-
-	{
+    /***************************/
+	
+    {
 		TemplatedLinkedList<HDT*> *current = createdTLL;
 		while (current != NULL)
 		{
@@ -95,11 +112,12 @@ HDTFactory::~HDTFactory()
 	memHDT->numUses--;
 	if (memHDT->numUses == 0) delete memHDT;
 	memCLL->numUses--;
-	if (memCLL->numUses == 0) delete memCLL;
+	if (memCLL->numUses == 0) delete memCLL; // obsolete; to be deleted
 	memCLLNO->numUses--;
-	if (memCLLNO->numUses == 0) delete memCLLNO;
+	if (memCLLNO->numUses == 0) delete memCLLNO; // obsolete; to be deleted
 	memTLL->numUses--;
 	if (memTLL->numUses == 0) delete memTLL;
+
 }
 
 void HDTFactory::deleteTemplatedLinkedList()
