@@ -6,7 +6,7 @@
 # testing this directory and lists subdirectories to be tested as well.
 add_test(test_triplet "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_triplet")
 set_tests_properties(test_triplet PROPERTIES  WORKING_DIRECTORY "/Users/uym2/Documents/my_gits/Triplet_rooting/bin" _BACKTRACE_TRIPLES "/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;201;add_test;/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;0;")
-add_test(test_triplet_root "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_triplet_root")
-set_tests_properties(test_triplet_root PROPERTIES  WORKING_DIRECTORY "/Users/uym2/Documents/my_gits/Triplet_rooting/bin" _BACKTRACE_TRIPLES "/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;223;add_test;/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;0;")
+add_test(test_triplet_root_naive "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_triplet_root_naive")
+set_tests_properties(test_triplet_root_naive PROPERTIES  WORKING_DIRECTORY "/Users/uym2/Documents/my_gits/Triplet_rooting/bin" _BACKTRACE_TRIPLES "/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;223;add_test;/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;0;")
 add_test(test_quartet "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_quartet")
 set_tests_properties(test_quartet PROPERTIES  WORKING_DIRECTORY "/Users/uym2/Documents/my_gits/Triplet_rooting/bin" _BACKTRACE_TRIPLES "/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;244;add_test;/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/CMakeLists.txt;0;")

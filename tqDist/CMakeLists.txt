@@ -203,7 +203,7 @@ add_test(
   WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
   COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_triplet)
 
-add_executable(test_triplet_root test_triplet_root.cpp
+add_executable(test_triplet_root_naive test_triplet_root.cpp
   TripletRooting.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
@@ -221,9 +221,9 @@ add_executable(test_triplet_root test_triplet_root.cpp
   QuartetDistanceCalculator.cpp
   int_stuff.cpp)
 add_test(
-  NAME test_triplet_root 
+  NAME test_triplet_root_naive 
   WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
-  COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_triplet_root)
+  COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_triplet_root_naive)
 
 add_executable(test_quartet test_quartet.cpp
   HDT.cpp

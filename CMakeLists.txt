@@ -6,13 +6,13 @@ project(tqDist CXX C)
 
 enable_testing()
 
+add_subdirectory(tripRoot)
 add_subdirectory(tqDist)
 
-set(CPACK_PACKAGE_NAME "tqDist")
-set(CPACK_PACKAGE_VENDOR "BiRC - Bioinformatics Research Center, Aarhus University, Denmark")
+set(CPACK_PACKAGE_NAME "tripRoot")
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
 set(CPACK_PACKAGE_VERSION_MINOR "0")
-set(CPACK_PACKAGE_VERSION_PATCH "1")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 
 if (CMAKE_SIZEOF_VOID_P MATCHES "8")

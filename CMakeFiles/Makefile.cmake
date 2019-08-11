@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.15.1/CMakeSystem.cmake"
   "CMakeLists.txt"
   "tqDist/CMakeLists.txt"
+  "tripRoot/CMakeLists.txt"
   "/usr/local/Cellar/cmake/3.15.1/share/cmake/Modules/CMakeCInformation.cmake"
   "/usr/local/Cellar/cmake/3.15.1/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/usr/local/Cellar/cmake/3.15.1/share/cmake/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
@@ -51,16 +52,19 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CPackConfig.cmake"
   "CPackSourceConfig.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "tripRoot/CMakeFiles/CMakeDirectoryInformation.cmake"
   "tqDist/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/dist.dir/DependInfo.cmake"
+  "tripRoot/CMakeFiles/test_triplet_root.dir/DependInfo.cmake"
+  "tripRoot/CMakeFiles/tripRoot.dir/DependInfo.cmake"
   "tqDist/CMakeFiles/test_quartet.dir/DependInfo.cmake"
+  "tqDist/CMakeFiles/test_triplet_root_naive.dir/DependInfo.cmake"
   "tqDist/CMakeFiles/test_triplet.dir/DependInfo.cmake"
   "tqDist/CMakeFiles/tqDist_triplet.dir/DependInfo.cmake"
-  "tqDist/CMakeFiles/test_triplet_root.dir/DependInfo.cmake"
   "tqDist/CMakeFiles/pairs_triplet_dist.dir/DependInfo.cmake"
   "tqDist/CMakeFiles/triplet_dist.dir/DependInfo.cmake"
   "tqDist/CMakeFiles/all_pairs_triplet_dist.dir/DependInfo.cmake"

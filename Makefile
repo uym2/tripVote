@@ -203,6 +203,32 @@ dist/fast:
 .PHONY : dist/fast
 
 #=============================================================================
+# Target rules for targets named test_triplet_root
+
+# Build rule for target.
+test_triplet_root: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_triplet_root
+.PHONY : test_triplet_root
+
+# fast build rule for target.
+test_triplet_root/fast:
+	$(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/build
+.PHONY : test_triplet_root/fast
+
+#=============================================================================
+# Target rules for targets named tripRoot
+
+# Build rule for target.
+tripRoot: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tripRoot
+.PHONY : tripRoot
+
+# fast build rule for target.
+tripRoot/fast:
+	$(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/build
+.PHONY : tripRoot/fast
+
+#=============================================================================
 # Target rules for targets named test_quartet
 
 # Build rule for target.
@@ -214,6 +240,19 @@ test_quartet: cmake_check_build_system
 test_quartet/fast:
 	$(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/build
 .PHONY : test_quartet/fast
+
+#=============================================================================
+# Target rules for targets named test_triplet_root_naive
+
+# Build rule for target.
+test_triplet_root_naive: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_triplet_root_naive
+.PHONY : test_triplet_root_naive
+
+# fast build rule for target.
+test_triplet_root_naive/fast:
+	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/build
+.PHONY : test_triplet_root_naive/fast
 
 #=============================================================================
 # Target rules for targets named test_triplet
@@ -240,19 +279,6 @@ tqDist_triplet: cmake_check_build_system
 tqDist_triplet/fast:
 	$(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/build
 .PHONY : tqDist_triplet/fast
-
-#=============================================================================
-# Target rules for targets named test_triplet_root
-
-# Build rule for target.
-test_triplet_root: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_triplet_root
-.PHONY : test_triplet_root
-
-# fast build rule for target.
-test_triplet_root/fast:
-	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/build
-.PHONY : test_triplet_root/fast
 
 #=============================================================================
 # Target rules for targets named pairs_triplet_dist
@@ -361,10 +387,12 @@ help:
 	@echo "... package_source"
 	@echo "... package"
 	@echo "... dist"
+	@echo "... test_triplet_root"
+	@echo "... tripRoot"
 	@echo "... test_quartet"
+	@echo "... test_triplet_root_naive"
 	@echo "... test_triplet"
 	@echo "... tqDist_triplet"
-	@echo "... test_triplet_root"
 	@echo "... pairs_triplet_dist"
 	@echo "... triplet_dist"
 	@echo "... all_pairs_triplet_dist"

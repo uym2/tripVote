@@ -205,6 +205,21 @@ test_quartet/fast:
 .PHONY : test_quartet/fast
 
 # Convenience name for target.
+tqDist/CMakeFiles/test_triplet_root_naive.dir/rule:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_triplet_root_naive.dir/rule
+.PHONY : tqDist/CMakeFiles/test_triplet_root_naive.dir/rule
+
+# Convenience name for target.
+test_triplet_root_naive: tqDist/CMakeFiles/test_triplet_root_naive.dir/rule
+
+.PHONY : test_triplet_root_naive
+
+# fast build rule for target.
+test_triplet_root_naive/fast:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/build
+.PHONY : test_triplet_root_naive/fast
+
+# Convenience name for target.
 tqDist/CMakeFiles/test_triplet.dir/rule:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_triplet.dir/rule
 .PHONY : tqDist/CMakeFiles/test_triplet.dir/rule
@@ -233,21 +248,6 @@ tqDist_triplet: tqDist/CMakeFiles/tqDist_triplet.dir/rule
 tqDist_triplet/fast:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/build
 .PHONY : tqDist_triplet/fast
-
-# Convenience name for target.
-tqDist/CMakeFiles/test_triplet_root.dir/rule:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_triplet_root.dir/rule
-.PHONY : tqDist/CMakeFiles/test_triplet_root.dir/rule
-
-# Convenience name for target.
-test_triplet_root: tqDist/CMakeFiles/test_triplet_root.dir/rule
-
-.PHONY : test_triplet_root
-
-# fast build rule for target.
-test_triplet_root/fast:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/build
-.PHONY : test_triplet_root/fast
 
 # Convenience name for target.
 tqDist/CMakeFiles/pairs_triplet_dist.dir/rule:
@@ -361,9 +361,9 @@ AbstractDistanceCalculator.o: AbstractDistanceCalculator.cpp.o
 # target to build an object file
 AbstractDistanceCalculator.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/AbstractDistanceCalculator.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/AbstractDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/AbstractDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/AbstractDistanceCalculator.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/AbstractDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/AbstractDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/AbstractDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/AbstractDistanceCalculator.cpp.o
@@ -380,9 +380,9 @@ AbstractDistanceCalculator.i: AbstractDistanceCalculator.cpp.i
 # target to preprocess a source file
 AbstractDistanceCalculator.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/AbstractDistanceCalculator.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/AbstractDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/AbstractDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/AbstractDistanceCalculator.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/AbstractDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/AbstractDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/AbstractDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/AbstractDistanceCalculator.cpp.i
@@ -399,9 +399,9 @@ AbstractDistanceCalculator.s: AbstractDistanceCalculator.cpp.s
 # target to generate assembly for a file
 AbstractDistanceCalculator.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/AbstractDistanceCalculator.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/AbstractDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/AbstractDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/AbstractDistanceCalculator.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/AbstractDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/AbstractDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/AbstractDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/AbstractDistanceCalculator.cpp.s
@@ -418,9 +418,9 @@ HDT.o: HDT.cpp.o
 # target to build an object file
 HDT.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDT.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDT.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDT.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDT.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDT.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDT.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDT.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDT.cpp.o
@@ -437,9 +437,9 @@ HDT.i: HDT.cpp.i
 # target to preprocess a source file
 HDT.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDT.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDT.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDT.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDT.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDT.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDT.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDT.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDT.cpp.i
@@ -456,9 +456,9 @@ HDT.s: HDT.cpp.s
 # target to generate assembly for a file
 HDT.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDT.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDT.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDT.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDT.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDT.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDT.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDT.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDT.cpp.s
@@ -475,9 +475,9 @@ HDTCountingCCToC.o: HDTCountingCCToC.cpp.o
 # target to build an object file
 HDTCountingCCToC.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingCCToC.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingCCToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingCCToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingCCToC.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingCCToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingCCToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingCCToC.cpp.o
@@ -494,9 +494,9 @@ HDTCountingCCToC.i: HDTCountingCCToC.cpp.i
 # target to preprocess a source file
 HDTCountingCCToC.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingCCToC.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingCCToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingCCToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingCCToC.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingCCToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingCCToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingCCToC.cpp.i
@@ -513,9 +513,9 @@ HDTCountingCCToC.s: HDTCountingCCToC.cpp.s
 # target to generate assembly for a file
 HDTCountingCCToC.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingCCToC.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingCCToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingCCToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingCCToC.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingCCToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingCCToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingCCToC.cpp.s
@@ -532,9 +532,9 @@ HDTCountingCTransform.o: HDTCountingCTransform.cpp.o
 # target to build an object file
 HDTCountingCTransform.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingCTransform.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingCTransform.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingCTransform.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingCTransform.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingCTransform.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingCTransform.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingCTransform.cpp.o
@@ -551,9 +551,9 @@ HDTCountingCTransform.i: HDTCountingCTransform.cpp.i
 # target to preprocess a source file
 HDTCountingCTransform.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingCTransform.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingCTransform.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingCTransform.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingCTransform.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingCTransform.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingCTransform.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingCTransform.cpp.i
@@ -570,9 +570,9 @@ HDTCountingCTransform.s: HDTCountingCTransform.cpp.s
 # target to generate assembly for a file
 HDTCountingCTransform.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingCTransform.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingCTransform.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingCTransform.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingCTransform.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingCTransform.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingCTransform.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingCTransform.cpp.s
@@ -589,9 +589,9 @@ HDTCountingG.o: HDTCountingG.cpp.o
 # target to build an object file
 HDTCountingG.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingG.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingG.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingG.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingG.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingG.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingG.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingG.cpp.o
@@ -608,9 +608,9 @@ HDTCountingG.i: HDTCountingG.cpp.i
 # target to preprocess a source file
 HDTCountingG.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingG.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingG.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingG.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingG.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingG.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingG.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingG.cpp.i
@@ -627,9 +627,9 @@ HDTCountingG.s: HDTCountingG.cpp.s
 # target to generate assembly for a file
 HDTCountingG.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingG.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingG.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingG.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingG.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingG.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingG.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingG.cpp.s
@@ -646,9 +646,9 @@ HDTCountingIGToC.o: HDTCountingIGToC.cpp.o
 # target to build an object file
 HDTCountingIGToC.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingIGToC.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingIGToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingIGToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingIGToC.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingIGToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingIGToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingIGToC.cpp.o
@@ -665,9 +665,9 @@ HDTCountingIGToC.i: HDTCountingIGToC.cpp.i
 # target to preprocess a source file
 HDTCountingIGToC.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingIGToC.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingIGToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingIGToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingIGToC.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingIGToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingIGToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingIGToC.cpp.i
@@ -684,9 +684,9 @@ HDTCountingIGToC.s: HDTCountingIGToC.cpp.s
 # target to generate assembly for a file
 HDTCountingIGToC.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingIGToC.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingIGToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingIGToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingIGToC.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingIGToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingIGToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingIGToC.cpp.s
@@ -703,9 +703,9 @@ HDTCountingLeaf.o: HDTCountingLeaf.cpp.o
 # target to build an object file
 HDTCountingLeaf.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingLeaf.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingLeaf.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingLeaf.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingLeaf.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingLeaf.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingLeaf.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingLeaf.cpp.o
@@ -722,9 +722,9 @@ HDTCountingLeaf.i: HDTCountingLeaf.cpp.i
 # target to preprocess a source file
 HDTCountingLeaf.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingLeaf.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingLeaf.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingLeaf.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingLeaf.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingLeaf.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingLeaf.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingLeaf.cpp.i
@@ -741,9 +741,9 @@ HDTCountingLeaf.s: HDTCountingLeaf.cpp.s
 # target to generate assembly for a file
 HDTCountingLeaf.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTCountingLeaf.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTCountingLeaf.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTCountingLeaf.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTCountingLeaf.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTCountingLeaf.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTCountingLeaf.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTCountingLeaf.cpp.s
@@ -760,9 +760,9 @@ HDTFactory.o: HDTFactory.cpp.o
 # target to build an object file
 HDTFactory.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTFactory.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTFactory.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTFactory.cpp.o
@@ -779,9 +779,9 @@ HDTFactory.i: HDTFactory.cpp.i
 # target to preprocess a source file
 HDTFactory.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTFactory.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTFactory.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTFactory.cpp.i
@@ -798,9 +798,9 @@ HDTFactory.s: HDTFactory.cpp.s
 # target to generate assembly for a file
 HDTFactory.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTFactory.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTFactory.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTFactory.cpp.s
@@ -817,9 +817,9 @@ HDTListUtils.o: HDTListUtils.cpp.o
 # target to build an object file
 HDTListUtils.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTListUtils.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTListUtils.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTListUtils.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTListUtils.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTListUtils.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTListUtils.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTListUtils.cpp.o
@@ -836,9 +836,9 @@ HDTListUtils.i: HDTListUtils.cpp.i
 # target to preprocess a source file
 HDTListUtils.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTListUtils.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTListUtils.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTListUtils.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTListUtils.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTListUtils.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTListUtils.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTListUtils.cpp.i
@@ -855,9 +855,9 @@ HDTListUtils.s: HDTListUtils.cpp.s
 # target to generate assembly for a file
 HDTListUtils.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/HDTListUtils.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/HDTListUtils.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/HDTListUtils.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/HDTListUtils.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/HDTListUtils.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/HDTListUtils.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/HDTListUtils.cpp.s
@@ -874,9 +874,9 @@ NewickParser.o: NewickParser.cpp.o
 # target to build an object file
 NewickParser.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/NewickParser.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/NewickParser.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/NewickParser.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/NewickParser.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/NewickParser.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/NewickParser.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/NewickParser.cpp.o
@@ -893,9 +893,9 @@ NewickParser.i: NewickParser.cpp.i
 # target to preprocess a source file
 NewickParser.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/NewickParser.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/NewickParser.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/NewickParser.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/NewickParser.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/NewickParser.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/NewickParser.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/NewickParser.cpp.i
@@ -912,9 +912,9 @@ NewickParser.s: NewickParser.cpp.s
 # target to generate assembly for a file
 NewickParser.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/NewickParser.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/NewickParser.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/NewickParser.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/NewickParser.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/NewickParser.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/NewickParser.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/NewickParser.cpp.s
@@ -931,8 +931,8 @@ QuartetDistanceCalculator.o: QuartetDistanceCalculator.cpp.o
 # target to build an object file
 QuartetDistanceCalculator.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/QuartetDistanceCalculator.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/QuartetDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/QuartetDistanceCalculator.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/QuartetDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/QuartetDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/QuartetDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/QuartetDistanceCalculator.cpp.o
@@ -949,8 +949,8 @@ QuartetDistanceCalculator.i: QuartetDistanceCalculator.cpp.i
 # target to preprocess a source file
 QuartetDistanceCalculator.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/QuartetDistanceCalculator.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/QuartetDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/QuartetDistanceCalculator.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/QuartetDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/QuartetDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/QuartetDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/QuartetDistanceCalculator.cpp.i
@@ -967,8 +967,8 @@ QuartetDistanceCalculator.s: QuartetDistanceCalculator.cpp.s
 # target to generate assembly for a file
 QuartetDistanceCalculator.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/QuartetDistanceCalculator.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/QuartetDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/QuartetDistanceCalculator.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/QuartetDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/QuartetDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/QuartetDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/QuartetDistanceCalculator.cpp.s
@@ -985,9 +985,9 @@ RootedTree.o: RootedTree.cpp.o
 # target to build an object file
 RootedTree.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/RootedTree.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/RootedTree.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/RootedTree.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/RootedTree.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/RootedTree.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/RootedTree.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/RootedTree.cpp.o
@@ -1004,9 +1004,9 @@ RootedTree.i: RootedTree.cpp.i
 # target to preprocess a source file
 RootedTree.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/RootedTree.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/RootedTree.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/RootedTree.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/RootedTree.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/RootedTree.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/RootedTree.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/RootedTree.cpp.i
@@ -1023,9 +1023,9 @@ RootedTree.s: RootedTree.cpp.s
 # target to generate assembly for a file
 RootedTree.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/RootedTree.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/RootedTree.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/RootedTree.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/RootedTree.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/RootedTree.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/RootedTree.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/RootedTree.cpp.s
@@ -1042,9 +1042,9 @@ RootedTreeFactory.o: RootedTreeFactory.cpp.o
 # target to build an object file
 RootedTreeFactory.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/RootedTreeFactory.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/RootedTreeFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/RootedTreeFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/RootedTreeFactory.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/RootedTreeFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/RootedTreeFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/RootedTreeFactory.cpp.o
@@ -1061,9 +1061,9 @@ RootedTreeFactory.i: RootedTreeFactory.cpp.i
 # target to preprocess a source file
 RootedTreeFactory.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/RootedTreeFactory.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/RootedTreeFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/RootedTreeFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/RootedTreeFactory.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/RootedTreeFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/RootedTreeFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/RootedTreeFactory.cpp.i
@@ -1080,9 +1080,9 @@ RootedTreeFactory.s: RootedTreeFactory.cpp.s
 # target to generate assembly for a file
 RootedTreeFactory.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/RootedTreeFactory.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/RootedTreeFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/RootedTreeFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/RootedTreeFactory.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/RootedTreeFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/RootedTreeFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/RootedTreeFactory.cpp.s
@@ -1098,9 +1098,9 @@ TripletDistanceCalculator.o: TripletDistanceCalculator.cpp.o
 
 # target to build an object file
 TripletDistanceCalculator.cpp.o:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/TripletDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/TripletDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/TripletDistanceCalculator.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/TripletDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/TripletDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/TripletDistanceCalculator.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/TripletDistanceCalculator.cpp.o
@@ -1112,9 +1112,9 @@ TripletDistanceCalculator.i: TripletDistanceCalculator.cpp.i
 
 # target to preprocess a source file
 TripletDistanceCalculator.cpp.i:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/TripletDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/TripletDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/TripletDistanceCalculator.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/TripletDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/TripletDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/TripletDistanceCalculator.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/TripletDistanceCalculator.cpp.i
@@ -1126,9 +1126,9 @@ TripletDistanceCalculator.s: TripletDistanceCalculator.cpp.s
 
 # target to generate assembly for a file
 TripletDistanceCalculator.cpp.s:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/TripletDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/TripletDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/TripletDistanceCalculator.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/TripletDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/TripletDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/TripletDistanceCalculator.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/TripletDistanceCalculator.cpp.s
@@ -1140,7 +1140,7 @@ TripletRooting.o: TripletRooting.cpp.o
 
 # target to build an object file
 TripletRooting.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/TripletRooting.cpp.o
 .PHONY : TripletRooting.cpp.o
 
 TripletRooting.i: TripletRooting.cpp.i
@@ -1149,7 +1149,7 @@ TripletRooting.i: TripletRooting.cpp.i
 
 # target to preprocess a source file
 TripletRooting.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/TripletRooting.cpp.i
 .PHONY : TripletRooting.cpp.i
 
 TripletRooting.s: TripletRooting.cpp.s
@@ -1158,7 +1158,7 @@ TripletRooting.s: TripletRooting.cpp.s
 
 # target to generate assembly for a file
 TripletRooting.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/TripletRooting.cpp.s
 .PHONY : TripletRooting.cpp.s
 
 all_pairs_quartet_distance.o: all_pairs_quartet_distance.cpp.o
@@ -1222,9 +1222,9 @@ int_stuff.o: int_stuff.cpp.o
 # target to build an object file
 int_stuff.cpp.o:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/int_stuff.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/int_stuff.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/int_stuff.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/int_stuff.cpp.o
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/int_stuff.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/int_stuff.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/int_stuff.cpp.o
@@ -1241,9 +1241,9 @@ int_stuff.i: int_stuff.cpp.i
 # target to preprocess a source file
 int_stuff.cpp.i:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/int_stuff.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/int_stuff.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/int_stuff.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/int_stuff.cpp.i
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/int_stuff.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/int_stuff.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/int_stuff.cpp.i
@@ -1260,9 +1260,9 @@ int_stuff.s: int_stuff.cpp.s
 # target to generate assembly for a file
 int_stuff.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/int_stuff.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/int_stuff.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/int_stuff.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/int_stuff.cpp.s
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/int_stuff.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/int_stuff.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/int_stuff.cpp.s
@@ -1413,7 +1413,7 @@ test_triplet_root.o: test_triplet_root.cpp.o
 
 # target to build an object file
 test_triplet_root.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/test_triplet_root.cpp.o
 .PHONY : test_triplet_root.cpp.o
 
 test_triplet_root.i: test_triplet_root.cpp.i
@@ -1422,7 +1422,7 @@ test_triplet_root.i: test_triplet_root.cpp.i
 
 # target to preprocess a source file
 test_triplet_root.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/test_triplet_root.cpp.i
 .PHONY : test_triplet_root.cpp.i
 
 test_triplet_root.s: test_triplet_root.cpp.s
@@ -1431,7 +1431,7 @@ test_triplet_root.s: test_triplet_root.cpp.s
 
 # target to generate assembly for a file
 test_triplet_root.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/test_triplet_root.cpp.s
 .PHONY : test_triplet_root.cpp.s
 
 triplet_dist.o: triplet_dist.cpp.o
@@ -1474,10 +1474,10 @@ help:
 	@echo "... package"
 	@echo "... list_install_components"
 	@echo "... test_quartet"
+	@echo "... test_triplet_root_naive"
 	@echo "... test"
 	@echo "... test_triplet"
 	@echo "... tqDist_triplet"
-	@echo "... test_triplet_root"
 	@echo "... pairs_triplet_dist"
 	@echo "... install"
 	@echo "... triplet_dist"

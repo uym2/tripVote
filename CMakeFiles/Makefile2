@@ -53,17 +53,20 @@ CMAKE_BINARY_DIR = /Users/uym2/Documents/my_gits/Triplet_rooting
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: tripRoot/all
 all: tqDist/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
 clean: CMakeFiles/dist.dir/clean
+clean: tripRoot/clean
 clean: tqDist/clean
 
 .PHONY : clean
 
 # The main recursive "preinstall" target.
+preinstall: tripRoot/preinstall
 preinstall: tqDist/preinstall
 
 .PHONY : preinstall
@@ -96,13 +99,87 @@ CMakeFiles/dist.dir/clean:
 .PHONY : CMakeFiles/dist.dir/clean
 
 #=============================================================================
+# Directory level rules for directory tripRoot
+
+# Recursive "all" directory target.
+tripRoot/all: tripRoot/CMakeFiles/test_triplet_root.dir/all
+tripRoot/all: tripRoot/CMakeFiles/tripRoot.dir/all
+
+.PHONY : tripRoot/all
+
+# Recursive "clean" directory target.
+tripRoot/clean: tripRoot/CMakeFiles/test_triplet_root.dir/clean
+tripRoot/clean: tripRoot/CMakeFiles/tripRoot.dir/clean
+
+.PHONY : tripRoot/clean
+
+# Recursive "preinstall" directory target.
+tripRoot/preinstall:
+
+.PHONY : tripRoot/preinstall
+
+#=============================================================================
+# Target rules for target tripRoot/CMakeFiles/test_triplet_root.dir
+
+# All Build rule for target.
+tripRoot/CMakeFiles/test_triplet_root.dir/all:
+	$(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/depend
+	$(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=54,55,56,57,58,59,60,61 "Built target test_triplet_root"
+.PHONY : tripRoot/CMakeFiles/test_triplet_root.dir/all
+
+# Build rule for subdir invocation for target.
+tripRoot/CMakeFiles/test_triplet_root.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 tripRoot/CMakeFiles/test_triplet_root.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
+.PHONY : tripRoot/CMakeFiles/test_triplet_root.dir/rule
+
+# Convenience name for target.
+test_triplet_root: tripRoot/CMakeFiles/test_triplet_root.dir/rule
+
+.PHONY : test_triplet_root
+
+# clean rule for target.
+tripRoot/CMakeFiles/test_triplet_root.dir/clean:
+	$(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/clean
+.PHONY : tripRoot/CMakeFiles/test_triplet_root.dir/clean
+
+#=============================================================================
+# Target rules for target tripRoot/CMakeFiles/tripRoot.dir
+
+# All Build rule for target.
+tripRoot/CMakeFiles/tripRoot.dir/all:
+	$(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/depend
+	$(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=85,86,87,88,89,90,91,92 "Built target tripRoot"
+.PHONY : tripRoot/CMakeFiles/tripRoot.dir/all
+
+# Build rule for subdir invocation for target.
+tripRoot/CMakeFiles/tripRoot.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 tripRoot/CMakeFiles/tripRoot.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
+.PHONY : tripRoot/CMakeFiles/tripRoot.dir/rule
+
+# Convenience name for target.
+tripRoot: tripRoot/CMakeFiles/tripRoot.dir/rule
+
+.PHONY : tripRoot
+
+# clean rule for target.
+tripRoot/CMakeFiles/tripRoot.dir/clean:
+	$(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/clean
+.PHONY : tripRoot/CMakeFiles/tripRoot.dir/clean
+
+#=============================================================================
 # Directory level rules for directory tqDist
 
 # Recursive "all" directory target.
 tqDist/all: tqDist/CMakeFiles/test_quartet.dir/all
+tqDist/all: tqDist/CMakeFiles/test_triplet_root_naive.dir/all
 tqDist/all: tqDist/CMakeFiles/test_triplet.dir/all
 tqDist/all: tqDist/CMakeFiles/tqDist_triplet.dir/all
-tqDist/all: tqDist/CMakeFiles/test_triplet_root.dir/all
 tqDist/all: tqDist/CMakeFiles/pairs_triplet_dist.dir/all
 tqDist/all: tqDist/CMakeFiles/triplet_dist.dir/all
 tqDist/all: tqDist/CMakeFiles/all_pairs_triplet_dist.dir/all
@@ -115,9 +192,9 @@ tqDist/all: tqDist/CMakeFiles/tqDist_quartet.dir/all
 
 # Recursive "clean" directory target.
 tqDist/clean: tqDist/CMakeFiles/test_quartet.dir/clean
+tqDist/clean: tqDist/CMakeFiles/test_triplet_root_naive.dir/clean
 tqDist/clean: tqDist/CMakeFiles/test_triplet.dir/clean
 tqDist/clean: tqDist/CMakeFiles/tqDist_triplet.dir/clean
-tqDist/clean: tqDist/CMakeFiles/test_triplet_root.dir/clean
 tqDist/clean: tqDist/CMakeFiles/pairs_triplet_dist.dir/clean
 tqDist/clean: tqDist/CMakeFiles/triplet_dist.dir/clean
 tqDist/clean: tqDist/CMakeFiles/all_pairs_triplet_dist.dir/clean
@@ -140,12 +217,12 @@ tqDist/preinstall:
 tqDist/CMakeFiles/test_quartet.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/test_quartet.dir/build.make tqDist/CMakeFiles/test_quartet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=46,47,48,49,50,51,52,53,54 "Built target test_quartet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=39,40,41,42,43,44,45 "Built target test_quartet"
 .PHONY : tqDist/CMakeFiles/test_quartet.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/test_quartet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_quartet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/test_quartet.dir/rule
@@ -161,18 +238,45 @@ tqDist/CMakeFiles/test_quartet.dir/clean:
 .PHONY : tqDist/CMakeFiles/test_quartet.dir/clean
 
 #=============================================================================
+# Target rules for target tqDist/CMakeFiles/test_triplet_root_naive.dir
+
+# All Build rule for target.
+tqDist/CMakeFiles/test_triplet_root_naive.dir/all:
+	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/depend
+	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=62,63,64,65,66,67,68,69,70 "Built target test_triplet_root_naive"
+.PHONY : tqDist/CMakeFiles/test_triplet_root_naive.dir/all
+
+# Build rule for subdir invocation for target.
+tqDist/CMakeFiles/test_triplet_root_naive.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_triplet_root_naive.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
+.PHONY : tqDist/CMakeFiles/test_triplet_root_naive.dir/rule
+
+# Convenience name for target.
+test_triplet_root_naive: tqDist/CMakeFiles/test_triplet_root_naive.dir/rule
+
+.PHONY : test_triplet_root_naive
+
+# clean rule for target.
+tqDist/CMakeFiles/test_triplet_root_naive.dir/clean:
+	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root_naive.dir/build.make tqDist/CMakeFiles/test_triplet_root_naive.dir/clean
+.PHONY : tqDist/CMakeFiles/test_triplet_root_naive.dir/clean
+
+#=============================================================================
 # Target rules for target tqDist/CMakeFiles/test_triplet.dir
 
 # All Build rule for target.
 tqDist/CMakeFiles/test_triplet.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/test_triplet.dir/build.make tqDist/CMakeFiles/test_triplet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=55,56,57,58,59,60,61,62,63 "Built target test_triplet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=46,47,48,49,50,51,52,53 "Built target test_triplet"
 .PHONY : tqDist/CMakeFiles/test_triplet.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/test_triplet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_triplet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/test_triplet.dir/rule
@@ -194,12 +298,12 @@ tqDist/CMakeFiles/test_triplet.dir/clean:
 tqDist/CMakeFiles/tqDist_triplet.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/tqDist_triplet.dir/build.make tqDist/CMakeFiles/tqDist_triplet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=83,84,85,86,87,88,89,90 "Built target tqDist_triplet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=78,79,80,81,82,83,84 "Built target tqDist_triplet"
 .PHONY : tqDist/CMakeFiles/tqDist_triplet.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/tqDist_triplet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/tqDist_triplet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/tqDist_triplet.dir/rule
@@ -215,45 +319,18 @@ tqDist/CMakeFiles/tqDist_triplet.dir/clean:
 .PHONY : tqDist/CMakeFiles/tqDist_triplet.dir/clean
 
 #=============================================================================
-# Target rules for target tqDist/CMakeFiles/test_triplet_root.dir
-
-# All Build rule for target.
-tqDist/CMakeFiles/test_triplet_root.dir/all:
-	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/depend
-	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=64,65,66,67,68,69,70,71,72,73 "Built target test_triplet_root"
-.PHONY : tqDist/CMakeFiles/test_triplet_root.dir/all
-
-# Build rule for subdir invocation for target.
-tqDist/CMakeFiles/test_triplet_root.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 10
-	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/test_triplet_root.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
-.PHONY : tqDist/CMakeFiles/test_triplet_root.dir/rule
-
-# Convenience name for target.
-test_triplet_root: tqDist/CMakeFiles/test_triplet_root.dir/rule
-
-.PHONY : test_triplet_root
-
-# clean rule for target.
-tqDist/CMakeFiles/test_triplet_root.dir/clean:
-	$(MAKE) -f tqDist/CMakeFiles/test_triplet_root.dir/build.make tqDist/CMakeFiles/test_triplet_root.dir/clean
-.PHONY : tqDist/CMakeFiles/test_triplet_root.dir/clean
-
-#=============================================================================
 # Target rules for target tqDist/CMakeFiles/pairs_triplet_dist.dir
 
 # All Build rule for target.
 tqDist/CMakeFiles/pairs_triplet_dist.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/pairs_triplet_dist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=28,29,30,31,32,33,34,35,36 "Built target pairs_triplet_dist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=23,24,25,26,27,28,29,30 "Built target pairs_triplet_dist"
 .PHONY : tqDist/CMakeFiles/pairs_triplet_dist.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/pairs_triplet_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/pairs_triplet_dist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/pairs_triplet_dist.dir/rule
@@ -275,12 +352,12 @@ tqDist/CMakeFiles/pairs_triplet_dist.dir/clean:
 tqDist/CMakeFiles/triplet_dist.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/triplet_dist.dir/build.make tqDist/CMakeFiles/triplet_dist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=91,92,93,94,95,96,97,98,99,100 "Built target triplet_dist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=93,94,95,96,97,98,99,100 "Built target triplet_dist"
 .PHONY : tqDist/CMakeFiles/triplet_dist.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/triplet_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/triplet_dist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/triplet_dist.dir/rule
@@ -302,12 +379,12 @@ tqDist/CMakeFiles/triplet_dist.dir/clean:
 tqDist/CMakeFiles/all_pairs_triplet_dist.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_triplet_dist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17,18 "Built target all_pairs_triplet_dist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=8,9,10,11,12,13,14,15 "Built target all_pairs_triplet_dist"
 .PHONY : tqDist/CMakeFiles/all_pairs_triplet_dist.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/all_pairs_triplet_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/all_pairs_triplet_dist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/all_pairs_triplet_dist.dir/rule
@@ -329,12 +406,12 @@ tqDist/CMakeFiles/all_pairs_triplet_dist.dir/clean:
 tqDist/CMakeFiles/pairs_quartet_dist.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/pairs_quartet_dist.dir/build.make tqDist/CMakeFiles/pairs_quartet_dist.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/pairs_quartet_dist.dir/build.make tqDist/CMakeFiles/pairs_quartet_dist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=19,20,21,22,23,24,25,26,27 "Built target pairs_quartet_dist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=16,17,18,19,20,21,22 "Built target pairs_quartet_dist"
 .PHONY : tqDist/CMakeFiles/pairs_quartet_dist.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/pairs_quartet_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/pairs_quartet_dist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/pairs_quartet_dist.dir/rule
@@ -356,12 +433,12 @@ tqDist/CMakeFiles/pairs_quartet_dist.dir/clean:
 tqDist/CMakeFiles/all_pairs_quartet_dist.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/all_pairs_quartet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_quartet_dist.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/all_pairs_quartet_dist.dir/build.make tqDist/CMakeFiles/all_pairs_quartet_dist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target all_pairs_quartet_dist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target all_pairs_quartet_dist"
 .PHONY : tqDist/CMakeFiles/all_pairs_quartet_dist.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/all_pairs_quartet_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/all_pairs_quartet_dist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/all_pairs_quartet_dist.dir/rule
@@ -383,12 +460,12 @@ tqDist/CMakeFiles/all_pairs_quartet_dist.dir/clean:
 tqDist/CMakeFiles/quartet_dist.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/quartet_dist.dir/build.make tqDist/CMakeFiles/quartet_dist.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/quartet_dist.dir/build.make tqDist/CMakeFiles/quartet_dist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=37,38,39,40,41,42,43,44,45 "Built target quartet_dist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=31,32,33,34,35,36,37,38 "Built target quartet_dist"
 .PHONY : tqDist/CMakeFiles/quartet_dist.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/quartet_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/quartet_dist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/quartet_dist.dir/rule
@@ -410,12 +487,12 @@ tqDist/CMakeFiles/quartet_dist.dir/clean:
 tqDist/CMakeFiles/tqDist_quartet.dir/all:
 	$(MAKE) -f tqDist/CMakeFiles/tqDist_quartet.dir/build.make tqDist/CMakeFiles/tqDist_quartet.dir/depend
 	$(MAKE) -f tqDist/CMakeFiles/tqDist_quartet.dir/build.make tqDist/CMakeFiles/tqDist_quartet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=74,75,76,77,78,79,80,81,82 "Built target tqDist_quartet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles --progress-num=71,72,73,74,75,76,77 "Built target tqDist_quartet"
 .PHONY : tqDist/CMakeFiles/tqDist_quartet.dir/all
 
 # Build rule for subdir invocation for target.
 tqDist/CMakeFiles/tqDist_quartet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 tqDist/CMakeFiles/tqDist_quartet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/uym2/Documents/my_gits/Triplet_rooting/CMakeFiles 0
 .PHONY : tqDist/CMakeFiles/tqDist_quartet.dir/rule

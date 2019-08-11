@@ -34,6 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/cmake_install.cmake")
   include("/Users/uym2/Documents/my_gits/Triplet_rooting/tqDist/cmake_install.cmake")
 
 endif()
