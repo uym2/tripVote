@@ -1,7 +1,7 @@
 #include "counting_array.h"
 
 
-CountingArray::CountingArray(unsigned int degree){
+void CountingArray::initialize(unsigned int degree){
     this->degree = degree;
     this->n_i = new INTTYPE_REST[degree];
     this->n_i_circ = new INTTYPE_REST[degree];

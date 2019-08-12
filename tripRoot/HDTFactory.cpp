@@ -15,7 +15,7 @@ HDTFactory::HDTFactory(int numD, HDTFactory *copyMemAllocFrom)
 		memHDT = new MemoryAllocator<HDT>(HDTFactorySize+1);
 		memCLL = new MemoryAllocator<CountingLinkedList>(HDTFactorySize+1); // obsolete; to be deleted
 		memCLLNO = new MemoryAllocator<CountingLinkedListNumOnly>(HDTFactorySize+1); // obsolete; to be deleted
-        memARR = new MemoryAllocator<CountingArray>(HDTFactorySize+1); // uym2 added
+        memARR = new MemoryAllocator<TemplatedLinkedList<CountingArray*> >(HDTFactorySize+1); // uym2 added
 		memTLL = new MemoryAllocator<TemplatedLinkedList<HDT*> >(HDTFactorySize+1);
 	}
 	else
@@ -52,6 +52,7 @@ HDTFactory::HDTFactory(int numD, HDTFactory *copyMemAllocFrom)
 	
     /*       uym2 added         */
     createdARR = memARR->getMemory();
+    createdARR->initialize();
     currentARR = createdARR;
     arrLocation = 1;
     /***************************/
@@ -65,8 +66,6 @@ HDTFactory::HDTFactory(int numD, HDTFactory *copyMemAllocFrom)
 
 HDTFactory::~HDTFactory()
 {
-    memARR->releaseMemory(createdARR); // uym2 added; need revision! 
-    
     {
 		HDT *current = createdHDTs;
 		while (current != NULL)
@@ -99,6 +98,18 @@ HDTFactory::~HDTFactory()
 	}
     /***************************/
 	
+    /*******  uym2 added *******/
+    {
+		TemplatedLinkedList<CountingArray*> *current = createdARR;
+		while (current != NULL)
+		{
+			TemplatedLinkedList<CountingArray*> *next = current->next;
+			memARR->releaseMemory(current);
+			current = next;
+		}
+	}
+    /***************************/
+
     {
 		TemplatedLinkedList<HDT*> *current = createdTLL;
 		while (current != NULL)
@@ -117,6 +128,8 @@ HDTFactory::~HDTFactory()
 	if (memCLLNO->numUses == 0) delete memCLLNO; // obsolete; to be deleted
 	memTLL->numUses--;
 	if (memTLL->numUses == 0) delete memTLL;
+	memARR->numUses--;
+	if (memARR->numUses == 0) delete memTLL;
 
 }
 
@@ -143,7 +156,7 @@ HDT* HDTFactory::getHDT(HDT::NodeType type, RootedTree *link, bool doLink)
 	}
 
 	HDT *returnMe = &currentHDT[hdtLocation];
-	returnMe->initialize(getLL(), type, numD, link, doLink);
+	returnMe->initialize(getARR(), type, numD, link, doLink);
 	returnMe->factory = this;
 	hdtLocation++;
 	return returnMe;
@@ -197,6 +210,23 @@ TemplatedLinkedList<HDT*>* HDTFactory::getTemplatedLinkedList()
 	return returnMe;
 }
 
+CountingArray* HDTFactory::getARR()
+{
+	if (arrLocation > HDTFactorySize)
+	{
+		currentARR->next = memARR->getMemory();
+		currentARR = currentARR->next;
+		currentARR->initialize();
+		arrLocation = 1;
+	}
+
+	TemplatedLinkedList<CountingArray*> *returnMe = &currentARR[arrLocation];
+    returnMe->data = new CountingArray;
+	returnMe->data->initialize(this->numD); 	
+    arrLocation++;
+	return returnMe->data;
+}
+
 long long HDTFactory::getSizeInRam()
 {
 	long long resultHDT = 0;
@@ -238,9 +268,20 @@ long long HDTFactory::getSizeInRam()
 			current = current->next;
 		}
 	}
+	
+    long long resultARR = 0;
+	{
+		TemplatedLinkedList<CountingArray*> *current = createdARR;
+		while (current != NULL)
+		{
+			resultARR++;
+			current = current->next;
+		}
+	}
 
 	return resultHDT * (HDTFactorySize+1) * sizeof(HDT) +
 		resultLL * (HDTFactorySize+1) * sizeof(CountingLinkedList) +
 		resultLLNO * (HDTFactorySize+1) * sizeof(CountingLinkedListNumOnly) +
-		resultTLL * (HDTFactorySize+1) * sizeof(TemplatedLinkedList<HDT*>);
+		resultTLL * (HDTFactorySize+1) * sizeof(TemplatedLinkedList<HDT*>) +
+		resultARR * (HDTFactorySize+1) * sizeof(TemplatedLinkedList<CountingArray*>);
 }

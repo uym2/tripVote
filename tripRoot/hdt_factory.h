@@ -1,7 +1,7 @@
 #ifndef HDT_FACTORY_H
 #define HDT_FACTORY_H
 #include "hdt.h"
-#include "counting_array"
+#include "counting_array.h"
 
 class RootedTree; // forward declaration
 class CountingLinkedList; // forward declaration
@@ -13,8 +13,8 @@ class HDTFactory
 	private:
 		HDT *createdHDTs;
 		HDT *currentHDT;
-		CountingArray *createdARR; // uym2 added
-        CoungingArray *currentARR; // uym2 added
+		TemplatedLinkedList<CountingArray*> *createdARR; // uym2 added
+        TemplatedLinkedList<CountingArray*> *currentARR; // uym2 added
 		TemplatedLinkedList<HDT*> *createdTLL; 
 		TemplatedLinkedList<HDT*> *currentTLL;
         CountingLinkedList *createdLL; // obsolete; to be deleted
@@ -26,15 +26,16 @@ class HDTFactory
         int llLocation, llnoLocation; // obsolete; to be deleted
         int arrLocation; // uym2 added
         int currentLocationTLL;
-		int numD;
+		//int numD;
 		
         MemoryAllocator<HDT> *memHDT;
 		MemoryAllocator<CountingLinkedList> *memCLL; // obsolete; to be deleted
 		MemoryAllocator<CountingLinkedListNumOnly> *memCLLNO; // obsolete; to be deleted
-		MemoryAllocator<CountingArray> *memARR; // uym2 added
+		MemoryAllocator<TemplatedLinkedList<CountingArray*> > *memARR; // uym2 added
 		MemoryAllocator<TemplatedLinkedList<HDT*> > *memTLL;
 
 	public:
+		int numD;
 		HDTFactory(int numD, HDTFactory *copyMemAllocFrom = NULL);
 		~HDTFactory();
 		HDT* getHDT(HDT::NodeType type, RootedTree *link, bool doLink);

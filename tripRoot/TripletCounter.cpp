@@ -8,7 +8,7 @@ TripletCounter::TripletCounter(unsigned int N){
     this->tA = new unsigned int [N];
 }
 
-TripletCounter::TripletCounter(){
+TripletCounter::~TripletCounter(){
     delete [] this->tI;
     delete [] this->tO;
     delete [] this->tR;

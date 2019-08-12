@@ -9,6 +9,9 @@ void HDT::handleLeaf()
 {
 	// This is a leaf!
 	// Triplets
+    for (int i = 0; i < this->degree; i++)
+        countingVars->set_n_i(i,0);
+
 	if (link == NULL)
 	{
 		countingVars->set_n_i(0,numZeroes);

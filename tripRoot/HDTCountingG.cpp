@@ -62,8 +62,8 @@ void HDT::handleG()
                 tripResolved[j] += g1Count->get_n_parent_ii(i) * (g2->n_circ - g2Count->get_n_i(j) - g2Count->get_n_i(i)); 
                 tripResolved[j] += g2Count->get_n_parent_ii(i) * (g1->n_circ - g1Count->get_n_i(j) - g1Count->get_n_i(i)); 
     
-                tripUnresolved[j] += g1Count->get_n_i(i) * ( g2->n_circ_square - g2Count->get_n_i_circ(j) - g2Count->get_n_i_circ(i) + g2Count->get_n_ij(i,j) );
-                tripUnresolved[j] += g2Count->get_n_i(i) * ( g1->n_circ_square - g1Count->get_n_i_circ(j) - g1Count->get_n_i_circ(i) + g1Count->get_n_ij(i,j) );
+                tripUnresolved[j] += g1Count->get_n_i(i) * ( g2->n_circ_square - g2Count->get_n_i_circ(j) - g2Count->get_n_i_circ(i) ); // + g2Count->get_n_ij(i,j) );
+                tripUnresolved[j] += g2Count->get_n_i(i) * ( g1->n_circ_square - g1Count->get_n_i_circ(j) - g1Count->get_n_i_circ(i) ); //+ g1Count->get_n_ij(i,j) );
             }
         }
     }

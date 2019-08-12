@@ -53,17 +53,11 @@ int main(int argc, char** argv) {
   rRef = uRef->convertToRootedTree(NULL);
   rTre = uTre->convertToRootedTree(rRef->factory);
 
-  std::cout << "Finish reading two trees. Start computing triplet scores" << std::endl;
-
   TripletRooting tripRoot(rRef,rTre);
-  std::cout << "Finish creating tripRoot instance. Start searching optimal root" << std::endl;
   
-  tripRoot.find_optimal_root();
-  std::cout << "Optimal root and score are computed." << std::endl;
-  
-  INTTYPE_REST score = tripRoot.optimalTripScore;
+  INTTYPE_REST distance = tripRoot.minTripletDistance();
 
-  std::cout << "Optimal triplet score: " << score << std::endl;
+  std::cout << "Optimal triplet distance: " << distance << std::endl;
 
   return 0;
 }

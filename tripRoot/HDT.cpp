@@ -11,12 +11,14 @@ void HDT::initialize(CountingArray *countingVars, NodeType type, int numD, Roote
 	convertedFrom = NotConverted;
 	goBackVariable = NULL;
 
-    tripResolved = new INTTYPE_REST [numD];
+    tripResolved = new INTTYPE_REST[numD];
+    tripUnresolved = new INTTYPE_REST[numD];
 
     for (int i = 0; i < numD; i++){
         tripResolved[i] = 0;
         tripUnresolved[i] = 0;
     }
+
 
     tripResolved_root = 0;
 
@@ -33,7 +35,7 @@ void HDT::initialize(CountingArray *countingVars, NodeType type, int numD, Roote
 }
 
 HDT::~HDT(){
-    delete countingVars;
+    //delete countingVars;
     delete [] tripResolved;
     delete [] tripUnresolved;
 }
@@ -260,7 +262,7 @@ HDT* HDT::constructHDT(RootedTree *t, int numD, HDTFactory *copyStuffFromFactory
 {
 	HDTFactory *factory = new HDTFactory(numD, copyStuffFromFactory);
 	HDT *hdt = preFirstRound(t, numD, doLink, factory);
-	while(hdt->children != NULL)
+    while(hdt->children != NULL)
 	{
 		hdt = hdt->round(factory);
 	}

@@ -9,7 +9,7 @@ class TripletCounter
 {
     public:
         unsigned int N; // this is the number of nodes in the tree it represents
-        int *tI, *tO, *tR, *tA; //triplets inside, outside, as the root, and accumulated of the inside
+        unsigned int *tI, *tO, *tR, *tA; //triplets inside, outside, as the root, and accumulated of the inside
 	
 		TripletCounter(unsigned int N);
         ~TripletCounter();

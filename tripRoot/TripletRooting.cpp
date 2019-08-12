@@ -1,5 +1,4 @@
 #include "TripletRooting.h"
-
 #include "hdt.h"
 #include "hdt_factory.h"
 
@@ -13,8 +12,10 @@ bool TripletRooting::find_optimal_root(){
     }
 
     countChildren(myTree);
-    hdt = HDT::constructHDT(myRef, myTree->maxDegree, dummyHDTFactory);
-    count(t1);
+
+    hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
+    
+    count(myTree);
 
     // HDT is deleted in count if extracting and contracting!
 /*
@@ -23,21 +24,33 @@ bool TripletRooting::find_optimal_root(){
 #endif
 */    
     this->compute_tA(this->myTree);
+
+    for (int i = 0; i < tripCount->N; i++){
+        std::cout << "tA[" << i << "] = " << tripCount->tA[i] << std::endl;
+        std::cout << "tI[" << i << "] = " << tripCount->tI[i] << std::endl;
+        std::cout << "tO[" << i << "] = " << tripCount->tO[i] << std::endl;
+        std::cout << "tR[" << i << "] = " << tripCount->tR[i] << std::endl;
+    }
+
     unsigned int r = myTree->idx;
     this->optimalRoot = this->myTree;
     this->optimalTripScore = tripCount->tA[r];
+    INTTYPE_REST parent_score = tripCount->tA[r];
+    this->downroot(myTree,parent_score);
 
+    /* 
     for(TemplatedLinkedList<RootedTree*> *current = myTree->children; current != NULL; current = current->next) {
         unsigned int u = current->data->idx;
         INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r] - tripCount->tI[u];
+        std::cout << "parent_score = " << parent_score << std::endl;
         this->downroot(current->data,parent_score);
-    }
+    } */
     return true;
 }
 
-void TripletRooting::downroot(RootedTree *v, unsigned int &parent_score){
+void TripletRooting::downroot(RootedTree *v, INTTYPE_REST parent_score){
     unsigned int r = v->idx;
-    INTTYPE_REST current_score = parent_score + tripCount->tO[r];
+    INTTYPE_REST current_score = parent_score + tripCount->tO[r] + tripCount->tR[r];
     if (current_score > this->optimalTripScore){
         this->optimalTripScore = current_score;
         this->optimalRoot = v;
@@ -45,7 +58,8 @@ void TripletRooting::downroot(RootedTree *v, unsigned int &parent_score){
     
     for(TemplatedLinkedList<RootedTree*> *current = v->children; current != NULL; current = current->next) {
         unsigned int u = current->data->idx;
-        parent_score = tripCount->tA[r] - tripCount->tI[r] - tripCount->tI[u]; 
+        parent_score = current_score - tripCount->tR[r] - tripCount->tI[r]; 
+        std::cout << "parent_score = " << parent_score << std::endl;
         this->downroot(current->data,parent_score);
     }   
 }
@@ -58,22 +72,22 @@ TripletRooting::TripletRooting(RootedTree *ref, RootedTree *tree){
     this->hdt = NULL;
     unsigned int N = this->myTree->set_all_idx(0);
     tripCount = new TripletCounter(N);
-    dummyHDTFactory = new HDTFactory(0);
+    dummyHDTFactory = new HDTFactory(myTree->maxDegree+1);
 }
 
 TripletRooting::~TripletRooting(){
-    delete [] tripCount;
-    delete dummyHDTFactory;
+    //delete [] tripCount;
+    //delete dummyHDTFactory;
 }
 
 void TripletRooting::updateCounters(unsigned int nodeIdx, unsigned int color){
     if (color == 0)
         // update tI
-        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + this->hdt->getUnresolvedTriplets(0);
+        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0);// + this->hdt->getUnresolvedTriplets(0);
     else 
         // update tO and tR
-        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color) + this->hdt->getUnresolvedTriplets(color);
-        this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root(color);    
+        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color);// + this->hdt->getUnresolvedTriplets(color);
+        this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root();    
 }
 
 void TripletRooting::compute_tA(RootedTree *v){
@@ -81,12 +95,17 @@ void TripletRooting::compute_tA(RootedTree *v){
     for(TemplatedLinkedList<RootedTree*> *current = v->children; current != NULL; current = current->next) {
         this->compute_tA(current->data);
         acc += this->tripCount->tA[current->data->idx];
+    }
     this->tripCount->tA[v->idx] = acc;    
 }
 
 
 void TripletRooting::count(RootedTree *v) {
-  if (v->isLeaf() || v->n <= 2) {
+  //if (v->isLeaf() || v->n <= 2) {
+  if (v->isLeaf()) {    
+    hdt->updateCounters();
+    //std::cout << "ResolvedTriplets_root = " << this->hdt->getResolvedTriplets_root() << std::endl;
+    updateCounters(v->idx,1);
     // This will make sure the entire subtree has color 0!
     v->colorSubtree(0);
 
@@ -164,7 +183,8 @@ void TripletRooting::count(RootedTree *v) {
 
   // Contract and recurse on 1st child
   RootedTree *firstChild = v->children->data;
-  if (firstChild->isLeaf() || firstChild->n <= 2) {
+  //if (firstChild->isLeaf() || firstChild->n <= 2) {
+  if (firstChild->isLeaf()) {    
     // Do "nothing" (except clean up and possibly color!)
 /*
 #ifdef doExtractAndContract
@@ -173,6 +193,8 @@ void TripletRooting::count(RootedTree *v) {
     // to a non-existing hdt (as we just deleted it) (we could wait with deleting it, but as we don't need the coloring why bother)
     delete hdt->factory;
 #else */
+    hdt->updateCounters();
+    updateCounters(firstChild->idx,1);
     firstChild->colorSubtree(0);
 /*
 #endif */
@@ -200,7 +222,8 @@ void TripletRooting::count(RootedTree *v) {
   // Color 1 and recurse
   c = 0;
   for(TemplatedLinkedList<RootedTree*> *current = v->children->next; current != NULL; current = current->next) {
-    if (!current->data->isLeaf() && current->data->n > 2) {
+  //if (!current->data->isLeaf() && current->data->n > 2)  {
+  if (!current->data->isLeaf()){    
 /*
 #ifdef doExtractAndContract
       hdt = HDT::constructHDT(extractedVersions[c], myTree->maxDegree, dummyHDTFactory, true);
@@ -210,7 +233,13 @@ void TripletRooting::count(RootedTree *v) {
       current->data->colorSubtree(1);
       
       count(current->data);
+    } else {
+        current->data->colorSubtree(1);
+        hdt->updateCounters();
+        updateCounters(current->data->idx,1);
+        current->data->colorSubtree(0);
     }
+    
     c++; // Weee :)
     // HDT is deleted on recursive calls!
   }

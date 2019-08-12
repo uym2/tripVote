@@ -15,7 +15,7 @@ void test_triplet_rooting() {
   NewickParser parser;
 
   ut1 = parser.parseFile("../trees/tree_ab-c.new");
-  ut2 = parser.parseFile("../trees/tree_ac-b.new");
+  ut2 = parser.parseFile("../trees/tree_ab-c.new");
   
   rt1 = ut1->convertToRootedTree(NULL);
   rt2 = ut2->convertToRootedTree(rt1->factory);
