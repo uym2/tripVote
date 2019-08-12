@@ -23,4 +23,11 @@ void HDT::handleCTransform()
     }
 
     n_parent_circ_square /= 2;
+
+    // n_i_j
+    for (int i = 1; i < degree; i++){
+        for (int j = 0; j < i; j++){
+            countingVars->set_n_ij(i,j,0);
+        }
+    }
 }

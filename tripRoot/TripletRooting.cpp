@@ -83,10 +83,10 @@ TripletRooting::~TripletRooting(){
 void TripletRooting::updateCounters(unsigned int nodeIdx, unsigned int color){
     if (color == 0)
         // update tI
-        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0);// + this->hdt->getUnresolvedTriplets(0);
+        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + this->hdt->getUnresolvedTriplets(0);
     else 
         // update tO and tR
-        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color);// + this->hdt->getUnresolvedTriplets(color);
+        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color) + this->hdt->getUnresolvedTriplets(color);
         this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root();    
 }
 

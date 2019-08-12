@@ -79,7 +79,7 @@ void HDT::handleCCToC()
                 tripResolved[j] += c1Count->get_n_i(i) * ( c2Count->get_n_i_arrow_circ(i) - c2Count->get_n_arrow_ij(i,j) );
                 tripResolved[j] += Util::binom2(c1Count->get_n_i(i)) * ( c2->n_circ - c2Count->get_n_i(j) - c2Count->get_n_i(i) );
                 tripResolved[j] += ( c1->n_circ - c1Count->get_n_i(j) - c1Count->get_n_i(i) ) * c2Count->get_n_parent_ii(i);
-                tripUnresolved[j] += c1Count->get_n_i(i) * ( c2->n_circ_square - c2Count->get_n_i_circ(j) - c2Count->get_n_i_circ(i) ); // + c2Count->get_n_ij(i,j) );
+                tripUnresolved[j] += c1Count->get_n_i(i) * ( c2->n_circ_square - c2Count->get_n_i_circ(j) - c2Count->get_n_i_circ(i) + c2Count->get_n_ij(i,j) );
             }
         }
     }

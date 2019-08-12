@@ -60,7 +60,7 @@ CountingArray::~CountingArray(){
 
 INTTYPE_REST CountingArray::get_n_ij(unsigned int i, unsigned int j){
     unsigned int i_star, j_star;
-    if ( i < 0 || i >= this->degree || j < 0 || j >= this->degree || i == j){
+    if ( i >= this->degree || j >= this->degree || i == j){
         return -1; // invalid case!
     }
     if (i > j){
@@ -82,7 +82,7 @@ INTTYPE_REST CountingArray::get_n_arrow_ij(unsigned int i, unsigned int j){
 }
         
 bool CountingArray::set_n_ij(unsigned int i, unsigned int j, INTTYPE_REST v){
-    if ( i < 0 || i >= this->degree || j < 0 || j >= this->degree || i == j){
+    if ( i >= this->degree || j >= this->degree || i == j){
         return false; // invalid case!
     }
     
@@ -100,7 +100,7 @@ bool CountingArray::set_n_ij(unsigned int i, unsigned int j, INTTYPE_REST v){
 }
 
 bool CountingArray::set_n_arrow_ij(unsigned int i, unsigned int j, INTTYPE_REST v){
-    if ( i < 0 || i >= this->degree || j < 0 || j >= this->degree || i == j){
+    if ( i >= this->degree || j >= this->degree || i == j){
         return false; // invalid case!
     }
     
