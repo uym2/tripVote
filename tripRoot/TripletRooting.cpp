@@ -33,34 +33,33 @@ bool TripletRooting::find_optimal_root(){
     }
 
     unsigned int r = myTree->idx;
-    this->optimalRoot = this->myTree;
+    this->optimalRoot = this->myTree->children->data; // the first child
     this->optimalTripScore = tripCount->tA[r];
-    INTTYPE_REST parent_score = tripCount->tA[r];
-    this->downroot(myTree,parent_score);
+    INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r];
+    //this->downroot(myTree,parent_score);
 
-    /* 
+     
     for(TemplatedLinkedList<RootedTree*> *current = myTree->children; current != NULL; current = current->next) {
-        unsigned int u = current->data->idx;
-        INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r] - tripCount->tI[u];
-        std::cout << "parent_score = " << parent_score << std::endl;
         this->downroot(current->data,parent_score);
-    } */
+    } 
     return true;
 }
 
-void TripletRooting::downroot(RootedTree *v, INTTYPE_REST parent_score){
-    unsigned int r = v->idx;
-    INTTYPE_REST current_score = parent_score + tripCount->tO[r] + tripCount->tR[r];
-    if (current_score > this->optimalTripScore){
-        this->optimalTripScore = current_score;
-        this->optimalRoot = v;
-    }
+void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score){
+    unsigned int u = t->idx;
     
-    for(TemplatedLinkedList<RootedTree*> *current = v->children; current != NULL; current = current->next) {
-        unsigned int u = current->data->idx;
-        parent_score = current_score - tripCount->tR[r] - tripCount->tI[r]; 
-        std::cout << "parent_score = " << parent_score << std::endl;
-        this->downroot(current->data,parent_score);
+    for(TemplatedLinkedList<RootedTree*> *current = t->children; current != NULL; current = current->next) {
+        unsigned int v = current->data->idx;
+        INTTYPE_REST current_score = parent_score - tripCount->tI[u] + tripCount->tO[v] + tripCount->tR[v];
+        std::cout << "u = " << u << "; v = " << v << endl;
+        current->data->print_leaves();
+        std::cout << "current_score = " << current_score << std::endl;
+        if (current_score > this->optimalTripScore){
+            this->optimalTripScore = current_score;
+            this->optimalRoot = current->data;
+        }
+        INTTYPE_REST v_parent_score = current_score - tripCount->tR[v]; 
+        this->downroot(current->data,v_parent_score);
     }   
 }
 
@@ -80,15 +79,32 @@ TripletRooting::~TripletRooting(){
     //delete dummyHDTFactory;
 }
 
+void TripletRooting::update_tI(unsigned int nodeIdx){
+        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + this->hdt->getUnresolvedTriplets(0);
+}
+
+void TripletRooting::update_tO(unsigned int nodeIdx, unsigned int color){
+        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color) + this->hdt->getUnresolvedTriplets(color);
+}
+
+void TripletRooting::update_tR(unsigned int nodeIdx){
+    this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root();
+}
+
+
+/*
 void TripletRooting::updateCounters(unsigned int nodeIdx, unsigned int color){
-    if (color == 0)
+    if (color == 0) {
         // update tI
         this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + this->hdt->getUnresolvedTriplets(0);
-    else 
-        // update tO and tR
+    }
+    else { 
+        // update tO
         this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color) + this->hdt->getUnresolvedTriplets(color);
-        this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root();    
-}
+    }
+    // update tR
+    this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root();
+}*/
 
 void TripletRooting::compute_tA(RootedTree *v){
     unsigned int acc = this->tripCount->tI[v->idx];
@@ -105,7 +121,9 @@ void TripletRooting::count(RootedTree *v) {
   if (v->isLeaf()) {    
     hdt->updateCounters();
     //std::cout << "ResolvedTriplets_root = " << this->hdt->getResolvedTriplets_root() << std::endl;
-    updateCounters(v->idx,1);
+    //updateCounters(v->idx,1);
+    update_tR(v->idx);
+
     // This will make sure the entire subtree has color 0!
     v->colorSubtree(0);
 
@@ -146,13 +164,16 @@ void TripletRooting::count(RootedTree *v) {
 
   // Update counters in the HDT
   hdt->updateCounters();
-  updateCounters(v->idx,0); // triplets inside v
+  //updateCounters(v->idx,0); // triplets inside v
+  update_tI(v->idx);
+  update_tR(v->idx);
   if (v != this->myTree) // v is not the root
   {
       // compute triplets outside of each child of v
       int c = 1;
       for(TemplatedLinkedList<RootedTree*> *current = v->children; current != NULL; current = current->next) {
-          updateCounters(current->data->idx,c);
+          //updateCounters(current->data->idx,c);
+          update_tO(current->data->idx,c);
           c++;
       }      
   }
@@ -194,7 +215,8 @@ void TripletRooting::count(RootedTree *v) {
     delete hdt->factory;
 #else */
     hdt->updateCounters();
-    updateCounters(firstChild->idx,1);
+    //updateCounters(firstChild->idx,1);
+    update_tR(firstChild->idx);
     firstChild->colorSubtree(0);
 /*
 #endif */
@@ -236,7 +258,8 @@ void TripletRooting::count(RootedTree *v) {
     } else {
         current->data->colorSubtree(1);
         hdt->updateCounters();
-        updateCounters(current->data->idx,1);
+        //updateCounters(current->data->idx,1);
+        update_tR(current->data->idx);
         current->data->colorSubtree(0);
     }
     

@@ -30,4 +30,6 @@ void HDT::handleCTransform()
             countingVars->set_n_ij(i,j,0);
         }
     }
+
+    // note: n_i_arrow_circ and n_i_arrow_j are not defined for G
 }

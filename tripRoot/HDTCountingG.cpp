@@ -16,6 +16,12 @@ void HDT::handleG()
 	// n_i is just the sum of the 2 children, thus n_circ is also just the sum of the 2 children
 	n_circ = g1->n_circ + g2->n_circ;
 
+    // n_parent_zero_circ
+    n_parent_zero_circ = g1->n_parent_zero_circ + g2->n_parent_zero_circ;
+
+    // n_parent_circ_square
+    n_parent_circ_square = g1->n_parent_circ_square + g2->n_parent_circ_square;
+
     
     // compute n_i, n_i_circ, n_parent_ii, and n_circ_square
 	n_circ_square = 0; // Initialize sum to 0 so we can increment it in the loop

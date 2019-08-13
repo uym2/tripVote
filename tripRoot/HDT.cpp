@@ -238,14 +238,14 @@ void HDT::updateCounters()
 	up2date = true;
 }
 
-INTTYPE_REST HDT::getResolvedTriplets(int color)
+INTTYPE_REST HDT::getResolvedTriplets(unsigned int color)
 {
     if (color < 0 || color >= this->degree)
         return -1;
 	return tripResolved[color];
 }
 
-INTTYPE_REST HDT::getUnresolvedTriplets(int color)
+INTTYPE_REST HDT::getUnresolvedTriplets(unsigned int color)
 {
     if (color < 0 || color >= this->degree)
         return -1;

@@ -25,7 +25,8 @@ void HDT::handleIGToC()
         countingVars->set_n_i(i, rCV->get_n_i(i));
         countingVars->set_n_i_circ(i, rCV->get_n_i_circ(i));
         countingVars->set_n_parent_ii(i, rCV->get_n_parent_ii(i));
-        countingVars->set_n_i_arrow_circ(i, rCV->get_n_i_arrow_circ(i));
+        //countingVars->set_n_i_arrow_circ(i, rCV->get_n_i_arrow_circ(i));
+        countingVars->set_n_i_arrow_circ(i, 0);
     }
 
     // copy n_ij from G component
@@ -36,4 +37,10 @@ void HDT::handleIGToC()
     }
     
     // n_i_arrow_j should have gotten the correct values from constructor of countingArray
+    for (int i = 0; i < this->degree; i++){
+        for (int j = 0; j < degree; j++){
+            if (i != j)        
+                countingVars->set_n_arrow_ij(i,j,0);
+        }
+    }
 }

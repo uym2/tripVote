@@ -65,5 +65,7 @@ int main(int argc, char** argv) {
 
   std::cout << "Optimal triplet score: " << score << std::endl;
 
+  tripRoot.optimalRoot->print_leaves(); 
+
   return 0;
 }

@@ -6,6 +6,16 @@
 /**************/
 /* uym2 added */
 
+void RootedTree::print_leaves(){
+    if (this->isLeaf())
+        std::cout << this->name << " ";
+    else {
+        for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next) {
+            i->data->print_leaves();
+        }
+    }       
+}
+
 int RootedTree::set_all_idx(unsigned int startIdx){
     unsigned int currIdx = startIdx;
     this->set_idx(currIdx); 

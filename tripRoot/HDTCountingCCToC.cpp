@@ -69,7 +69,7 @@ void HDT::handleCCToC()
             tripResolved_root += (c1->n_circ - c1Count->get_n_i(0)) * c2Count->get_n_arrow_ij(i,0);
     }
     
-    tripResolved_root += Util::binom2(c1Count->get_n_i(0)) * (c2->n_circ - c2Count->get_n_i(0)) + Util::binom2(c2->n_circ - c2Count->get_n_i(0)) * c1Count->get_n_i(0);
+    tripResolved_root += Util::binom2(c1Count->get_n_i(0)) * (c2->n_circ - c2Count->get_n_i(0)) + Util::binom2(c1->n_circ - c1Count->get_n_i(0)) * c2Count->get_n_i(0);
     tripResolved_root += (c1->n_circ - c1Count->get_n_i(0)) * c2Count->get_n_parent_ii(0) + c1Count->get_n_i(0) * (c2->n_parent_circ_square - c2->n_parent_zero_circ);
 
     

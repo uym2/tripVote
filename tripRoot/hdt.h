@@ -49,8 +49,8 @@ class HDT
 		INTTYPE_REST leafCount();
 		//RootedTree* extractAndGoBack(RootedTreeFactory *rtfactory);
 		void updateCounters();
-		INTTYPE_REST getResolvedTriplets(int color);
-		INTTYPE_REST getUnresolvedTriplets(int color);
+		INTTYPE_REST getResolvedTriplets(unsigned int color);
+		INTTYPE_REST getUnresolvedTriplets(unsigned int color);
         INTTYPE_REST getResolvedTriplets_root();
         ~HDT();
 

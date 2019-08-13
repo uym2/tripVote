@@ -18,7 +18,10 @@ class TripletRooting {
   
   void countChildren(RootedTree *t);
   void count(RootedTree *v);
-  void updateCounters(unsigned int nodeIdx, unsigned int color);
+  //void updateCounters(unsigned int nodeIdx, unsigned int color);
+  void update_tI(unsigned int nodeIdx);
+  void update_tO(unsigned int nodeIdx, unsigned int color);
+  void update_tR(unsigned int nodeIdx);
   void compute_tA(RootedTree *v);
   bool find_optimal_root();
   void downroot(RootedTree *v, INTTYPE_REST parent_score);      

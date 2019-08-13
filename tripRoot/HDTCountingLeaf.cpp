@@ -9,8 +9,12 @@ void HDT::handleLeaf()
 {
 	// This is a leaf!
 	// Triplets
-    for (int i = 0; i < this->degree; i++)
+    for (int i = 0; i < this->degree; i++) {
         countingVars->set_n_i(i,0);
+        countingVars->set_n_i_circ(i,0);
+        countingVars->set_n_parent_ii(i,0);
+        countingVars->set_n_i_arrow_circ(i,0);
+    }
 
 	if (link == NULL)
 	{
@@ -20,7 +24,23 @@ void HDT::handleLeaf()
 	{
         countingVars->set_n_i(this->link->color, 1);
 	}
-	// Sums and stuff (triplets)
+	
+    // n_i_jj
+    for (int i = 1; i < degree; i++){
+        for (int j = 0; j < i; j++){
+            countingVars->set_n_ij(i,j,0);
+        }
+    }
+
+    // n_i_arrow_j
+    for (int i = 0; i < degree; i++){
+        for (int j = 0; j < degree; j++){
+            if (i != j)        
+                countingVars->set_n_arrow_ij(i,j,0);
+        }
+    }
+    
+    // Sums and stuff (triplets)
     n_circ = 1;
 	n_circ_square = 0;
     n_parent_zero_circ = 0;

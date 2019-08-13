@@ -35,6 +35,7 @@ class RootedTree
         int set_idx (unsigned int idx) { this->idx = idx; return 0; }; // uym2 added
         int set_all_idx (unsigned int startIdx); // uym2 added
         RootedTree* down_root(RootedTree *u); // uym2 added
+        void print_leaves(); // uym2 added
         RootedTree* copyTree(RootedTreeFactory *factory = NULL);
 
         
