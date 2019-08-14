@@ -13,7 +13,10 @@ void HDT::handleG()
 	if (!g1->up2date) g1->updateCounters();
 	if (!g2->up2date) g2->updateCounters();
 
-	// n_i is just the sum of the 2 children, thus n_circ is also just the sum of the 2 children
+	// reset counters
+    this->resetCounters();
+    
+    // n_i is just the sum of the 2 children, thus n_circ is also just the sum of the 2 children
 	n_circ = g1->n_circ + g2->n_circ;
 
     // n_parent_zero_circ
@@ -42,8 +45,10 @@ void HDT::handleG()
 	n_circ_square /= 2;
 
     // compute n_i_j
-    for (int j = 0; j < this->degree-1; j++){
-        for (int i = j+1; i < this->degree; i++){
+    //for (int j = 0; j < this->degree-1; j++){
+    //    for (int i = j+1; i < this->degree; i++){
+    for (int i = 1; i < this->degree; i++){
+        for (int j = 0; j < i; j++){
             ourCount->set_n_ij(i,j, g1Count->get_n_ij(i,j) + g2Count->get_n_ij(i,j) +
                                     g1Count->get_n_i(i) * g2Count->get_n_i(j) + 
                                     g2Count->get_n_i(i) * g1Count->get_n_i(j));

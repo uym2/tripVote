@@ -4,6 +4,22 @@
 #include "hdt_factory.h"
 #include "counting_linked_list.h"
 
+void HDT::resetCounters(){
+    countingVars->initialize(this->degree);
+    
+    n_circ = 0;
+    n_circ_square = 0;
+    n_parent_circ_square = 0;
+    n_parent_zero_circ = 0;
+    
+    for (int i = 0; i < degree; i++){
+        tripResolved[i] = 0;
+        tripUnresolved[i] = 0;
+    }
+
+    tripResolved_root = 0;                    
+}
+
 void HDT::initialize(CountingArray *countingVars, NodeType type, int numD, RootedTree *link, bool doLink)
 {
 	parent = childParent = left = right = NULL;

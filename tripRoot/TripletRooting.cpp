@@ -80,7 +80,7 @@ TripletRooting::~TripletRooting(){
 }
 
 void TripletRooting::update_tI(unsigned int nodeIdx){
-        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + this->hdt->getUnresolvedTriplets(0);
+        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) +  this->hdt->getUnresolvedTriplets(0);
 }
 
 void TripletRooting::update_tO(unsigned int nodeIdx, unsigned int color){
@@ -173,7 +173,13 @@ void TripletRooting::count(RootedTree *v) {
       int c = 1;
       for(TemplatedLinkedList<RootedTree*> *current = v->children; current != NULL; current = current->next) {
           //updateCounters(current->data->idx,c);
+          std::cout << "Updating tO of node index " << current->data->idx << " which was colored " << c << std::endl;
+          std::cout << "Subtree: ";
+          current->data->print_leaves();
+          std::cout << std::endl;
+          std::cout << "Before updating: tO = " << tripCount->tO[current->data->idx] << std::endl;
           update_tO(current->data->idx,c);
+          std::cout << "After updating: tO = " << tripCount->tO[current->data->idx] << std::endl;
           c++;
       }      
   }

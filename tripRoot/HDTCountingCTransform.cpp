@@ -5,7 +5,7 @@
 #include "counting_array.h"
 
 void HDT::handleCTransform()
-{   
+{    
 	// Triplets (sum, n_i_circ has been set to 0, i.e. n_circ_square is also 0!; n_circ is unchanged)
 	n_circ_square = 0;
     n_parent_zero_circ = countingVars->get_n_i(0) * (n_circ - countingVars->get_n_i(0));
@@ -20,6 +20,8 @@ void HDT::handleCTransform()
         // n_parent_ii
         countingVars->set_n_parent_ii(i,Util::binom2(n_i));
         // n_i is unchanged by this transform!
+        // n_i_arrow_circ is not defined for G
+        countingVars->set_n_i_arrow_circ(i,0);
     }
 
     n_parent_circ_square /= 2;
@@ -31,5 +33,11 @@ void HDT::handleCTransform()
         }
     }
 
-    // note: n_i_arrow_circ and n_i_arrow_j are not defined for G
+    // n_i_arrow_j are not defined for G
+    for (int i = 0; i < degree; i++){
+        for (int j = 0; j < degree; j++){
+            if (j != i)
+                countingVars->set_n_arrow_ij(i,j,0);
+        }
+    }
 }

@@ -10,6 +10,9 @@ void HDT::handleCCToC()
 	if (!left->up2date) left->updateCounters();
 	if (!right->up2date) right->updateCounters();
 
+    // reset counters for this node
+    this->resetCounters();
+
 	// NOTE: We generate this with c2 (the higher one) being the left child and c1 (the lower one) being the right child
 	HDT *c1 = this->right;
 	HDT *c2 = this->left;
@@ -23,7 +26,7 @@ void HDT::handleCCToC()
     //n_parent_circ_square
     n_parent_circ_square = c1->n_parent_circ_square + c2->n_parent_circ_square;
 
-    // compute n_i, n_i_circ, n_parent_ii, and n_circ_square
+    // compute n_i,n_parent_ii, n_i_circ, n_i_arrow_circ, and n_circ_square
     n_circ_square = 0; // Initialize sum to 0 so we can increment it in the loop
     CountingArray *ourCount = this->countingVars;
     CountingArray *c1Count = c1->countingVars;
@@ -42,18 +45,21 @@ void HDT::handleCCToC()
 
 
     // compute n_i_j
-    for (int j = 0; j < this->degree-1; j++){
-        for (int i = j+1; i < this->degree; i++){
+    //for (int j = 0; j < this->degree-1; j++){
+    //    for (int i = j+1; i < this->degree; i++){
+    for (int i = 1; i < this->degree; i++){
+        for (int j = 0; j < i; j++) { 
             ourCount->set_n_ij(i,j, c1Count->get_n_ij(i,j) + c2Count->get_n_ij(i,j));
         }
     }
 
     // compute n_i_arrow_j
-    for (int i = 0; i < this->degree; i++){
-        for (int j = 0; j < this->degree; j++){
-            if (i != j)
+    for (unsigned int i = 0; i < this->degree; i++){
+        for (unsigned int j = 0; j < this->degree; j++){
+            if (i != j){
                 ourCount->set_n_arrow_ij(i,j, c1Count->get_n_arrow_ij(i,j) + c2Count->get_n_arrow_ij(i,j) +
                                               c1Count->get_n_i(i) * c2Count->get_n_i(j));
+            }
         }
     }
 

@@ -12,6 +12,7 @@ class CountingArray
 
 	public:
 		void initialize(unsigned int degree);
+        CountingArray();
         ~CountingArray();
         INTTYPE_REST get_n_ij(unsigned int i, unsigned int j);
         INTTYPE_REST get_n_arrow_ij(unsigned int i, unsigned int j);
