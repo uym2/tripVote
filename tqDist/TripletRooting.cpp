@@ -32,6 +32,7 @@ INTTYPE_REST TripletRooting::minTripletDistance(){
         // compute triplet distance of currTree and refTree
         TripletDistanceCalculator tripletCalc;
         INTTYPE_REST trpl_distance = tripletCalc.calculateTripletDistance(this->myRef, currTree);
+        std::cout << "New score: " << trpl_distance << std::endl;
         if (min_trpl_distance < 0 || trpl_distance < min_trpl_distance)
             min_trpl_distance = trpl_distance;
 

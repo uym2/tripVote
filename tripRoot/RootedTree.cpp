@@ -1,10 +1,32 @@
 #include <cstdlib> // for exit
 #include "rooted_tree.h"
 #include "hdt.h"
-
+#include <fstream>
 
 /**************/
 /* uym2 added */
+
+void RootedTree::write_newick(ofstream &fout){
+    this->__write_newick__(fout);
+    fout << ";";
+}
+
+void RootedTree::__write_newick__(ofstream &fout){
+    if (this->isLeaf())
+        fout << this->name;
+    else {
+        fout << "(";
+        // first child
+        RootedTree *firstChild = this->children->data;
+        firstChild->__write_newick__(fout);
+        // the remaining children
+        for (TemplatedLinkedList<RootedTree*> *i = children->next; i != NULL; i = i->next){
+            fout << ",";
+            i->data->__write_newick__(fout);
+        }
+        fout << ")";
+    }
+}
 
 void RootedTree::print_leaves(){
     if (this->isLeaf())

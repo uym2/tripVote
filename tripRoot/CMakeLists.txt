@@ -45,6 +45,24 @@ message(STATUS "CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 ## LIBRARIES
 ## EXECUTABLES
 
+add_executable(test_write_newick test_write_newick.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+    
+
 add_executable(tripRoot triplet_rooting.cpp
   CountingArray.cpp
   HDT.cpp

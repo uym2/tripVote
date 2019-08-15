@@ -22,7 +22,21 @@ RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
     // create a deep copy of tree t
 	if (factory == NULL) factory = new RootedTreeFactory(NULL);
     RootedTree *t_new = factory->getRootedTree();
-	*t_new = *this;
+    t_new->idx = this->idx;
+    t_new->level = this->level;
+    t_new->parent = this->parent;
+    t_new->children = NULL;
+    t_new->name = this->name;
+    t_new->numChildren = this->numChildren;
+    t_new->maxDegree = this->maxDegree;
+    t_new->altWorldSelf = this->altWorldSelf;
+    t_new->hdtLink = this->hdtLink;
+    t_new->color = this->color;
+    t_new->numZeroes = this->numZeroes;
+    t_new->factory = factory;
+    t_new->n = this->n;
+    t_new->error = this->error;;
+
 
     for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
 	{

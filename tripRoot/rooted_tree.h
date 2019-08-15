@@ -37,7 +37,7 @@ class RootedTree
         RootedTree* down_root(RootedTree *u); // uym2 added
         void print_leaves(); // uym2 added
         RootedTree* copyTree(RootedTreeFactory *factory = NULL);
-
+        void write_newick(ofstream &fout);
         
 		void initialize(string name);
 		bool isLeaf();
@@ -60,6 +60,7 @@ class RootedTree
 		void getListImpl(vector<RootedTree*>* list);
 		void computeNullChildrenData();
 		RootedTree* contractImpl(RootedTreeFactory *factory);
+        void __write_newick__(ofstream &fout);
 };
 
 #endif
