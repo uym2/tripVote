@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cstring>
 
 #include "int_stuff.h"
@@ -27,18 +28,19 @@ int main(int argc, char** argv) {
 
   bool verbose = false;
 
-  if(argc < 3) {
+  if(argc < 4) {
     std::cerr << "Error: Not enough parameters!" << std::endl;
     usage(argv[0]);
     return -1;
   }
 
-  if(argc == 4 && strcmp(argv[1],"-v") == 0) {
+  if(argc == 5 && strcmp(argv[1],"-v") == 0) {
     verbose = true;
   }
 
-  char *refTreeFile = argv[argc-2];
-  char *myTreeFile = argv[argc-1];
+  char *refTreeFile = argv[argc-3];
+  char *myTreeFile = argv[argc-2];
+  char *outputTree = argv[argc-1];
   
   UnrootedTree *uRef = NULL;
   UnrootedTree *uTre = NULL;
@@ -66,6 +68,12 @@ int main(int argc, char** argv) {
   std::cout << "Optimal triplet score: " << score << std::endl;
 
   tripRoot.optimalRoot->print_leaves(); 
+
+  RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
+  ofstream fout;
+  fout.open(outputTree); 
+  rerooted->write_newick(fout);
+  fout.close();
 
   return 0;
 }

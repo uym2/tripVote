@@ -6,6 +6,58 @@
 /**************/
 /* uym2 added */
 
+bool RootedTree::remove_child(RootedTree *child){
+    if (child->parent != this)
+        return false;
+    
+    if (children == NULL)
+        return false;
+
+    if (children->data == child){
+        children = children->next;
+    }
+
+    for(TemplatedLinkedList<RootedTree*> *i = children; i->next != NULL; i = i->next){
+        if (child == i->next->data){
+            i->next = i->next->next;
+            break;
+        }         
+    }
+    child->parent = NULL;
+    return true;
+}
+
+RootedTree* RootedTree::reroot_at_edge(RootedTree* v){
+    if (v == this) // v is the root
+        return this;
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
+        if (v == i->data)
+            return this; // v is one of the root's children
+    }
+        
+    RootedTree *u = v->parent;    
+    RootedTree *w = u->parent;
+    RootedTree *newRoot = this->factory->getRootedTree();
+    u->remove_child(v);
+    newRoot->addChild(v);
+    newRoot->addChild(u);
+
+    while(w != this){
+        v = w;
+        w = w->parent;
+        v->remove_child(u);
+        u->addChild(v);
+        u = v;
+    }
+    // make all sisters of u its children    
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
+        RootedTree *v = i->data;
+        if (v != u)
+            u->addChild(v);
+    }
+    return newRoot;
+}
+
 void RootedTree::write_newick(ofstream &fout){
     this->__write_newick__(fout);
     fout << ";";

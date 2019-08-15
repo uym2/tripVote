@@ -37,7 +37,9 @@ class RootedTree
         RootedTree* down_root(RootedTree *u); // uym2 added
         void print_leaves(); // uym2 added
         RootedTree* copyTree(RootedTreeFactory *factory = NULL);
+        RootedTree* reroot_at_edge(RootedTree *node);
         void write_newick(ofstream &fout);
+        bool remove_child(RootedTree *child);
         
 		void initialize(string name);
 		bool isLeaf();
@@ -52,6 +54,8 @@ class RootedTree
 		void markHDTAlternative();
 		bool isError();
 		RootedTree *contract(RootedTreeFactory *factory = NULL);
+
+    
 
 	private:
 		bool error;
