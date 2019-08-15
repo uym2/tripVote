@@ -37,6 +37,10 @@ void HDT::initialize(CountingArray *countingVars, NodeType type, int numD, Roote
 
 
     tripResolved_root = 0;
+    n_circ = 0;
+    n_circ_square = 0;
+    n_parent_circ_square = 0;
+    n_parent_zero_circ = 0;
 
 	up2date = altMarked = false;
 

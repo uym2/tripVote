@@ -2,10 +2,17 @@
 
 TripletCounter::TripletCounter(unsigned int N){
     this->N = N;
-    this->tI = new unsigned int [N];
-    this->tO = new unsigned int [N];
-    this->tR = new unsigned int [N];
-    this->tA = new unsigned int [N];
+    this->tI = new INTTYPE_REST [N];
+    this->tO = new INTTYPE_REST [N];
+    this->tR = new INTTYPE_REST [N];
+    this->tA = new INTTYPE_REST [N];
+
+    for (int i = 0; i < N; i++){
+        this->tI[i] = 0;
+        this->tO[i] = 0;
+        this->tR[i] = 0;
+        this->tA[i] = 0;
+    }
 }
 
 TripletCounter::~TripletCounter(){
