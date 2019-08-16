@@ -50,30 +50,32 @@ int main(int argc, char** argv) {
   NewickParser parser;
 
   uRef = parser.parseFile(refTreeFile);
-  uTre = parser.parseFile(myTreeFile);
-
   rRef = uRef->convertToRootedTree(NULL);
-  rTre = uTre->convertToRootedTree(rRef->factory);
-
-  std::cout << "Finish reading two trees. Start computing triplet scores" << std::endl;
-
-  TripletRooting tripRoot(rRef,rTre);
-  std::cout << "Finish creating tripRoot instance. Start searching optimal root" << std::endl;
   
-  tripRoot.find_optimal_root();
-  std::cout << "Optimal root and score are computed." << std::endl;
-  
-  INTTYPE_REST score = tripRoot.optimalTripScore;
-
-  std::cout << "Optimal triplet score: " << score << std::endl;
-
-  tripRoot.optimalRoot->print_leaves(); 
-
-  RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
   ofstream fout;
-  fout.open(outputTree); 
-  rerooted->write_newick(fout);
-  fout.close();
+  fout.open(outputTree);
+
+  ifstream fin;
+  fin.open(myTreeFile);
+  
+  unsigned int i = 1;
+
+  while (! fin.eof()){
+    std::cout << "Processing tree " << i << std::endl;
+    string treeStr;
+    std::getline(fin,treeStr);
+    uTre = parser.parseStr(treeStr);
+  
+    rTre = uTre->convertToRootedTree(rRef->factory);
+
+    TripletRooting tripRoot(rRef,rTre);
+    tripRoot.find_optimal_root();
+    std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
+    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
+    rerooted->write_newick(fout);
+  }
+  fin.close();  
+  fout.close();  
 
   return 0;
 }

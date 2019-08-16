@@ -24,13 +24,14 @@ bool TripletRooting::find_optimal_root(){
 #endif
 */    
     this->compute_tA(this->myTree);
-
+    
+    /*
     for (int i = 0; i < tripCount->N; i++){
         std::cout << "tA[" << i << "] = " << tripCount->tA[i] << std::endl;
         std::cout << "tI[" << i << "] = " << tripCount->tI[i] << std::endl;
         std::cout << "tO[" << i << "] = " << tripCount->tO[i] << std::endl;
         std::cout << "tR[" << i << "] = " << tripCount->tR[i] << std::endl;
-    }
+    }*/
 
     unsigned int r = myTree->idx;
     this->optimalRoot = this->myTree->children->data; // the first child
@@ -50,9 +51,9 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score){
     for(TemplatedLinkedList<RootedTree*> *current = t->children; current != NULL; current = current->next) {
         unsigned int v = current->data->idx;
         INTTYPE_REST current_score = parent_score - tripCount->tI[u] + tripCount->tO[v] + tripCount->tR[v];
-        std::cout << "u = " << u << "; v = " << v << endl;
-        current->data->print_leaves();
-        std::cout << "current_score = " << current_score << std::endl;
+        //std::cout << "u = " << u << "; v = " << v << endl;
+        //current->data->print_leaves();
+        //std::cout << "current_score = " << current_score << std::endl;
         if (current_score > this->optimalTripScore){
             this->optimalTripScore = current_score;
             this->optimalRoot = current->data;
