@@ -7,6 +7,9 @@
 /* uym2 added */
 
 bool RootedTree::remove_child(RootedTree *child){
+    if (child->parent != this)
+        return false;
+
     if (children == NULL)
         return false;
 
@@ -15,6 +18,8 @@ bool RootedTree::remove_child(RootedTree *child){
         children = children->next;
         temp->next = NULL;
         temp->data = NULL;
+        child->parent = NULL;
+        numChildren--;
         return true;
     }
 
@@ -22,6 +27,8 @@ bool RootedTree::remove_child(RootedTree *child){
         if (child == i->next->data){
             TemplatedLinkedList<RootedTree*> *temp = i->next;
             i->next = i->next->next;
+            child->parent = NULL;
+            numChildren--;
             return true;
         }         
     }
@@ -60,7 +67,7 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
         std::cout << std::endl;
         */
 
-        v->remove_child(u);
+        //v->remove_child(u);
         
         /*std::cout << "Clade v-u :";
         v->print_leaves();
@@ -201,6 +208,11 @@ bool RootedTree::isLeaf()
 
 void RootedTree::addChild(RootedTree *t)
 {
+    // uym2 added: if t has a parent, remove it from the parent's children first
+    if (t->parent != NULL){
+        t->parent->remove_child(t);
+    }
+
 	numChildren++;
 	t->parent = this;
 	TemplatedLinkedList<RootedTree*> *newItem = factory->getTemplatedLinkedList();
