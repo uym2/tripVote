@@ -27,8 +27,10 @@ void test(const char* rFile, const char* tFile, INTTYPE_REST correct_value) {
 
 int main(int argc, char **argv) {
   test("../trees/tree_ab-c.new","../trees/tree_ab-c.new", (INTTYPE_REST) 1); 
+  /*
   test("../trees/test_tree1.new","../trees/test_tree2.new", (INTTYPE_REST) 13);  
   test("../trees/test_tree3.new","../trees/test_tree4.new", (INTTYPE_REST) 97005);  
   test("../trees/taxonomy.tre","../trees/astral.MR.tre", (INTTYPE_REST) 125355891855);  
+  */
   return 0;
 }

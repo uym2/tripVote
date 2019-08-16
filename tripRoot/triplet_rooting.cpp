@@ -61,10 +61,11 @@ int main(int argc, char** argv) {
   unsigned int i = 1;
 
   while (! fin.eof()){
+  //while(1){ 
     std::cout << "Processing tree " << i << std::endl;
     string treeStr;
-    std::getline(fin,treeStr);
-    uTre = parser.parseStr(treeStr);
+    std::getline(fin,treeStr,';');
+    uTre = parser.parseStr(treeStr+';');
   
     rTre = uTre->convertToRootedTree(rRef->factory);
 
@@ -73,9 +74,10 @@ int main(int argc, char** argv) {
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
     rerooted->write_newick(fout);
+    break;
   }
   fin.close();  
-  fout.close();  
+  fout.close();    
 
   return 0;
 }

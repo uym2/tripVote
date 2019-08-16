@@ -7,27 +7,29 @@
 /* uym2 added */
 
 bool RootedTree::remove_child(RootedTree *child){
-    if (child->parent != this)
-        return false;
-    
     if (children == NULL)
         return false;
 
     if (children->data == child){
+        TemplatedLinkedList<RootedTree*> *temp = children;
         children = children->next;
+        temp->next = NULL;
+        temp->data = NULL;
+        return true;
     }
 
     for(TemplatedLinkedList<RootedTree*> *i = children; i->next != NULL; i = i->next){
         if (child == i->next->data){
+            TemplatedLinkedList<RootedTree*> *temp = i->next;
             i->next = i->next->next;
-            break;
+            return true;
         }         
     }
-    child->parent = NULL;
-    return true;
+    return false;
 }
 
-RootedTree* RootedTree::reroot_at_edge(RootedTree* v){
+RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
+    RootedTree* v = node;
     if (v == this) // v is the root
         return this;
     for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
@@ -39,22 +41,49 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* v){
     RootedTree *w = u->parent;
     RootedTree *newRoot = this->factory->getRootedTree();
     u->remove_child(v);
+    newRoot->children = NULL;
     newRoot->addChild(v);
     newRoot->addChild(u);
 
-    while(w != this){
+   
+    while(w->parent != NULL){
         v = w;
         w = w->parent;
+        
+        /*
+        std::cout << "Clade u :";
+        u->print_leaves();
+        std::cout << std::endl;
+
+        std::cout << "Clade v :";
+        v->print_leaves();
+        std::cout << std::endl;
+        */
+
         v->remove_child(u);
+        
+        /*std::cout << "Clade v-u :";
+        v->print_leaves();
+        std::cout << std::endl;*/
+        
         u->addChild(v);
         u = v;
     }
+
     // make all sisters of u its children    
+    
     for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
-        RootedTree *v = i->data;
-        if (v != u)
-            u->addChild(v);
+        if (i->data != v){
+            //this->remove_child(i->data);
+            v->addChild(i->data);
+        }
     }
+
+    //this->children = NULL;
+
+    //newRoot->print_leaves();
+    //std::cout << std::endl;
+    
     return newRoot;
 }
 
