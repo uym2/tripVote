@@ -53,7 +53,7 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
     newRoot->addChild(u);
 
    
-    while(w->parent != NULL){
+    while(w != NULL){
         v = w;
         w = w->parent;
         
@@ -80,9 +80,9 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
     // make all sisters of u its children    
     
     for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
-        if (i->data != v){
+        if (i->data != u){
             //this->remove_child(i->data);
-            v->addChild(i->data);
+            u->addChild(i->data);
         }
     }
 

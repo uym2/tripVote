@@ -260,7 +260,15 @@ rooted_tree.h
 iostream
 -
 
-/Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/test_triplet_root.cpp
+/Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/test_util.hpp
+string
+-
+iostream
+-
+cstdlib
+-
+
+/Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/test_write_newick.cpp
 rooted_tree_lb.h
 /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_lb.h
 test_util.hpp
@@ -269,15 +277,9 @@ newick_parser.h
 /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/newick_parser.h
 TripletRooting.h
 /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/TripletRooting.h
+fstream
+-
 cassert
--
-
-/Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/test_util.hpp
-string
--
-iostream
--
-cstdlib
 -
 
 /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/triplet_calc.h

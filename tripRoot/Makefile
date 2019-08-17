@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /Users/uym2/Documents/my_gits/Triplet_rooting
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/3.15.1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/3.15.1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -101,6 +89,51 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/local/Cellar/cmake/3.15.1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/local/Cellar/cmake/3.15.1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && /usr/local/Cellar/cmake/3.15.1/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && /usr/local/Cellar/cmake/3.15.1/bin/cpack --config ./CPackSourceConfig.cmake /Users/uym2/Documents/my_gits/Triplet_rooting/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/local/Cellar/cmake/3.15.1/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -123,39 +156,6 @@ test:
 test/fast: test
 
 .PHONY : test/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && /usr/local/Cellar/cmake/3.15.1/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.15.1/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && /usr/local/Cellar/cmake/3.15.1/bin/cpack --config ./CPackSourceConfig.cmake /Users/uym2/Documents/my_gits/Triplet_rooting/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -190,21 +190,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-tripRoot/CMakeFiles/test_triplet_root.dir/rule:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tripRoot/CMakeFiles/test_triplet_root.dir/rule
-.PHONY : tripRoot/CMakeFiles/test_triplet_root.dir/rule
-
-# Convenience name for target.
-test_triplet_root: tripRoot/CMakeFiles/test_triplet_root.dir/rule
-
-.PHONY : test_triplet_root
-
-# fast build rule for target.
-test_triplet_root/fast:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/build
-.PHONY : test_triplet_root/fast
-
-# Convenience name for target.
 tripRoot/CMakeFiles/tripRoot.dir/rule:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tripRoot/CMakeFiles/tripRoot.dir/rule
 .PHONY : tripRoot/CMakeFiles/tripRoot.dir/rule
@@ -219,14 +204,45 @@ tripRoot/fast:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/build
 .PHONY : tripRoot/fast
 
+# Convenience name for target.
+tripRoot/CMakeFiles/test_write_newick.dir/rule:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tripRoot/CMakeFiles/test_write_newick.dir/rule
+.PHONY : tripRoot/CMakeFiles/test_write_newick.dir/rule
+
+# Convenience name for target.
+test_write_newick: tripRoot/CMakeFiles/test_write_newick.dir/rule
+
+.PHONY : test_write_newick
+
+# fast build rule for target.
+test_write_newick/fast:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/build
+.PHONY : test_write_newick/fast
+
+# Convenience name for target.
+tripRoot/CMakeFiles/test_triplet_root.dir/rule:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f CMakeFiles/Makefile2 tripRoot/CMakeFiles/test_triplet_root.dir/rule
+.PHONY : tripRoot/CMakeFiles/test_triplet_root.dir/rule
+
+# Convenience name for target.
+test_triplet_root: tripRoot/CMakeFiles/test_triplet_root.dir/rule
+
+.PHONY : test_triplet_root
+
+# fast build rule for target.
+test_triplet_root/fast:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/build
+.PHONY : test_triplet_root/fast
+
 CountingArray.o: CountingArray.cpp.o
 
 .PHONY : CountingArray.o
 
 # target to build an object file
 CountingArray.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/CountingArray.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/CountingArray.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.o
 .PHONY : CountingArray.cpp.o
 
 CountingArray.i: CountingArray.cpp.i
@@ -235,8 +251,9 @@ CountingArray.i: CountingArray.cpp.i
 
 # target to preprocess a source file
 CountingArray.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/CountingArray.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/CountingArray.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.i
 .PHONY : CountingArray.cpp.i
 
 CountingArray.s: CountingArray.cpp.s
@@ -245,8 +262,9 @@ CountingArray.s: CountingArray.cpp.s
 
 # target to generate assembly for a file
 CountingArray.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/CountingArray.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/CountingArray.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.s
 .PHONY : CountingArray.cpp.s
 
 HDT.o: HDT.cpp.o
@@ -255,8 +273,9 @@ HDT.o: HDT.cpp.o
 
 # target to build an object file
 HDT.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDT.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDT.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o
 .PHONY : HDT.cpp.o
 
 HDT.i: HDT.cpp.i
@@ -265,8 +284,9 @@ HDT.i: HDT.cpp.i
 
 # target to preprocess a source file
 HDT.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDT.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDT.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.i
 .PHONY : HDT.cpp.i
 
 HDT.s: HDT.cpp.s
@@ -275,8 +295,9 @@ HDT.s: HDT.cpp.s
 
 # target to generate assembly for a file
 HDT.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDT.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDT.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.s
 .PHONY : HDT.cpp.s
 
 HDTCountingCCToC.o: HDTCountingCCToC.cpp.o
@@ -285,8 +306,9 @@ HDTCountingCCToC.o: HDTCountingCCToC.cpp.o
 
 # target to build an object file
 HDTCountingCCToC.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingCCToC.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingCCToC.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o
 .PHONY : HDTCountingCCToC.cpp.o
 
 HDTCountingCCToC.i: HDTCountingCCToC.cpp.i
@@ -295,8 +317,9 @@ HDTCountingCCToC.i: HDTCountingCCToC.cpp.i
 
 # target to preprocess a source file
 HDTCountingCCToC.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingCCToC.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingCCToC.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.i
 .PHONY : HDTCountingCCToC.cpp.i
 
 HDTCountingCCToC.s: HDTCountingCCToC.cpp.s
@@ -305,8 +328,9 @@ HDTCountingCCToC.s: HDTCountingCCToC.cpp.s
 
 # target to generate assembly for a file
 HDTCountingCCToC.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingCCToC.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingCCToC.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.s
 .PHONY : HDTCountingCCToC.cpp.s
 
 HDTCountingCTransform.o: HDTCountingCTransform.cpp.o
@@ -315,8 +339,9 @@ HDTCountingCTransform.o: HDTCountingCTransform.cpp.o
 
 # target to build an object file
 HDTCountingCTransform.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingCTransform.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingCTransform.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o
 .PHONY : HDTCountingCTransform.cpp.o
 
 HDTCountingCTransform.i: HDTCountingCTransform.cpp.i
@@ -325,8 +350,9 @@ HDTCountingCTransform.i: HDTCountingCTransform.cpp.i
 
 # target to preprocess a source file
 HDTCountingCTransform.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingCTransform.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingCTransform.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.i
 .PHONY : HDTCountingCTransform.cpp.i
 
 HDTCountingCTransform.s: HDTCountingCTransform.cpp.s
@@ -335,8 +361,9 @@ HDTCountingCTransform.s: HDTCountingCTransform.cpp.s
 
 # target to generate assembly for a file
 HDTCountingCTransform.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingCTransform.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingCTransform.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.s
 .PHONY : HDTCountingCTransform.cpp.s
 
 HDTCountingG.o: HDTCountingG.cpp.o
@@ -345,8 +372,9 @@ HDTCountingG.o: HDTCountingG.cpp.o
 
 # target to build an object file
 HDTCountingG.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingG.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingG.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o
 .PHONY : HDTCountingG.cpp.o
 
 HDTCountingG.i: HDTCountingG.cpp.i
@@ -355,8 +383,9 @@ HDTCountingG.i: HDTCountingG.cpp.i
 
 # target to preprocess a source file
 HDTCountingG.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingG.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingG.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.i
 .PHONY : HDTCountingG.cpp.i
 
 HDTCountingG.s: HDTCountingG.cpp.s
@@ -365,8 +394,9 @@ HDTCountingG.s: HDTCountingG.cpp.s
 
 # target to generate assembly for a file
 HDTCountingG.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingG.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingG.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.s
 .PHONY : HDTCountingG.cpp.s
 
 HDTCountingIGToC.o: HDTCountingIGToC.cpp.o
@@ -375,8 +405,9 @@ HDTCountingIGToC.o: HDTCountingIGToC.cpp.o
 
 # target to build an object file
 HDTCountingIGToC.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingIGToC.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingIGToC.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o
 .PHONY : HDTCountingIGToC.cpp.o
 
 HDTCountingIGToC.i: HDTCountingIGToC.cpp.i
@@ -385,8 +416,9 @@ HDTCountingIGToC.i: HDTCountingIGToC.cpp.i
 
 # target to preprocess a source file
 HDTCountingIGToC.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingIGToC.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingIGToC.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.i
 .PHONY : HDTCountingIGToC.cpp.i
 
 HDTCountingIGToC.s: HDTCountingIGToC.cpp.s
@@ -395,8 +427,9 @@ HDTCountingIGToC.s: HDTCountingIGToC.cpp.s
 
 # target to generate assembly for a file
 HDTCountingIGToC.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingIGToC.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingIGToC.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.s
 .PHONY : HDTCountingIGToC.cpp.s
 
 HDTCountingLeaf.o: HDTCountingLeaf.cpp.o
@@ -405,8 +438,9 @@ HDTCountingLeaf.o: HDTCountingLeaf.cpp.o
 
 # target to build an object file
 HDTCountingLeaf.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingLeaf.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingLeaf.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o
 .PHONY : HDTCountingLeaf.cpp.o
 
 HDTCountingLeaf.i: HDTCountingLeaf.cpp.i
@@ -415,8 +449,9 @@ HDTCountingLeaf.i: HDTCountingLeaf.cpp.i
 
 # target to preprocess a source file
 HDTCountingLeaf.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingLeaf.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingLeaf.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.i
 .PHONY : HDTCountingLeaf.cpp.i
 
 HDTCountingLeaf.s: HDTCountingLeaf.cpp.s
@@ -425,8 +460,9 @@ HDTCountingLeaf.s: HDTCountingLeaf.cpp.s
 
 # target to generate assembly for a file
 HDTCountingLeaf.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTCountingLeaf.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTCountingLeaf.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.s
 .PHONY : HDTCountingLeaf.cpp.s
 
 HDTFactory.o: HDTFactory.cpp.o
@@ -435,8 +471,9 @@ HDTFactory.o: HDTFactory.cpp.o
 
 # target to build an object file
 HDTFactory.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTFactory.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTFactory.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o
 .PHONY : HDTFactory.cpp.o
 
 HDTFactory.i: HDTFactory.cpp.i
@@ -445,8 +482,9 @@ HDTFactory.i: HDTFactory.cpp.i
 
 # target to preprocess a source file
 HDTFactory.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTFactory.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTFactory.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.i
 .PHONY : HDTFactory.cpp.i
 
 HDTFactory.s: HDTFactory.cpp.s
@@ -455,8 +493,9 @@ HDTFactory.s: HDTFactory.cpp.s
 
 # target to generate assembly for a file
 HDTFactory.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTFactory.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTFactory.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.s
 .PHONY : HDTFactory.cpp.s
 
 HDTListUtils.o: HDTListUtils.cpp.o
@@ -465,8 +504,9 @@ HDTListUtils.o: HDTListUtils.cpp.o
 
 # target to build an object file
 HDTListUtils.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTListUtils.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTListUtils.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o
 .PHONY : HDTListUtils.cpp.o
 
 HDTListUtils.i: HDTListUtils.cpp.i
@@ -475,8 +515,9 @@ HDTListUtils.i: HDTListUtils.cpp.i
 
 # target to preprocess a source file
 HDTListUtils.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTListUtils.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTListUtils.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.i
 .PHONY : HDTListUtils.cpp.i
 
 HDTListUtils.s: HDTListUtils.cpp.s
@@ -485,8 +526,9 @@ HDTListUtils.s: HDTListUtils.cpp.s
 
 # target to generate assembly for a file
 HDTListUtils.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/HDTListUtils.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/HDTListUtils.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.s
 .PHONY : HDTListUtils.cpp.s
 
 NewickParser.o: NewickParser.cpp.o
@@ -495,8 +537,9 @@ NewickParser.o: NewickParser.cpp.o
 
 # target to build an object file
 NewickParser.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/NewickParser.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/NewickParser.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o
 .PHONY : NewickParser.cpp.o
 
 NewickParser.i: NewickParser.cpp.i
@@ -505,8 +548,9 @@ NewickParser.i: NewickParser.cpp.i
 
 # target to preprocess a source file
 NewickParser.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/NewickParser.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/NewickParser.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.i
 .PHONY : NewickParser.cpp.i
 
 NewickParser.s: NewickParser.cpp.s
@@ -515,8 +559,9 @@ NewickParser.s: NewickParser.cpp.s
 
 # target to generate assembly for a file
 NewickParser.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/NewickParser.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/NewickParser.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.s
 .PHONY : NewickParser.cpp.s
 
 RootedTree.o: RootedTree.cpp.o
@@ -525,8 +570,9 @@ RootedTree.o: RootedTree.cpp.o
 
 # target to build an object file
 RootedTree.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/RootedTree.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/RootedTree.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o
 .PHONY : RootedTree.cpp.o
 
 RootedTree.i: RootedTree.cpp.i
@@ -535,8 +581,9 @@ RootedTree.i: RootedTree.cpp.i
 
 # target to preprocess a source file
 RootedTree.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/RootedTree.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/RootedTree.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.i
 .PHONY : RootedTree.cpp.i
 
 RootedTree.s: RootedTree.cpp.s
@@ -545,8 +592,9 @@ RootedTree.s: RootedTree.cpp.s
 
 # target to generate assembly for a file
 RootedTree.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/RootedTree.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/RootedTree.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.s
 .PHONY : RootedTree.cpp.s
 
 RootedTreeFactory.o: RootedTreeFactory.cpp.o
@@ -555,8 +603,9 @@ RootedTreeFactory.o: RootedTreeFactory.cpp.o
 
 # target to build an object file
 RootedTreeFactory.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/RootedTreeFactory.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/RootedTreeFactory.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o
 .PHONY : RootedTreeFactory.cpp.o
 
 RootedTreeFactory.i: RootedTreeFactory.cpp.i
@@ -565,8 +614,9 @@ RootedTreeFactory.i: RootedTreeFactory.cpp.i
 
 # target to preprocess a source file
 RootedTreeFactory.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/RootedTreeFactory.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/RootedTreeFactory.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.i
 .PHONY : RootedTreeFactory.cpp.i
 
 RootedTreeFactory.s: RootedTreeFactory.cpp.s
@@ -575,8 +625,9 @@ RootedTreeFactory.s: RootedTreeFactory.cpp.s
 
 # target to generate assembly for a file
 RootedTreeFactory.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/RootedTreeFactory.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/RootedTreeFactory.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.s
 .PHONY : RootedTreeFactory.cpp.s
 
 TripletCounter.o: TripletCounter.cpp.o
@@ -585,8 +636,9 @@ TripletCounter.o: TripletCounter.cpp.o
 
 # target to build an object file
 TripletCounter.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/TripletCounter.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/TripletCounter.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o
 .PHONY : TripletCounter.cpp.o
 
 TripletCounter.i: TripletCounter.cpp.i
@@ -595,8 +647,9 @@ TripletCounter.i: TripletCounter.cpp.i
 
 # target to preprocess a source file
 TripletCounter.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/TripletCounter.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/TripletCounter.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.i
 .PHONY : TripletCounter.cpp.i
 
 TripletCounter.s: TripletCounter.cpp.s
@@ -605,8 +658,9 @@ TripletCounter.s: TripletCounter.cpp.s
 
 # target to generate assembly for a file
 TripletCounter.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/TripletCounter.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/TripletCounter.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.s
 .PHONY : TripletCounter.cpp.s
 
 TripletRooting.o: TripletRooting.cpp.o
@@ -615,8 +669,9 @@ TripletRooting.o: TripletRooting.cpp.o
 
 # target to build an object file
 TripletRooting.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/TripletRooting.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/TripletRooting.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o
 .PHONY : TripletRooting.cpp.o
 
 TripletRooting.i: TripletRooting.cpp.i
@@ -625,8 +680,9 @@ TripletRooting.i: TripletRooting.cpp.i
 
 # target to preprocess a source file
 TripletRooting.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/TripletRooting.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/TripletRooting.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.i
 .PHONY : TripletRooting.cpp.i
 
 TripletRooting.s: TripletRooting.cpp.s
@@ -635,8 +691,9 @@ TripletRooting.s: TripletRooting.cpp.s
 
 # target to generate assembly for a file
 TripletRooting.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/TripletRooting.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/TripletRooting.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.s
 .PHONY : TripletRooting.cpp.s
 
 int_stuff.o: int_stuff.cpp.o
@@ -645,8 +702,9 @@ int_stuff.o: int_stuff.cpp.o
 
 # target to build an object file
 int_stuff.cpp.o:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.o
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/int_stuff.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/int_stuff.cpp.o
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.o
 .PHONY : int_stuff.cpp.o
 
 int_stuff.i: int_stuff.cpp.i
@@ -655,8 +713,9 @@ int_stuff.i: int_stuff.cpp.i
 
 # target to preprocess a source file
 int_stuff.cpp.i:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.i
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/int_stuff.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/int_stuff.cpp.i
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.i
 .PHONY : int_stuff.cpp.i
 
 int_stuff.s: int_stuff.cpp.s
@@ -665,8 +724,9 @@ int_stuff.s: int_stuff.cpp.s
 
 # target to generate assembly for a file
 int_stuff.cpp.s:
-	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.s
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/tripRoot.dir/build.make tripRoot/CMakeFiles/tripRoot.dir/int_stuff.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/int_stuff.cpp.s
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.s
 .PHONY : int_stuff.cpp.s
 
 test_triplet_root.o: test_triplet_root.cpp.o
@@ -695,6 +755,33 @@ test_triplet_root.s: test_triplet_root.cpp.s
 test_triplet_root.cpp.s:
 	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_triplet_root.dir/build.make tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.s
 .PHONY : test_triplet_root.cpp.s
+
+test_write_newick.o: test_write_newick.cpp.o
+
+.PHONY : test_write_newick.o
+
+# target to build an object file
+test_write_newick.cpp.o:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/test_write_newick.cpp.o
+.PHONY : test_write_newick.cpp.o
+
+test_write_newick.i: test_write_newick.cpp.i
+
+.PHONY : test_write_newick.i
+
+# target to preprocess a source file
+test_write_newick.cpp.i:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/test_write_newick.cpp.i
+.PHONY : test_write_newick.cpp.i
+
+test_write_newick.s: test_write_newick.cpp.s
+
+.PHONY : test_write_newick.s
+
+# target to generate assembly for a file
+test_write_newick.cpp.s:
+	cd /Users/uym2/Documents/my_gits/Triplet_rooting && $(MAKE) -f tripRoot/CMakeFiles/test_write_newick.dir/build.make tripRoot/CMakeFiles/test_write_newick.dir/test_write_newick.cpp.s
+.PHONY : test_write_newick.cpp.s
 
 triplet_rooting.o: triplet_rooting.cpp.o
 
@@ -729,17 +816,18 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... edit_cache"
+	@echo "... install/strip"
+	@echo "... package"
+	@echo "... tripRoot"
+	@echo "... package_source"
+	@echo "... rebuild_cache"
+	@echo "... test_write_newick"
+	@echo "... test_triplet_root"
 	@echo "... install/local"
 	@echo "... test"
-	@echo "... package"
-	@echo "... rebuild_cache"
-	@echo "... test_triplet_root"
-	@echo "... package_source"
-	@echo "... tripRoot"
 	@echo "... CountingArray.o"
 	@echo "... CountingArray.i"
 	@echo "... CountingArray.s"
@@ -788,6 +876,9 @@ help:
 	@echo "... test_triplet_root.o"
 	@echo "... test_triplet_root.i"
 	@echo "... test_triplet_root.s"
+	@echo "... test_write_newick.o"
+	@echo "... test_write_newick.i"
+	@echo "... test_write_newick.s"
 	@echo "... triplet_rooting.o"
 	@echo "... triplet_rooting.i"
 	@echo "... triplet_rooting.s"
