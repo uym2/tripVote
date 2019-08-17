@@ -49,15 +49,14 @@ class RootedTree
 		INTTYPE_N4 getUnresolvedQuartets();
 		void toDot();
 		vector<RootedTree*>* getList();
-		void pairAltWorld(RootedTree *t);
+		void pairAltWorld(RootedTree *t, bool do_pruning=false);
 		void colorSubtree(int c);
 		void markHDTAlternative();
 		bool isError();
 		RootedTree *contract(RootedTreeFactory *factory = NULL);
-
-    
-
-	private:
+        bool prune_subtree(RootedTree* leaf);
+           
+    private:
 		bool error;
 
 		void toDotImpl();
