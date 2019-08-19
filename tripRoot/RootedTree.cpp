@@ -39,10 +39,11 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
     RootedTree* v = node;
     if (v == this) // v is the root
         return this;
-    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
+    
+    /*for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
         if (v == i->data)
             return this; // v is one of the root's children
-    }
+    }*/
         
     RootedTree *u = v->parent;    
     RootedTree *w = u->parent;
@@ -57,39 +58,16 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
         v = w;
         w = w->parent;
         
-        /*
-        std::cout << "Clade u :";
-        u->print_leaves();
-        std::cout << std::endl;
-
-        std::cout << "Clade v :";
-        v->print_leaves();
-        std::cout << std::endl;
-        */
-
-        //v->remove_child(u);
-        
-        /*std::cout << "Clade v-u :";
-        v->print_leaves();
-        std::cout << std::endl;*/
-        
         u->addChild(v);
         u = v;
     }
 
-    // make all sisters of u its children    
-    
-    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
-        if (i->data != u){
-            //this->remove_child(i->data);
-            u->addChild(i->data);
-        }
+    if (u->numChildren < 2){
+        // suppress unifurcation
+        w = u->parent;
+        w->remove_child(u);
+        w->addChild(u->children->data);
     }
-
-    //this->children = NULL;
-
-    //newRoot->print_leaves();
-    //std::cout << std::endl;
     
     return newRoot;
 }

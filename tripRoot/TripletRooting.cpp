@@ -36,12 +36,17 @@ bool TripletRooting::find_optimal_root(){
     unsigned int r = myTree->idx;
     this->optimalRoot = this->myTree->children->data; // the first child
     this->optimalTripScore = tripCount->tA[r];
+    
+    /*
     INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r];
 
      
     for(TemplatedLinkedList<RootedTree*> *current = myTree->children; current != NULL; current = current->next) {
         this->downroot(current->data,parent_score);
-    } 
+    }  */
+
+    this->downroot(myTree,tripCount->tA[r]);
+
     return true;
 }
 
