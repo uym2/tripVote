@@ -25,13 +25,13 @@ bool TripletRooting::find_optimal_root(){
 */    
     this->compute_tA(this->myTree);
     
-    /*
+    /* 
     for (int i = 0; i < tripCount->N; i++){
         std::cout << "tA[" << i << "] = " << tripCount->tA[i] << std::endl;
         std::cout << "tI[" << i << "] = " << tripCount->tI[i] << std::endl;
         std::cout << "tO[" << i << "] = " << tripCount->tO[i] << std::endl;
         std::cout << "tR[" << i << "] = " << tripCount->tR[i] << std::endl;
-    } */
+    }*/
 
     unsigned int r = myTree->idx;
     this->optimalRoot = this->myTree->children->data; // the first child
@@ -169,7 +169,7 @@ void TripletRooting::count(RootedTree *v) {
   hdt->updateCounters();
   update_tI(v->idx);
   
-  if (v != this->myTree) // v is not the root
+  //if (v != this->myTree) // v is not the root
   {
       // compute triplets outside of each child of v
       int c = 1;

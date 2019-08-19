@@ -79,9 +79,9 @@ int main(int argc, char** argv) {
     tripRoot.find_optimal_root();
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     
-    std::cout << "Rooting at sub tree: " << endl;
-    tripRoot.optimalRoot->print_leaves();
-    std::cout << endl;
+    //std::cout << "Rooting at sub tree: " << endl;
+    //tripRoot.optimalRoot->print_leaves();
+    //std::cout << endl;
 
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
     rerooted->write_newick(fout);
