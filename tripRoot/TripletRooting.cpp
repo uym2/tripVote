@@ -4,7 +4,7 @@
 
 bool TripletRooting::find_optimal_root(){
     // construct HDT for myRef
-    myTree->pairAltWorld(myRef);
+    myRef->pairAltWorld(myTree);
     if (myTree->isError()) {
         std::cerr << "The two trees do not have the same set of leaves." << std::endl;
         std::cerr << "Aborting." << std::endl;
@@ -31,7 +31,7 @@ bool TripletRooting::find_optimal_root(){
         std::cout << "tI[" << i << "] = " << tripCount->tI[i] << std::endl;
         std::cout << "tO[" << i << "] = " << tripCount->tO[i] << std::endl;
         std::cout << "tR[" << i << "] = " << tripCount->tR[i] << std::endl;
-    }*/
+    } */
 
     unsigned int r = myTree->idx;
     this->optimalRoot = this->myTree->children->data; // the first child

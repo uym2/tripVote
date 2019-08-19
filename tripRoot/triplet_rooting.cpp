@@ -49,8 +49,6 @@ int main(int argc, char** argv) {
 
   NewickParser parser;
 
-  uRef = parser.parseFile(refTreeFile);
-  rRef = uRef->convertToRootedTree(NULL);
   
   ofstream fout;
   fout.open(outputTree);
@@ -60,26 +58,35 @@ int main(int argc, char** argv) {
   
   unsigned int i = 1;
 
-  while (! fin.eof()){
-  //while(1){ 
-    std::cout << "Processing tree " << i << std::endl;
+  while (1){
+    // read new tree to reroot it
     string treeStr;
-    std::getline(fin,treeStr,';');
-    uTre = parser.parseStr(treeStr+';');
+    std::getline(fin,treeStr);
+ 
+    if (fin.eof())
+        break;
   
+    std::cout << "Processing tree " << i << std::endl;
+    
+    // read reference tree
+    uRef = parser.parseFile(refTreeFile);
+    rRef = uRef->convertToRootedTree(NULL);
+    
+    uTre = parser.parseStr(treeStr);
     rTre = uTre->convertToRootedTree(rRef->factory);
 
     TripletRooting tripRoot(rRef,rTre);
     tripRoot.find_optimal_root();
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     
-    /*std::cout << "Rooting at sub tree: " << endl;
+    std::cout << "Rooting at sub tree: " << endl;
     tripRoot.optimalRoot->print_leaves();
-    std::cout << endl; */
+    std::cout << endl;
 
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
     rerooted->write_newick(fout);
-    break;
+    fout << endl;
+    i++;
   }
   fin.close();  
   fout.close();    
