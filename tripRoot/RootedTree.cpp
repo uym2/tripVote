@@ -39,10 +39,11 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
     RootedTree* v = node;
     if (v == this) // v is the root
         return this;
-    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
+    
+    /*for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
         if (v == i->data)
             return this; // v is one of the root's children
-    }
+    }*/
         
     RootedTree *u = v->parent;    
     RootedTree *w = u->parent;
@@ -53,43 +54,20 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
     newRoot->addChild(u);
 
    
-    while(w->parent != NULL){
+    while(w != NULL){
         v = w;
         w = w->parent;
-        
-        /*
-        std::cout << "Clade u :";
-        u->print_leaves();
-        std::cout << std::endl;
-
-        std::cout << "Clade v :";
-        v->print_leaves();
-        std::cout << std::endl;
-        */
-
-        //v->remove_child(u);
-        
-        /*std::cout << "Clade v-u :";
-        v->print_leaves();
-        std::cout << std::endl;*/
         
         u->addChild(v);
         u = v;
     }
 
-    // make all sisters of u its children    
-    
-    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
-        if (i->data != v){
-            //this->remove_child(i->data);
-            v->addChild(i->data);
-        }
+    if (u->numChildren < 2){
+        // suppress unifurcation
+        w = u->parent;
+        w->remove_child(u);
+        w->addChild(u->children->data);
     }
-
-    //this->children = NULL;
-
-    //newRoot->print_leaves();
-    //std::cout << std::endl;
     
     return newRoot;
 }
@@ -241,7 +219,47 @@ vector<RootedTree*>* RootedTree::getList()
 	return list;
 }
 
-void RootedTree::pairAltWorld(RootedTree *t)
+bool RootedTree::prune_subtree(RootedTree* u){
+    RootedTree* w = u->parent;
+    if (w == NULL){
+        cerr << "Are you trying to remove the root?" << endl;
+        return false;
+    }    
+    if (w->remove_child(u))
+        cerr << "Removed" << endl;
+    else{
+        cerr << "Could not remove leaf!" << endl;
+        return false;
+    }
+    
+    if (w->numChildren < 1){
+        cerr << "The tree has unifurcation?" << endl;
+        return false;
+    }
+    else if (w->numChildren == 1){
+        // supress unifurcation
+        cerr << "Supress unifurcation after removing leaf ..." << endl;
+        RootedTree *v = w->children->data;
+        w->remove_child(v);
+        
+        if (w->parent == NULL) { // the leaf we are trying to remove is a child of the root
+            // w will replace v after the following commands
+            w->name = v->name;
+        
+            while(v->children != NULL){
+                RootedTree *t = v->children->data;
+                w->addChild(t);
+            }
+        } else {
+            RootedTree *p = w->parent;
+            p->remove_child(w);
+            p->addChild(v);
+        }
+    } 
+    return true;
+}
+
+void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
 {
 	error = false;
 	vector<RootedTree*>* l = t->getList();
@@ -256,6 +274,8 @@ void RootedTree::pairAltWorld(RootedTree *t)
 	delete l;
 	l = getList();
 	map<string, RootedTree*>::iterator altWorldEnd = altWorldLeaves.end();
+    ofstream fout;
+    fout.open("pruned1.tre");
 	for(vector<RootedTree*>::iterator i = l->begin(); i != l->end(); i++)
 	{
 		RootedTree *leaf = *i;
@@ -263,10 +283,26 @@ void RootedTree::pairAltWorld(RootedTree *t)
 		if (j == altWorldEnd)
 		{
 			// This leaf wasn't found in the input tree!
-			cerr << "Leaves doesn't agree! Aborting! (" << leaf->name << " didn't exist in second tree)" << endl;
-			error = true;
-			delete l;
-			return;
+            if (do_pruning){
+                // prune the leaf out from the first tree then continue
+                cerr << leaf->name << " didn't exist in second tree. Pruning it out from the first tree..." << endl;
+                if (this->prune_subtree(leaf)){
+                    this->write_newick(fout);
+                    fout << endl;
+                    continue;
+                }
+                else {
+                    cerr << "Could not remove leaf. Aborting!" << endl;
+                    error = true;
+                    delete l;
+                    return;
+                }
+            } else {
+			    cerr << "Leaves don't agree! Aborting! (" << leaf->name << " didn't exist in second tree)" << endl;
+			    error = true;
+			    delete l;
+			    return;
+            }
 		}
 				
 		// If we got this far, we found the match! Setup bidirectional pointers!
@@ -277,19 +313,43 @@ void RootedTree::pairAltWorld(RootedTree *t)
 		altWorldLeaves.erase(j);
 	}
 
+    fout.close();
+
 	// Is there results left in altWorldLeaves? If so it had more leaves than we do...
 	if (altWorldLeaves.size() > 0)
 	{
-		cerr << "Leaves doesn't agree! Aborting! (" << altWorldLeaves.begin()->first << " didn't exist in first tree)";
-		if (altWorldLeaves.size() > 1)
-			cerr << " (and " << (altWorldLeaves.size() - 1) << " other leaves missing from first tree!)";
-		cerr << endl;
-		error = true;
-		delete l;
-		return;
+        if (do_pruning){
+            ofstream fout;
+            fout.open("pruned2.tre");
+            
+            for(map<string,RootedTree*>::iterator i = altWorldLeaves.begin(); i != altWorldLeaves.end(); i++){
+                cerr << i->first << " didn't exist in first tree. Pruning it out from the second tree..." << endl;
+                if (t->prune_subtree(i->second)){
+                    cerr << "Success!" << endl;
+                    t->write_newick(fout);
+                    fout << endl;
+                } else
+                    cerr << "Failed to remove the species out!" << endl;
+             }
+             fout.close();
+        } else {
+            cerr << "Leaves don't agree! Aborting! (" << altWorldLeaves.begin()->first << " didn't exist in first tree)";
+            if (altWorldLeaves.size() > 1)
+                cerr << " (and " << (altWorldLeaves.size() - 1) << " other leaves missing from first tree!)";
+            cerr << endl;
+            error = true;
+            delete l;
+            return;
+        }
 	}
-
 	delete l;
+    fout.open("pruned1_final.tre");
+    this->write_newick(fout);
+    fout.close();
+    
+    fout.open("pruned2_final.tre");
+    t->write_newick(fout);
+    fout.close();
 }
 
 void RootedTree::colorSubtree(int c)

@@ -4,7 +4,7 @@
 
 bool TripletRooting::find_optimal_root(){
     // construct HDT for myRef
-    myTree->pairAltWorld(myRef);
+    myRef->pairAltWorld(myTree);
     if (myTree->isError()) {
         std::cerr << "The two trees do not have the same set of leaves." << std::endl;
         std::cerr << "Aborting." << std::endl;
@@ -25,7 +25,7 @@ bool TripletRooting::find_optimal_root(){
 */    
     this->compute_tA(this->myTree);
     
-    /*
+    /* 
     for (int i = 0; i < tripCount->N; i++){
         std::cout << "tA[" << i << "] = " << tripCount->tA[i] << std::endl;
         std::cout << "tI[" << i << "] = " << tripCount->tI[i] << std::endl;
@@ -36,12 +36,17 @@ bool TripletRooting::find_optimal_root(){
     unsigned int r = myTree->idx;
     this->optimalRoot = this->myTree->children->data; // the first child
     this->optimalTripScore = tripCount->tA[r];
+    
+    /*
     INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r];
 
      
     for(TemplatedLinkedList<RootedTree*> *current = myTree->children; current != NULL; current = current->next) {
         this->downroot(current->data,parent_score);
-    } 
+    }  */
+
+    this->downroot(myTree,tripCount->tA[r]);
+
     return true;
 }
 
@@ -164,7 +169,7 @@ void TripletRooting::count(RootedTree *v) {
   hdt->updateCounters();
   update_tI(v->idx);
   
-  if (v != this->myTree) // v is not the root
+  //if (v != this->myTree) // v is not the root
   {
       // compute triplets outside of each child of v
       int c = 1;

@@ -17,6 +17,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/HDTCountingCCToC.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/counting_array.h
@@ -27,6 +28,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/HDTCountingCTransform.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/counting_array.h
@@ -37,6 +39,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/HDTCountingG.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/counting_array.h
@@ -84,6 +87,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/HDTListUtils.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/counting_array.h
@@ -96,9 +100,11 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/NewickParser.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/int_stuff.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/memory_allocator.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/newick_parser.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
@@ -113,9 +119,11 @@ tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/RootedTreeFactory.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/int_stuff.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/memory_allocator.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
@@ -131,6 +139,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/rooted_tree_factory.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/TripletCounter.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/TripletRooting.cpp
@@ -147,6 +156,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/templated_linked_list.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/triplet_calc.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/unrooted_tree.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
 tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/int_stuff.cpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/int_stuff.h
@@ -169,3 +179,4 @@ tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/test_util.hpp
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/triplet_calc.h
  /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/unrooted_tree.h
+ /Users/uym2/Documents/my_gits/Triplet_rooting/tripRoot/util.h
