@@ -86,6 +86,9 @@ int main(int argc, char** argv) {
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
     rerooted->write_newick(fout);
     fout << endl;
+
+    delete rRef->factory;
+
     i++;
   }
   fin.close();  
