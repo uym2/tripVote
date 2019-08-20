@@ -42,11 +42,6 @@ int main(int argc, char** argv) {
   char *myTreeFile = argv[argc-2];
   char *outputTree = argv[argc-1];
   
-  UnrootedTree *uRef = NULL;
-  UnrootedTree *uTre = NULL;
-  RootedTree *rRef = NULL;
-  RootedTree *rTre = NULL;
-
   NewickParser parser;
 
   
@@ -59,6 +54,11 @@ int main(int argc, char** argv) {
   unsigned int i = 1;
 
   while (1){
+    UnrootedTree *uRef = NULL;
+    UnrootedTree *uTre = NULL;
+    RootedTree *rRef = NULL;
+    RootedTree *rTre = NULL;
+
     // read new tree to reroot it
     string treeStr;
     std::getline(fin,treeStr);
@@ -86,6 +86,9 @@ int main(int argc, char** argv) {
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
     rerooted->write_newick(fout);
     fout << endl;
+
+    delete rRef->factory;
+
     i++;
   }
   fin.close();  
