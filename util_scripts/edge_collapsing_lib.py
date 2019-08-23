@@ -2,8 +2,29 @@
 
 from dendropy import Tree
 from sys import argv
+from heapq import *
 
-def sort_edges(t):
+def sort_edges_by_level_and_length(t):
+# prioritize the edges such that 
+# for any pair u,v: if u is an ancestor of v, the edge above u must have a higher priority than that of v;
+#                   otherwise, the longer edge will have the higher priority
+# Note: "higher priority" means the node will be placed further behind the list
+# We will do the opposite here: first order the nodes by its priority, then reverse the list afterward
+# We do it this way to fit the list to the collapse_edges function
+    heap = [(0,t.seed_node)]
+    brList = []
+    
+    while heap:
+        _,u = heappop(heap)
+        if u is not t.seed_node:
+            brList.append(u)
+        for v in u.child_node_iter():
+            if not v.is_leaf():
+                heappush(heap,(-v.edge_length,v))      
+    brList.reverse()
+    return brList
+
+def sort_edges_by_length(t):
    brList = []
 
    for node in t.postorder_node_iter():
@@ -16,7 +37,7 @@ def sort_edges(t):
 def collapse_edges(myTree, nBrs, out_prefix="collaped", brList = None):
     nBrs.sort()
     if brList is None:
-        brList = sort_edges(myTree)
+        brList = sort_edges_by_length(myTree)
 
     i = 0
     for n,lb in nBrs:
@@ -49,10 +70,10 @@ def collapse_edge(t,v):
     
     return True    
 
-def collapse_portion_edges(myTree, portions, out_prefix="collapsed"):
+def collapse_portion_edges(myTree, portions, brList=None, out_prefix="collapsed"):
 # collapse p*N edges for p in portions where N is the number of internal edges in myTree
 # note: 0 < p < 1 for p in portions. If the list portions contains invalid values, the code will automatically remove them
-    brList = sort_edges(myTree)
+    brList = sort_edges_by_length(myTree) if brList is None else brList
     N = len(brList)
 
     portions.sort()
