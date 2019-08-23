@@ -1,7 +1,6 @@
 #! /bin/bash
 
 inTree=$1
-outTree=$2
 L=`nw_labels $inTree`
 R=`nw_labels -r $inTree`
 N=1
@@ -15,6 +14,6 @@ for x in $L; do
         N=$((N+1))
     fi    
 done
-echo $y
-nw_reroot $inTree $y > $outTree        
+
+nw_reroot $inTree $y 
 
