@@ -8,7 +8,7 @@ labelTrees.py -i $inTrees -o $lbTrees
 
 while read tree; do
     echo $tree > $temp
-    random_reroot.sh $temp 
-done < $lbTrees > $outTrees
+    random_reroot.sh $temp >> $outTrees 
+done < $lbTrees
 
 rm $temp $lbTrees    
