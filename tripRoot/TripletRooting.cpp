@@ -12,7 +12,6 @@ bool TripletRooting::find_optimal_root(){
     }
 
     myTree->mark_active(tripCount);
-
     countChildren(myTree);
     std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
@@ -75,6 +74,7 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool par
                 }
             }
         }
+        //cout << "Current score: " << current_score << endl;
         if (current_score > this->optimalTripScore && (parent_active || sister_active) ){
             this->optimalTripScore = current_score;
             this->optimalRoot = current->data;

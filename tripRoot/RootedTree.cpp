@@ -10,10 +10,10 @@ void RootedTree::mark_active(TripletCounter *tripCount){
     if (this->isLeaf())
         return;
     bool is_active = false;    
-    for(TemplatedLinkedList<RootedTree*> *i = children; i->next != NULL; i = i->next){
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next){
         RootedTree* curr = i->data;
         curr->mark_active(tripCount);
-        is_active |= tripCount->isActive[curr->idx];
+        is_active = is_active || tripCount->isActive[curr->idx];
     }
     tripCount->isActive[this->idx] = is_active;
 }
