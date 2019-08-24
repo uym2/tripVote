@@ -6,6 +6,18 @@
 /**************/
 /* uym2 added */
 
+void RootedTree::mark_active(TripletCounter *tripCount){
+    if (this->isLeaf())
+        return;
+    bool is_active = false;    
+    for(TemplatedLinkedList<RootedTree*> *i = children; i->next != NULL; i = i->next){
+        RootedTree* curr = i->data;
+        curr->mark_active(tripCount);
+        is_active |= tripCount->isActive[curr->idx];
+    }
+    tripCount->isActive[this->idx] = is_active;
+}
+
 bool RootedTree::remove_child(RootedTree *child){
     if (child->parent != this)
         return false;
@@ -259,7 +271,7 @@ bool RootedTree::prune_subtree(RootedTree* u){
     return true;
 }
 
-void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
+void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tripCount)
 {
 	error = false;
 	vector<RootedTree*>* l = t->getList();
@@ -274,8 +286,6 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
 	delete l;
 	l = getList();
 	map<string, RootedTree*>::iterator altWorldEnd = altWorldLeaves.end();
-    ofstream fout;
-    fout.open("pruned1.tre");
 	for(vector<RootedTree*>::iterator i = l->begin(); i != l->end(); i++)
 	{
 		RootedTree *leaf = *i;
@@ -285,10 +295,8 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
 			// This leaf wasn't found in the input tree!
             if (do_pruning){
                 // prune the leaf out from the first tree then continue
-                cerr << leaf->name << " didn't exist in second tree. Pruning it out from the first tree..." << endl;
+                cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
                 if (this->prune_subtree(leaf)){
-                    this->write_newick(fout);
-                    fout << endl;
                     continue;
                 }
                 else {
@@ -298,7 +306,7 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
                     return;
                 }
             } else {
-			    cerr << "Leaves don't agree! Aborting! (" << leaf->name << " didn't exist in second tree)" << endl;
+			    cerr << "Leaves don't agree! Aborting! (" << leaf->name << " didn't exist in the second tree)" << endl;
 			    error = true;
 			    delete l;
 			    return;
@@ -308,32 +316,26 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
 		// If we got this far, we found the match! Setup bidirectional pointers!
 		leaf->altWorldSelf = j->second;
 		j->second->altWorldSelf = leaf;
-
+        
 		// Delete result
 		altWorldLeaves.erase(j);
 	}
 
-    fout.close();
 
 	// Is there results left in altWorldLeaves? If so it had more leaves than we do...
 	if (altWorldLeaves.size() > 0)
 	{
-        if (do_pruning){
-            ofstream fout;
-            fout.open("pruned2.tre");
-            
+        if (tripCount != NULL){
             for(map<string,RootedTree*>::iterator i = altWorldLeaves.begin(); i != altWorldLeaves.end(); i++){
-                cerr << i->first << " didn't exist in first tree. Pruning it out from the second tree..." << endl;
-                if (t->prune_subtree(i->second)){
+                cerr << i->first << " didn't exist in the first tree. It will be ignored in the second tree..." << endl;
+                /*if (t->prune_subtree(i->second)){
                     cerr << "Success!" << endl;
-                    t->write_newick(fout);
-                    fout << endl;
                 } else
-                    cerr << "Failed to remove the species out!" << endl;
+                    cerr << "Failed to remove the species out!" << endl; */    
+                tripCount->isActive[i->second->idx] = false;      
              }
-             fout.close();
         } else {
-            cerr << "Leaves don't agree! Aborting! (" << altWorldLeaves.begin()->first << " didn't exist in first tree)";
+            cerr << "Leaves don't agree! Aborting! (" << altWorldLeaves.begin()->first << " didn't exist in the first tree)";
             if (altWorldLeaves.size() > 1)
                 cerr << " (and " << (altWorldLeaves.size() - 1) << " other leaves missing from first tree!)";
             cerr << endl;
@@ -343,13 +345,6 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning)
         }
 	}
 	delete l;
-    fout.open("pruned1_final.tre");
-    this->write_newick(fout);
-    fout.close();
-    
-    fout.open("pruned2_final.tre");
-    t->write_newick(fout);
-    fout.close();
 }
 
 void RootedTree::colorSubtree(int c)
