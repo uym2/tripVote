@@ -4,13 +4,14 @@
 
 bool TripletRooting::find_optimal_root(){
     // construct HDT for myRef
-    myRef->pairAltWorld(myTree);
+    myRef->pairAltWorld(myTree,true,tripCount);
     if (myTree->isError()) {
         std::cerr << "The two trees do not have the same set of leaves." << std::endl;
         std::cerr << "Aborting." << std::endl;
         return false;
     }
 
+    myTree->mark_active(tripCount);
     countChildren(myTree);
     std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
@@ -34,8 +35,9 @@ bool TripletRooting::find_optimal_root(){
     }*/
 
     unsigned int r = myTree->idx;
-    this->optimalRoot = this->myTree->children->data; // the first child
-    this->optimalTripScore = tripCount->tA[r];
+
+    this->optimalRoot = NULL;
+    this->optimalTripScore = -1;
     
     /*
     INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r];
@@ -45,34 +47,47 @@ bool TripletRooting::find_optimal_root(){
         this->downroot(current->data,parent_score);
     }  */
 
-    this->downroot(myTree,tripCount->tA[r]);
+    this->downroot(myTree,tripCount->tA[r],false);
 
     return true;
 }
 
-void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score){
+void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool parent_active){
     unsigned int u = t->idx;
     
     for(TemplatedLinkedList<RootedTree*> *current = t->children; current != NULL; current = current->next) {
         unsigned int v = current->data->idx;
+        if (!tripCount->isActive[v]){
+            continue;
+        }
         INTTYPE_REST current_score = parent_score - tripCount->tI[u] + tripCount->tO[v] + tripCount->tR[v];
         //std::cout << "u = " << u << "; v = " << v << endl;
         //current->data->print_leaves();
         //std::cout << "current_score = " << current_score << std::endl;
-        if (current_score > this->optimalTripScore){
+        bool sister_active = false;
+        for(TemplatedLinkedList<RootedTree*> *sis = t->children; sis != NULL; sis = sis->next) {
+            if (sis != current){
+                unsigned int v1 = sis->data->idx;
+                if (tripCount->isActive[v1]){
+                    sister_active = true;
+                    break;
+                }
+            }
+        }
+        //cout << "Current score: " << current_score << endl;
+        if (current_score > this->optimalTripScore && (parent_active || sister_active) ){
             this->optimalTripScore = current_score;
             this->optimalRoot = current->data;
         }
         INTTYPE_REST v_parent_score = current_score - tripCount->tR[v]; 
-        this->downroot(current->data,v_parent_score);
+        bool v_parent_active = parent_active | sister_active;
+        this->downroot(current->data,v_parent_score,v_parent_active);
     }   
 }
 
 TripletRooting::TripletRooting(RootedTree *ref, RootedTree *tree){
     this->myRef = ref;
     this->myTree = tree;
-    // TODO: if there is multifurcating at the root of myTree, reroot it on one of the root's children
-
     this->hdt = NULL;
     unsigned int N = this->myTree->set_all_idx(0);
     tripCount = new TripletCounter(N);

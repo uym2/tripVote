@@ -1,0 +1,26 @@
+Start testing: Aug 24 14:29 PDT
+----------------------------------------------------------
+1/1 Testing: test_triplet_root
+1/1 Test: test_triplet_root
+Command: "/Users/uym2/Documents/my_gits/Triplet_rooting/bin/test_triplet_root"
+Directory: /Users/uym2/Documents/my_gits/Triplet_rooting/bin
+"test_triplet_root" start time: Aug 24 14:29 PDT
+Output:
+----------------------------------------------------------
+Degree: 3
+Degree: 3
+Degree: 3
+Degree: 3
+Degree: 4
+Degree: 4
+Selaginella_moellendorffii_genome didn't exist in first tree. It will be ignored in the second tree...
+Degree: 4
+<end of output>
+Test time =   0.44 sec
+----------------------------------------------------------
+Test Passed.
+"test_triplet_root" end time: Aug 24 14:29 PDT
+"test_triplet_root" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Aug 24 14:29 PDT

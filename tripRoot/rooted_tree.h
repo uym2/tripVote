@@ -7,6 +7,8 @@
 #include <string>
 #include "int_stuff.h"
 #include "templated_linked_list.h"
+#include "TripletCounter.h"
+
 class HDT;// Forward declaration...
 class RootedTreeFactory; // Forward declaration...
 
@@ -49,12 +51,13 @@ class RootedTree
 		INTTYPE_N4 getUnresolvedQuartets();
 		void toDot();
 		vector<RootedTree*>* getList();
-		void pairAltWorld(RootedTree *t, bool do_pruning=true);
+		void pairAltWorld(RootedTree *t, bool do_pruning=true, TripletCounter *tripCount=NULL);
 		void colorSubtree(int c);
 		void markHDTAlternative();
 		bool isError();
 		RootedTree *contract(RootedTreeFactory *factory = NULL);
         bool prune_subtree(RootedTree* leaf);
+        void mark_active(TripletCounter *tripCount);
            
     private:
 		bool error;

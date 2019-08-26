@@ -33,5 +33,7 @@ int main(int argc, char **argv) {
   test("../trees/1kp-taxonomy_pruned673.tre", "../trees/kp_tree673.tre", (INTTYPE_REST) 23);  
   test("../trees/1kp-taxonomy_pruned1.tre", "../trees/kp_tree1.tre", (INTTYPE_REST) 25702);  
   test("../trees/1kp-taxonomy_pruned852.tre", "../trees/kp_tree852.tre", (INTTYPE_REST) 41252);  
+  test("../trees/fourLeaves_2.tre", "../trees/sixLeaves.tre", (INTTYPE_REST) 3);  
+  test("../trees/fourLeaves.tre", "../trees/sixLeaves.tre", (INTTYPE_REST) 4);  
   return 0;
 }
