@@ -3,7 +3,7 @@
 #include <cstring>
 
 #include "int_stuff.h"
-#include "TripletRooting.h"
+#include "TripletRooting_OG.h"
 #include "newick_parser.h"
 
 #ifndef _MSC_VER
@@ -11,9 +11,9 @@
 #endif
 
 void usage(char *programName) {
-  std::cout << "Usage: " << programName << " [-v] <refTree> <newTree>" << std::endl 
+  std::cout << "Usage: " << programName << "<refTree> <newTree>" << std::endl 
 	    << std::endl;
-  std::cout << "Where <refTree> and <newTree2> point to two files each containing one"        << std::endl
+  std::cout << "Where <refTree> and <newTree> point to two files each containing one"         << std::endl
 	    << "tree in Newick format. In both trees all leaves should be labeled and the"        << std::endl
 	    << "two trees should have the same set of leaf labels. <newTree> will be (re)rooted"  << std::endl
         << "such that its triplet score to <refTree> is maximized"                            << std::endl;
@@ -26,16 +26,11 @@ int main(int argc, char** argv) {
     return 0;
   }
 
-  bool verbose = false;
 
   if(argc < 4) {
     std::cerr << "Error: Not enough parameters!" << std::endl;
     usage(argv[0]);
     return -1;
-  }
-
-  if(argc == 5 && strcmp(argv[1],"-v") == 0) {
-    verbose = true;
   }
 
   char *refTreeFile = argv[argc-3];
@@ -75,8 +70,7 @@ int main(int argc, char** argv) {
     uTre = parser.parseStr(treeStr);
     rTre = uTre->convertToRootedTree(rRef->factory);
 
-    TripletRooting tripRoot;
-    tripRoot.initialize(rRef,rTre);
+    TripletRootingOG tripRoot(rRef,rTre,"###");
     tripRoot.find_optimal_root();
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     

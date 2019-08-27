@@ -13,11 +13,11 @@
 #endif
 
 void usage(char *programName) {
-  std::cout << "Usage: " << programName << " <newTree> <outgroups>" << std::endl 
-	    << std::endl;
-  std::cout << "Where <newTree> point to a file containing one"        << std::endl
-	    << "tree in Newick format. <outgroups> is a list of outgroup labels"            << std::endl 
-        << "The tree will be (re)rooted at the biggest clade containing only outgroups"  << std::endl;
+  std::cout     << "Usage: " << programName << " <inTree> <outTree> <outgroups>"                     << std::endl << std::endl;
+  std::cout     << "Where <inTree> point to a file containing one"                                   << std::endl
+	            << "tree in Newick format; <outTree> is the name of the output file;"                << std::endl
+                <<  "<outgroups> is a list of outgroup labels"                                       << std::endl 
+                << "The tree will be (re)rooted at the biggest clade containing only outgroups"      << std::endl;
 }
 
 int main(int argc, char** argv) {

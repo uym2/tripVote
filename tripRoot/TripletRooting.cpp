@@ -2,9 +2,9 @@
 #include "hdt.h"
 #include "hdt_factory.h"
 
-bool TripletRooting::find_optimal_root(){
-    // construct HDT for myRef
+bool TripletRooting::pairing(){
     myRef->pairAltWorld(myTree,true,tripCount);
+    
     if (myTree->isError()) {
         std::cerr << "The two trees do not have the same set of leaves." << std::endl;
         std::cerr << "Aborting." << std::endl;
@@ -12,6 +12,16 @@ bool TripletRooting::find_optimal_root(){
     }
 
     myTree->mark_active(tripCount);
+    return true;
+}
+
+bool TripletRooting::find_optimal_root(){
+    if (!this->pairing()){
+        cerr << "Error: could not pair the two trees. Aborting!" << endl;
+        return false;
+    }
+
+    // construct HDT for myRef
     countChildren(myTree);
     std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
@@ -26,27 +36,12 @@ bool TripletRooting::find_optimal_root(){
 */    
     this->compute_tA(this->myTree);
     
-    /* 
-    for (int i = 0; i < tripCount->N; i++){
-        std::cout << "tA[" << i << "] = " << tripCount->tA[i] << std::endl;
-        std::cout << "tI[" << i << "] = " << tripCount->tI[i] << std::endl;
-        std::cout << "tO[" << i << "] = " << tripCount->tO[i] << std::endl;
-        std::cout << "tR[" << i << "] = " << tripCount->tR[i] << std::endl;
-    }*/
 
     unsigned int r = myTree->idx;
 
     this->optimalRoot = NULL;
     this->optimalTripScore = -1;
     
-    /*
-    INTTYPE_REST parent_score = tripCount->tA[r] - tripCount->tI[r];
-
-     
-    for(TemplatedLinkedList<RootedTree*> *current = myTree->children; current != NULL; current = current->next) {
-        this->downroot(current->data,parent_score);
-    }  */
-
     this->downroot(myTree,tripCount->tA[r],false);
 
     return true;
@@ -61,9 +56,6 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool par
             continue;
         }
         INTTYPE_REST current_score = parent_score - tripCount->tI[u] + tripCount->tO[v] + tripCount->tR[v];
-        //std::cout << "u = " << u << "; v = " << v << endl;
-        //current->data->print_leaves();
-        //std::cout << "current_score = " << current_score << std::endl;
         bool sister_active = false;
         for(TemplatedLinkedList<RootedTree*> *sis = t->children; sis != NULL; sis = sis->next) {
             if (sis != current){
@@ -74,7 +66,6 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool par
                 }
             }
         }
-        //cout << "Current score: " << current_score << endl;
         if (current_score > this->optimalTripScore && (parent_active || sister_active) ){
             this->optimalTripScore = current_score;
             this->optimalRoot = current->data;
@@ -85,13 +76,21 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool par
     }   
 }
 
-TripletRooting::TripletRooting(RootedTree *ref, RootedTree *tree){
+TripletRooting::TripletRooting(){
+    this->myRef = this->myTree = NULL;
+    this->hdt = NULL;
+    this->tripCount = NULL;
+    this->dummyHDTFactory = NULL;
+}
+
+bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
     this->myRef = ref;
     this->myTree = tree;
     this->hdt = NULL;
     unsigned int N = this->myTree->set_all_idx(0);
     tripCount = new TripletCounter(N);
     dummyHDTFactory = new HDTFactory(myTree->maxDegree+1);
+    return true;
 }
 
 TripletRooting::~TripletRooting(){

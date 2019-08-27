@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_DISTANCE_CALCULATOR_H
-#define ABSTRACT_DISTANCE_CALCULATOR_H
+#ifndef TRIPLET_ROOTING_H
+#define TRIPLET_ROOTING_H
 
 #include "int_stuff.h"
 #include "triplet_calc.h"
@@ -13,12 +13,13 @@
 
 class TripletRooting {
  public:
-  TripletRooting(RootedTree *ref, RootedTree *tree);
+  TripletRooting();
+  bool initialize(RootedTree *ref, RootedTree *tree);
   ~TripletRooting();
   
+  virtual bool pairing();
   void countChildren(RootedTree *t);
   void count(RootedTree *v);
-  //void updateCounters(unsigned int nodeIdx, unsigned int color);
   void update_tI(unsigned int nodeIdx);
   void update_tO(unsigned int nodeIdx, unsigned int color);
   void update_tR(unsigned int nodeIdx);
