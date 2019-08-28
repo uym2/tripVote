@@ -115,6 +115,23 @@ add_executable(ogRoot outgroup_rooting.cpp
   int_stuff.cpp  
 )
 
+add_executable(collapseTree collapse_tree.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  RefTreeGen.cpp
+  int_stuff.cpp  
+)
+
 add_executable(test_triplet_root test_triplet_root.cpp
   CountingArray.cpp
   HDT.cpp
