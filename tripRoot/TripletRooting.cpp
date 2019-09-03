@@ -66,9 +66,14 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool par
                 }
             }
         }
-        if (current_score > this->optimalTripScore && (parent_active || sister_active) ){
-            this->optimalTripScore = current_score;
-            this->optimalRoot = current->data;
+        if (parent_active || sister_active){
+            if (current_score == this->optimalTripScore && t != this->myTree)
+                this->ambiguity += 1;
+            else if (current_score > this->optimalTripScore){
+                this->optimalTripScore = current_score;
+                this->optimalRoot = current->data;
+                this->ambiguity = 1;
+            }
         }
         INTTYPE_REST v_parent_score = current_score - tripCount->tR[v]; 
         bool v_parent_active = parent_active | sister_active;
@@ -81,6 +86,7 @@ TripletRooting::TripletRooting(){
     this->hdt = NULL;
     this->tripCount = NULL;
     this->dummyHDTFactory = NULL;
+    this->ambiguity = 0;
 }
 
 bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
@@ -98,12 +104,12 @@ TripletRooting::~TripletRooting(){
     delete dummyHDTFactory;
 }
 
-void TripletRooting::update_tI(unsigned int nodeIdx){
-        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + this->hdt->getUnresolvedTriplets(0);
+void TripletRooting::update_tI(unsigned int nodeIdx, bool count_unresolved){
+        this->tripCount->tI[nodeIdx] = this->hdt->getResolvedTriplets(0) + count_unresolved*this->hdt->getUnresolvedTriplets(0);
 }
 
-void TripletRooting::update_tO(unsigned int nodeIdx, unsigned int color){
-        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color) + this->hdt->getUnresolvedTriplets(color);
+void TripletRooting::update_tO(unsigned int nodeIdx, unsigned int color, bool count_unresolved){
+        this->tripCount->tO[nodeIdx] = this->hdt->getResolvedTriplets(color) + count_unresolved*this->hdt->getUnresolvedTriplets(color);
 }
 
 void TripletRooting::update_tR(unsigned int nodeIdx){
@@ -133,7 +139,6 @@ void TripletRooting::compute_tA(RootedTree *v){
     }
     this->tripCount->tA[v->idx] = acc;    
 }
-
 
 void TripletRooting::count(RootedTree *v) {
   //if (v->isLeaf() || v->n <= 2) {
