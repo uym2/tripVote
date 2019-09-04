@@ -8,7 +8,7 @@ rg_trees=$5     # (output) the rooted gene trees will be written here
 
 
 echo "Collapsing the species tree..."
-collapse_maxTrpl_score.py $s_tree $popSize $clps_tree
+collapse_level_maxTrpl_score.py $s_tree $popSize $clps_tree
 echo "Finish collapsing. The collapsed species tree was written to $clps_tree"
 
 echo "Launching tripRoot. Using $clps_tree as reference"

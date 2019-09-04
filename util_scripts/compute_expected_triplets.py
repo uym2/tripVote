@@ -3,7 +3,27 @@
 import treeswift
 from sys import argv
 from math import exp
-from edge_collapsing_lib import sort_edges_by_length, collapse_edge 
+from heapq import *
+
+def sort_edges_by_level_and_length(t):
+# prioritize the edges such that 
+# for any pair u,v: if u is an ancestor of v, the edge above u must have a higher priority than that of v;
+#                   otherwise, the longer edge will have higher priority
+# Note: "higher priority" means the node will be placed further behind the list
+# We will do the opposite here: first order the nodes by its priority, then reverse the list afterward
+# We do it this way to fit the list to the collapse_edges function
+    heap = [(0,t.root)]
+    brList = []
+    
+    while heap:
+        _,u = heappop(heap)
+        if not u.is_root():
+            brList.append(u)
+        for v in u.child_nodes():
+            if not v.is_leaf():
+                heappush(heap,(-v.get_edge_length(),v))      
+    brList.reverse()
+    return brList
 
 def count_pairs(node):
     children = node.child_nodes()
@@ -70,15 +90,16 @@ def collapse_edge(myTree,v):
     
     return True    
 
-def maxTrpl_collapse(myTree,N):
+def maxTrpl_collapse(myTree,N,respect_level=False):
 # collapse myTree to maximize its expected normalized triplet score to gene trees
     nleaves = myTree.num_nodes(leaves=True,internal=False)
     
     expTrpl = expected_triplets(myTree,N)
     totalTrpl = nleaves*(nleaves-1)*(nleaves-2)/6
 
-    optScore = expTrpl/totalTrpl
-    brList = sort_edges_by_length(myTree)
+    orgScore = expTrpl/totalTrpl
+    optScore = orgScore
+    brList = sort_edges_by_level_and_length(myTree) if respect_level else sort_edges_by_length(myTree) 
     cList = []
 
     for u in brList:
@@ -99,9 +120,4 @@ def maxTrpl_collapse(myTree,N):
     for u in cList:
         u.contract() 
     
-myTree = treeswift.read_tree_newick(argv[1])
-N = float(argv[2])
-outTree = argv[3]
-
-maxTrpl_collapse(myTree,N)
-myTree.write_tree_newick(outTree)
+    return orgScore, optScore
