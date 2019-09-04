@@ -7,7 +7,7 @@ from heapq import *
 def sort_edges_by_level_and_length(t):
 # prioritize the edges such that 
 # for any pair u,v: if u is an ancestor of v, the edge above u must have a higher priority than that of v;
-#                   otherwise, the longer edge will have the higher priority
+#                   otherwise, the longer edge will have higher priority
 # Note: "higher priority" means the node will be placed further behind the list
 # We will do the opposite here: first order the nodes by its priority, then reverse the list afterward
 # We do it this way to fit the list to the collapse_edges function

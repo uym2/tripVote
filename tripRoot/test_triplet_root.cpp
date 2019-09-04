@@ -20,7 +20,8 @@ void test(const char* rFile, const char* tFile, INTTYPE_REST correct_value) {
   rt1 = ut1->convertToRootedTree(NULL);
   rt2 = ut2->convertToRootedTree(rt1->factory);
 
-  TripletRooting trplRooting(rt1,rt2);
+  TripletRooting trplRooting;
+  trplRooting.initialize(rt1,rt2);
   trplRooting.find_optimal_root(); 
   assert_equal(trplRooting.optimalTripScore,correct_value); 
 }

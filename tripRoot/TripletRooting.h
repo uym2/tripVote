@@ -1,5 +1,5 @@
-#ifndef ABSTRACT_DISTANCE_CALCULATOR_H
-#define ABSTRACT_DISTANCE_CALCULATOR_H
+#ifndef TRIPLET_ROOTING_H
+#define TRIPLET_ROOTING_H
 
 #include "int_stuff.h"
 #include "triplet_calc.h"
@@ -13,14 +13,15 @@
 
 class TripletRooting {
  public:
-  TripletRooting(RootedTree *ref, RootedTree *tree);
+  TripletRooting();
+  bool initialize(RootedTree *ref, RootedTree *tree);
   ~TripletRooting();
   
+  virtual bool pairing();
   void countChildren(RootedTree *t);
   void count(RootedTree *v);
-  //void updateCounters(unsigned int nodeIdx, unsigned int color);
-  void update_tI(unsigned int nodeIdx);
-  void update_tO(unsigned int nodeIdx, unsigned int color);
+  void update_tI(unsigned int nodeIdx, bool count_unresolved=false);
+  void update_tO(unsigned int nodeIdx, unsigned int color, bool count_unresolved=false);
   void update_tR(unsigned int nodeIdx);
   void compute_tA(RootedTree *v);
   bool find_optimal_root();
@@ -31,6 +32,7 @@ class TripletRooting {
   HDT *hdt;
   TripletCounter *tripCount;
   INTTYPE_REST optimalTripScore;
+  unsigned int ambiguity;
   RootedTree *optimalRoot; // the node in myTree where the optimal root placed above
 };
 

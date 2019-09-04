@@ -3,7 +3,7 @@
 #include <cstring>
 
 #include "int_stuff.h"
-#include "TripletRooting.h"
+#include "TripletRooting_OG.h"
 #include "newick_parser.h"
 
 #ifndef _MSC_VER
@@ -11,14 +11,13 @@
 #endif
 
 void usage(char *programName) {
-  std::cout << "Usage: " << programName << " <refTree> <inTree> <outTree>" << std::endl 
+  std::cout << "Usage: " << programName << "<refTree> <newTree>" << std::endl 
 	    << std::endl;
-  std::cout << "Where <refTree> and <inTree> point to two files each containing one"                            << std::endl
-	    << "tree in Newick format. In both trees all leaves should be labeled and the"                          << std::endl
-	    << "two trees should share some a majority of the leaf labels. <inTree> will be (re)rooted"             << std::endl
-        << "such that its triplet score to <refTree> is maximized. The (re)rooted tree"                         << std::endl                
-        << "will be written to <outTree>"                                                                       << std::endl;
-  std::cout << "The maximum triplet score between the two trees will be printed to stdout."   << std::endl;
+  std::cout << "Where <refTree> and <newTree> point to two files each containing one"         << std::endl
+	    << "tree in Newick format. In both trees all leaves should be labeled and the"        << std::endl
+	    << "two trees should have the same set of leaf labels. <newTree> will be (re)rooted"  << std::endl
+        << "such that its triplet score to <refTree> is maximized"                            << std::endl;
+  std::cout << "The maximum triplet score between the two trees will be printed to stdout."    << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -27,16 +26,11 @@ int main(int argc, char** argv) {
     return 0;
   }
 
-  bool verbose = false;
 
   if(argc < 4) {
     std::cerr << "Error: Not enough parameters!" << std::endl;
     usage(argv[0]);
     return -1;
-  }
-
-  if(argc == 5 && strcmp(argv[1],"-v") == 0) {
-    verbose = true;
   }
 
   char *refTreeFile = argv[argc-3];
@@ -72,20 +66,13 @@ int main(int argc, char** argv) {
     // read reference tree
     uRef = parser.parseFile(refTreeFile);
     rRef = uRef->convertToRootedTree(NULL);
-    cout << "I could read the reference!" << endl;
     
     uTre = parser.parseStr(treeStr);
-    //uTre = parser.parseFile(myTreeFile);
-    cout << "I could parse the input!" << endl;
-    rTre = uTre->convertToRootedTree(NULL);
-    cout << "I could read the input!" << endl;
+    rTre = uTre->convertToRootedTree(rRef->factory);
 
-
-    TripletRooting tripRoot;
-    tripRoot.initialize(rRef,rTre);
+    TripletRootingOG tripRoot(rRef,rTre,"###");
     tripRoot.find_optimal_root();
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
-    std::cout << "Ambiguity: " << tripRoot.ambiguity << endl;
     
     //std::cout << "Rooting at sub tree: " << endl;
     //tripRoot.optimalRoot->print_leaves();
