@@ -101,7 +101,7 @@ bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
 
 TripletRooting::~TripletRooting(){
     delete tripCount;
-    delete dummyHDTFactory;
+    //delete dummyHDTFactory;
 }
 
 void TripletRooting::update_tI(unsigned int nodeIdx, bool count_unresolved){

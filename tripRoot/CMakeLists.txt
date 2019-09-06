@@ -131,6 +131,25 @@ add_executable(collapseTree collapse_tree.cpp
   RefTreeGen.cpp
   int_stuff.cpp  
 )
+add_executable(test_trplMV_root test_trplMV_root.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  MinVarCounter.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  TrplMVRooting.cpp
+  int_stuff.cpp
+)
 
 add_executable(test_triplet_root test_triplet_root.cpp
   CountingArray.cpp

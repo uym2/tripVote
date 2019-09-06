@@ -14,7 +14,7 @@
 class TripletRooting {
  public:
   TripletRooting();
-  bool initialize(RootedTree *ref, RootedTree *tree);
+  virtual bool initialize(RootedTree *ref, RootedTree *tree);
   ~TripletRooting();
   
   virtual bool pairing();
