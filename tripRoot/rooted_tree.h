@@ -8,6 +8,7 @@
 #include "int_stuff.h"
 #include "templated_linked_list.h"
 #include "TripletCounter.h"
+#include <stack>
 
 class HDT;// Forward declaration...
 class RootedTreeFactory; // Forward declaration...
@@ -20,6 +21,8 @@ class RootedTree
         unsigned int idx; // added by uym2
 		unsigned int level;
 		RootedTree *parent;
+        double edge_length;
+
 		TemplatedLinkedList<RootedTree*> *children;
 		string name;
 		unsigned int numChildren;
@@ -58,10 +61,11 @@ class RootedTree
 		RootedTree *contract(RootedTreeFactory *factory = NULL);
         bool prune_subtree(RootedTree* leaf);
         void mark_active(TripletCounter *tripCount);
-           
+        bool read_newick(ifstream &fin);           
+
     private:
 		bool error;
-
+        void __set_label__(stack<RootedTree*> &stk, string &label, bool &wait_for_int_lab);
 		void toDotImpl();
 		void getListImpl(vector<RootedTree*>* list);
 		void computeNullChildrenData();

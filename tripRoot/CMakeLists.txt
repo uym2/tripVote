@@ -45,7 +45,7 @@ message(STATUS "CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 ## LIBRARIES
 ## EXECUTABLES
 
-add_executable(test_write_newick test_write_newick.cpp
+add_executable(test_read_write_newick test_read_write_newick.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp

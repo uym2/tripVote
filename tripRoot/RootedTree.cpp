@@ -6,6 +6,90 @@
 /**************/
 /* uym2 added */
 
+void RootedTree::__set_label__(stack<RootedTree*> &stk, string &label, bool &wait_for_int_lab){
+        if (label != ""){
+            if (!wait_for_int_lab){
+                RootedTree *p = this->factory->getRootedTree(label);
+                stk.push(p);
+            } else {
+                stk.top()->name = label;
+            }
+        }
+        label = "";
+        wait_for_int_lab = false;
+}
+
+bool RootedTree::read_newick(ifstream &fin){
+		char c;
+		bool wait_for_int_lab = false;
+        bool is_at_root = true;
+		stack<RootedTree*> stk;
+
+		string label = "";
+		while (!fin.eof()){
+			fin >> c;
+            if (c == '('){
+                if (is_at_root){
+                    stk.push(this);
+                    is_at_root = false;
+                }
+                else{
+				    stk.push(NULL);
+                }
+				label = "";
+			}
+			
+            else if (c == ',') {
+				this->__set_label__(stk,label,wait_for_int_lab);
+			
+            } else if (c == ')'){
+				this->__set_label__(stk,label,wait_for_int_lab);
+				
+				RootedTree *q = stk.top();
+			    stk.pop();
+                unsigned int numChildren = 0;
+                TemplatedLinkedList<RootedTree*> *children = NULL;
+
+				while (q != NULL && q != this){
+                    numChildren++;
+                    TemplatedLinkedList<RootedTree*> *newItem = factory->getTemplatedLinkedList();
+                    newItem->data = q;
+                    newItem->next = children;
+                    children = newItem;
+                    q = stk.top();
+					stk.pop();
+				}
+
+                if (q == NULL){
+                    q = this->factory->getRootedTree();
+                }
+                
+                q->children = children;
+                q->numChildren = numChildren;  
+				
+                stk.push(q);
+				label = "";
+				wait_for_int_lab = true;
+			
+            } else if (c == ';'){
+				stk.pop();
+				break;
+			} else if (c == ':'){
+				this->__set_label__(stk,label,wait_for_int_lab);
+				double e;
+				fin >> e;
+				stk.top()->edge_length = e;
+				wait_for_int_lab = false;
+			}
+			else {
+				label += c;
+			}
+		}
+		return true;
+	}
+	
+
+
 void RootedTree::mark_active(TripletCounter *tripCount){
     if (this->isLeaf())
         return;
@@ -90,8 +174,11 @@ void RootedTree::write_newick(ofstream &fout){
 }
 
 void RootedTree::__write_newick__(ofstream &fout){
-    if (this->isLeaf())
+    if (this->isLeaf()){
         fout << this->name;
+        if (this->edge_length > 0)
+            fout << ":" << this->edge_length;
+    }
     else {
         fout << "(";
         // first child
@@ -102,7 +189,9 @@ void RootedTree::__write_newick__(ofstream &fout){
             fout << ",";
             i->data->__write_newick__(fout);
         }
-        fout << ")";
+        fout << ")" << this->name;
+        if (this->edge_length > 0)
+            fout << ":" << this->edge_length;
     }
 }
 
@@ -189,6 +278,8 @@ void RootedTree::initialize(string name)
 	// Color 1 is standard...
 	color = 1;
 	this->name = name;
+    this->factory = NULL;
+    this->edge_length = -1;
 }
 
 bool RootedTree::isLeaf()
