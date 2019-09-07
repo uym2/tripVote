@@ -106,5 +106,19 @@ void TrplMVRooting::__compute_var__(RootedTree *t){
 
 bool TrplMVRooting::find_optimal_root(){
     countChildren(myTree);
-    return this->compute_varScore() && this->compute_tripScore();
+
+    if (this->compute_varScore() && this->compute_tripScore()){
+        this->optimalRoot = this->optimaltripRoots->data;;
+        double mvScore = this->mvCount->minVar[this->optimalRoot->idx];
+        
+        for (TemplatedLinkedList<RootedTree*> *i = this->optimaltripRoots->next; i != NULL; i = i->next){
+            if (mvCount->minVar[i->data->idx] < mvScore){
+                this->optimalRoot = i->data;
+                mvScore = mvCount->minVar[i->data->idx];
+            }
+        }    
+        return true;
+    } else {
+        return false;
+    }
 }

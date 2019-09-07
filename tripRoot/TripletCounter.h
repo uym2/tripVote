@@ -7,7 +7,8 @@ class TripletCounter
 {
     public:
         unsigned int N; // this is the number of nodes in the tree it represents
-        INTTYPE_REST *tI, *tO, *tR, *tA; //triplets inside, outside, as the root, and accumulated of the inside
+        INTTYPE_REST *tI, *tO, *tR; //triplets inside, outside and as the root
+        INTTYPE_REST *tripScore; // triplet score of the tree if it is rooted at this node
         bool *isActive; // mark if the node is active - the root can be placed above it - or not
         	
 		TripletCounter(unsigned int N);
