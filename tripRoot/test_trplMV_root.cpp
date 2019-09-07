@@ -25,8 +25,8 @@ void test(const char* rFile, const char* tFile) {
   
   TrplMVRooting trplRooting;
   trplRooting.initialize(rt1,rt2);
-  trplRooting.compute_root_var(); 
-  cout << trplRooting.mvCount->var[trplRooting.myTree->idx] << endl;
+  trplRooting.compute_varScore(); 
+  cout << trplRooting.optimalVarScore << endl;
 
   delete factory;
   delete rt1;

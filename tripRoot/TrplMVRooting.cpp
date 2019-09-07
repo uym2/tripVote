@@ -9,6 +9,7 @@ TrplMVRooting::TrplMVRooting(){
     this->dummyHDTFactory = NULL;
     this->ambiguity = 0;
     this->mvCount = NULL; 
+    this->optimalVarScore = -1;
 }
 
 bool TrplMVRooting::initialize(RootedTree *ref, RootedTree *tree){
@@ -55,10 +56,16 @@ void TrplMVRooting::__compute_SI__(RootedTree *t){
     this->mvCount->SI[t->idx] = mySI;     
 }
 
-void TrplMVRooting::compute_varScore(){
+bool TrplMVRooting::compute_varScore(){
+    this->countChildren(myTree);
     this->mvCount->var[this->myTree->idx] = this->compute_root_var();
+    this->optimalVarScore = this->mvCount->var[this->myTree->idx]; 
     this->__compute_SI__(this->myTree);
     this->mvCount->ST[this->myTree->idx] = this->mvCount->SI[this->myTree->idx]; 
+    this->__compute_ST__(this->myTree);
+    this->__compute_var__(this->myTree);
+
+    return true;
 }
 
 void TrplMVRooting::__compute_ST__(RootedTree *t){
@@ -73,10 +80,10 @@ void TrplMVRooting::__compute_var__(RootedTree *t){
         double alpha, beta, a, b, c, x_star;
 
         alpha = (2*this->mvCount->ST[t->idx] - 4*(this->mvCount->SI[i->data->idx] + i->data->n*i->data->edge_length))/this->myTree->n;
-        beta = 1 - 2*i->data->n/this->myTree->n;
+        beta = 1 - 2*(double)i->data->n/this->myTree->n;
         
-        a =  (1-beta*beta);
-        b = (alpha - 2*mvCount->ST[t->idx]*beta/myTree->n);
+        a =  1-beta*beta;
+        b = alpha - 2*mvCount->ST[t->idx]*beta/myTree->n;
 
         this->mvCount->var[i->data->idx] = a*i->data->edge_length*i->data->edge_length + b*i->data->edge_length + this->mvCount->var[t->idx];                                    
         x_star = -b/(2*a);
@@ -91,7 +98,13 @@ void TrplMVRooting::__compute_var__(RootedTree *t){
             mvCount->xStar[i->data->idx] = 0;
             this->mvCount->minVar[i->data->idx] = this->mvCount->var[t->idx];  
         }
-
+        if (this->mvCount->minVar[i->data->idx] < this->optimalVarScore)
+            this->optimalVarScore = this->mvCount->minVar[i->data->idx]; 
         this->__compute_var__(i->data);
-    } 
+    }
+}
+
+bool TrplMVRooting::find_optimal_root(){
+    countChildren(myTree);
+    return this->compute_varScore() && this->compute_tripScore();
 }

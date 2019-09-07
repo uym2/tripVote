@@ -16,24 +16,22 @@ bool TripletRooting::pairing(){
 }
 
 bool TripletRooting::find_optimal_root(){
+    countChildren(myTree);
+    return this->compute_tripScore();
+}
+
+bool TripletRooting::compute_tripScore(){
     if (!this->pairing()){
         cerr << "Error: could not pair the two trees. Aborting!" << endl;
         return false;
     }
 
     // construct HDT for myRef
-    countChildren(myTree);
     std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
     
     count(myTree);
 
-    // HDT is deleted in count if extracting and contracting!
-/*
-#ifndef doExtractAndContract
-    delete hdt->factory;
-#endif
-*/    
     this->compute_tA(this->myTree);
     
 

@@ -24,7 +24,8 @@ class TripletRooting {
   void update_tO(unsigned int nodeIdx, unsigned int color, bool count_unresolved=false);
   void update_tR(unsigned int nodeIdx);
   void compute_tA(RootedTree *v);
-  bool find_optimal_root();
+  virtual bool find_optimal_root();
+  bool compute_tripScore();
   void downroot(RootedTree *v, INTTYPE_REST parent_score, bool parent_active);      
 
   HDTFactory *dummyHDTFactory;

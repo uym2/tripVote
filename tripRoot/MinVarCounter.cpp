@@ -1,11 +1,11 @@
 #include "MinVarCounter.h"
 
 MinVarCounter::MinVarCounter(unsigned int N){
-    var = new float [N];
-    minVar = new float [N];
-    xStar = new float [N];
-    SI = new float [N];
-    ST = new float [N];
+    var = new double [N];
+    minVar = new double [N];
+    xStar = new double [N];
+    SI = new double [N];
+    ST = new double [N];
 }
 
 MinVarCounter::~MinVarCounter(){

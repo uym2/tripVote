@@ -14,12 +14,13 @@
 class TrplMVRooting : public TripletRooting {
  public:
   MinVarCounter *mvCount; 
+  double optimalVarScore; 
   TrplMVRooting();
   ~TrplMVRooting();
   bool initialize(RootedTree *ref, RootedTree *tree);
   bool find_optimal_root();
   double compute_root_var();
-  void compute_varScore(); // compute the MV score for each branch
+  bool compute_varScore(); // compute the MV score for each branch
  private: 
   void __compute_root_var__(RootedTree *t, double & nleaves, double d2root, double & acc_sum, double & acc_sumSquare);
   void __compute_SI__(RootedTree *t);
