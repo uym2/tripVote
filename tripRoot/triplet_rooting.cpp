@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     std::cout << "Ambiguity: " << tripRoot.ambiguity << endl;
     
-    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
+    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot,tripRoot.optimalRoot->edge_length/2);
     rerooted->write_newick(fout);
     fout << endl;
 

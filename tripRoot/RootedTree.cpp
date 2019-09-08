@@ -230,7 +230,7 @@ bool RootedTree::remove_child(RootedTree *child){
     return false;
 }
 
-RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
+RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
     RootedTree* v = node;
     if (v == this) // v is the root
         return this;
@@ -242,27 +242,37 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
         
     RootedTree *u = v->parent;    
     RootedTree *w = u->parent;
+    double ev = v->edge_length;
+    double eu = u->edge_length;
+
     RootedTree *newRoot = this->factory->getRootedTree();
     u->remove_child(v);
     newRoot->children = NULL;
     newRoot->addChild(v);
     newRoot->addChild(u);
-
+    v->edge_length = ev-x;
+    u->edge_length = x;
   
    
     while(w != NULL){
         v = w;
         w = w->parent;
-        
+        ev = v->edge_length;;
         u->addChild(v);
+        v->edge_length = eu;
+
         u = v;
+        eu = ev;
     }
 
     if (u->numChildren < 2){
         // suppress unifurcation
+        // u has a single child; it is u->children->data
+        double e = u->edge_length + u->children->data->edge_length;
         w = u->parent;
         w->remove_child(u);
         w->addChild(u->children->data);
+        u->children->data->edge_length = e;
     }
     
     return newRoot;
@@ -290,7 +300,7 @@ void RootedTree::__write_newick__(ofstream &fout){
             i->data->__write_newick__(fout);
         }
         fout << ")" << this->name;
-        if (this->edge_length > 0)
+        if (this->edge_length >= 0)
             fout << ":" << this->edge_length;
     }
 }

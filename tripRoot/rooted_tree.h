@@ -42,7 +42,7 @@ class RootedTree
         RootedTree* down_root(RootedTree *u); // uym2 added
         void print_leaves(); // uym2 added
         RootedTree* copyTree(RootedTreeFactory *factory = NULL);
-        RootedTree* reroot_at_edge(RootedTree *node);
+        RootedTree* reroot_at_edge(RootedTree *node, double x);
         void write_newick(ofstream &fout);
         bool remove_child(RootedTree *child);
         

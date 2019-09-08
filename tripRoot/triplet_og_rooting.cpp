@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
     //tripRoot.optimalRoot->print_leaves();
     //std::cout << endl;
 
-    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
+    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot,tripRoot.optimalRoot->edge_length/2);
     rerooted->write_newick(fout);
     fout << endl;
 
