@@ -57,11 +57,11 @@ int main(int argc, char** argv) {
   while (1){
     RootedTreeFactory *rFactory = new RootedTreeFactory();
     RootedTreeFactory *tFactory = new RootedTreeFactory();
-    RootedTree *rRef = new RootedTree;
-    RootedTree *rTre = new RootedTree;
+    RootedTree *rRef = rFactory->getRootedTree();
+    RootedTree *rTre = tFactory->getRootedTree();
 
-    rRef->initialize();
-    rTre->initialize();
+    //rRef->initialize();
+    //rTre->initialize();
 
     rRef->factory = rFactory;
     rTre->factory = tFactory;
@@ -91,8 +91,6 @@ int main(int argc, char** argv) {
 
     delete rFactory;
     delete tFactory;
-    delete rRef;
-    delete rTre;
 
     i++;
   }
