@@ -96,7 +96,7 @@ bool RootedTree::read_newick_str(string str){
                     ++it;
                     c = *it;
                 }
-                double e = stod(se);
+                double e = std::stod(se);
 				stk.top()->edge_length = e;
 				wait_for_int_lab = false;
 			}
