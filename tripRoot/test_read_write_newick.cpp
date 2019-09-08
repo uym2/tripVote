@@ -7,16 +7,17 @@
 #include <cassert>
 
 int main(int argc, char **argv) {
-  NewickParser parser;
-  //UnrootedTree *ut1 = parser.parseFile(argv[1]);
-  //RootedTree *rt1 = ut1->convertToRootedTree(NULL);
-  ifstream fin;
+  /*ifstream fin;
   fin.open(argv[1]);
+  string treeStr;
+  std::getline(fin,treeStr);
+  fin.close();*/
+  
   RootedTree *rt1 = new RootedTree;
-  //rt1->initialize("");
+  rt1->initialize("");
   rt1->factory = new RootedTreeFactory();
-  rt1->read_newick(fin);
-  fin.close();
+  rt1->read_newick_file(argv[1]);
+
   ofstream fout;
   fout.open(argv[2]);
   rt1->write_newick(fout);

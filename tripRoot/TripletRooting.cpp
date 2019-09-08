@@ -18,7 +18,7 @@ bool TripletRooting::pairing(){
 bool TripletRooting::find_optimal_root(){
     countChildren(myTree);
     if (this->compute_tripScore()){
-        this->optimalRoot = optimaltripRoots->data;    
+        this->optimalRoot = optimaltripRoots->data;
         return true;
     } else{
         return false;

@@ -55,10 +55,16 @@ int main(int argc, char** argv) {
   unsigned int i = 1;
 
   while (1){
-    UnrootedTree *uRef = NULL;
-    UnrootedTree *uTre = NULL;
-    RootedTree *rRef = NULL;
-    RootedTree *rTre = NULL;
+    RootedTreeFactory *rFactory = new RootedTreeFactory();
+    RootedTreeFactory *tFactory = new RootedTreeFactory();
+    RootedTree *rRef = new RootedTree;
+    RootedTree *rTre = new RootedTree;
+
+    rRef->initialize();
+    rTre->initialize();
+
+    rRef->factory = rFactory;
+    rTre->factory = tFactory;
 
     // read new tree to reroot it
     string treeStr;
@@ -70,16 +76,8 @@ int main(int argc, char** argv) {
     std::cout << "Processing tree " << i << std::endl;
     
     // read reference tree
-    uRef = parser.parseFile(refTreeFile);
-    rRef = uRef->convertToRootedTree(NULL);
-    cout << "I could read the reference!" << endl;
-    
-    uTre = parser.parseStr(treeStr);
-    //uTre = parser.parseFile(myTreeFile);
-    cout << "I could parse the input!" << endl;
-    rTre = uTre->convertToRootedTree(NULL);
-    cout << "I could read the input!" << endl;
-
+    rRef->read_newick_file(refTreeFile);
+    rTre->read_newick_str(treeStr);    
 
     TripletRooting tripRoot;
     tripRoot.initialize(rRef,rTre);
@@ -87,15 +85,14 @@ int main(int argc, char** argv) {
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     std::cout << "Ambiguity: " << tripRoot.ambiguity << endl;
     
-    //std::cout << "Rooting at sub tree: " << endl;
-    //tripRoot.optimalRoot->print_leaves();
-    //std::cout << endl;
-
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot);
     rerooted->write_newick(fout);
     fout << endl;
 
-    delete rRef->factory;
+    delete rFactory;
+    delete tFactory;
+    delete rRef;
+    delete rTre;
 
     i++;
   }

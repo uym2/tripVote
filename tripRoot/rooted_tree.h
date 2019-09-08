@@ -46,7 +46,7 @@ class RootedTree
         void write_newick(ofstream &fout);
         bool remove_child(RootedTree *child);
         
-		void initialize(string name);
+		void initialize(string name="");
 		bool isLeaf();
 		void addChild(RootedTree *t);
 		RootedTree* getParent();
@@ -61,7 +61,8 @@ class RootedTree
 		RootedTree *contract(RootedTreeFactory *factory = NULL);
         bool prune_subtree(RootedTree* leaf);
         void mark_active(TripletCounter *tripCount);
-        bool read_newick(ifstream &fin);           
+        bool read_newick_file(string treeFile);           
+        bool read_newick_str(string str);
 
     private:
 		bool error;

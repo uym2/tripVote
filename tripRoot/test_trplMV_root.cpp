@@ -7,28 +7,24 @@
 #include <cassert>
 
 void test(const char* rFile, const char* tFile) {
-  RootedTreeFactory *factory = new RootedTreeFactory();
+  RootedTreeFactory *factory1 = new RootedTreeFactory();
+  RootedTreeFactory *factory2 = new RootedTreeFactory();
   RootedTree *rt1 = new RootedTree;
   RootedTree *rt2 = new RootedTree;
 
-  rt1->factory = factory;
-  rt2->factory = factory;
+  rt1->factory = factory1;
+  rt2->factory = factory2;
 
-  ifstream fin;
-  fin.open(rFile);    
-  rt1->read_newick(fin);
-  fin.close();
-  
-  fin.open(tFile);
-  rt2->read_newick(fin);
-  fin.close();
+  rt1->read_newick_file(rFile);
+  rt2->read_newick_file(tFile);
   
   TrplMVRooting trplRooting;
   trplRooting.initialize(rt1,rt2);
   trplRooting.compute_varScore(); 
   cout << trplRooting.optimalVarScore << endl;
 
-  delete factory;
+  delete factory1;
+  delete factory2;
   delete rt1;
   delete rt2;
 }

@@ -19,7 +19,99 @@ void RootedTree::__set_label__(stack<RootedTree*> &stk, string &label, bool &wai
         wait_for_int_lab = false;
 }
 
-bool RootedTree::read_newick(ifstream &fin){
+bool RootedTree::read_newick_str(string str){
+        this->maxDegree = 0;
+		char c;
+		bool wait_for_int_lab = false;
+        bool is_at_root = true;
+		stack<RootedTree*> stk;
+
+		string label = "";
+        string::iterator it = str.begin();
+
+        while (it != str.end()){
+			c = *it;
+            if (c == '('){
+                if (is_at_root){
+                    stk.push(this);
+                    is_at_root = false;
+                }
+                else{
+				    stk.push(NULL);
+                }
+				label = "";
+                ++it;
+
+			} else if (c == ',') {
+				this->__set_label__(stk,label,wait_for_int_lab);
+                ++it;
+
+            } else if (c == ')'){
+				this->__set_label__(stk,label,wait_for_int_lab);
+				
+				RootedTree *q = stk.top();
+			    stk.pop();
+                unsigned int numChildren = 0;
+                TemplatedLinkedList<RootedTree*> *children = NULL;
+
+				while (q != NULL && q != this){
+                    numChildren++;
+                    TemplatedLinkedList<RootedTree*> *newItem = factory->getTemplatedLinkedList();
+                    newItem->data = q;
+                    newItem->next = children;
+                    children = newItem;
+                    q = stk.top();
+					stk.pop();
+				}
+
+                if (q == NULL){
+                    q = this->factory->getRootedTree();
+                }
+                
+                q->children = children;
+                q->numChildren = numChildren;  
+                
+                for (TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+                    i->data->parent = q;
+				
+                if (numChildren > this->maxDegree)
+                    this->maxDegree = numChildren;  
+                
+                stk.push(q);
+				label = "";
+				wait_for_int_lab = true;
+			    ++it;
+
+            } else if (c == ';'){
+				stk.pop();
+				break;
+
+			} else if (c == ':'){
+				this->__set_label__(stk,label,wait_for_int_lab);
+                string se = "";
+                ++it;
+                c = *it;
+                while (c != ',' && c != ')' && c != ';'){
+				    se += c;
+                    ++it;
+                    c = *it;
+                }
+                double e = stod(se);
+				stk.top()->edge_length = e;
+				wait_for_int_lab = false;
+			}
+			else {
+				label += c;
+                ++it;
+			}
+		}
+		return true;
+}
+
+bool RootedTree::read_newick_file(string treeFile){
+        this->maxDegree = 0;
+        ifstream fin;
+        fin.open(treeFile);
 		char c;
 		bool wait_for_int_lab = false;
         bool is_at_root = true;
@@ -65,7 +157,13 @@ bool RootedTree::read_newick(ifstream &fin){
                 }
                 
                 q->children = children;
-                q->numChildren = numChildren;  
+                q->numChildren = numChildren;
+
+                for (TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+                    i->data->parent = q;
+
+                if (numChildren > this->maxDegree)
+                    this->maxDegree = numChildren;  
 				
                 stk.push(q);
 				label = "";
@@ -85,6 +183,7 @@ bool RootedTree::read_newick(ifstream &fin){
 				label += c;
 			}
 		}
+        fin.close();
 		return true;
 	}
 	
@@ -149,6 +248,7 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
     newRoot->addChild(v);
     newRoot->addChild(u);
 
+  
    
     while(w != NULL){
         v = w;
