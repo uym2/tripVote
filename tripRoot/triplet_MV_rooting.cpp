@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
     std::cout << "Ambiguity: " << tripRoot.ambiguity << endl;
     std::cout << "MV score at the selected root: " << tripRoot.mvCount->minVar[tripRoot.optimalRoot->idx] << endl;
     
-    double x =  tripRoot.mvCount->xStar[tripRoot.optimalRoot->idx]; 
+    double x =  tripRoot.mvCount->xStar[tripRoot.optimalRoot->idx];
     RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot,x);
     rerooted->write_newick(fout);
     fout << endl;

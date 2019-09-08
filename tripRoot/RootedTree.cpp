@@ -267,12 +267,13 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
 
     if (u->numChildren < 2){
         // suppress unifurcation
-        // u has a single child; it is u->children->data
-        double e = u->edge_length + u->children->data->edge_length;
+        // u has a single child; it is v = u->children->data
+        v = u->children->data;;
+        double e = u->edge_length + v->edge_length;
         w = u->parent;
         w->remove_child(u);
-        w->addChild(u->children->data);
-        u->children->data->edge_length = e;
+        v->edge_length = e;
+        w->addChild(v);
     }
     
     return newRoot;
