@@ -80,6 +80,25 @@ add_executable(tripRoot triplet_rooting.cpp
   TripletRooting.cpp
   int_stuff.cpp)
 
+add_executable(tripMVRoot triplet_MV_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  MinVarCounter.cpp
+  TripletRooting.cpp
+  TrplMVRooting.cpp  
+  int_stuff.cpp)
+
 add_executable(tripOGRoot triplet_og_rooting.cpp
   CountingArray.cpp
   HDT.cpp
