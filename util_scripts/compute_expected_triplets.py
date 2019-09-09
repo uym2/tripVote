@@ -92,10 +92,14 @@ def collapse_edge(myTree,v):
 
 def maxTrpl_collapse(myTree,N,respect_level=False):
 # collapse myTree to maximize its expected normalized triplet score to gene trees
+    preprocessing(myTree)
+
     nleaves = myTree.num_nodes(leaves=True,internal=False)
     
     expTrpl = expected_triplets(myTree,N)
     totalTrpl = nleaves*(nleaves-1)*(nleaves-2)/6
+    org_totalTrpl = totalTrpl
+    org_expTrpl = expTrpl
 
     orgScore = expTrpl/totalTrpl
     optScore = orgScore
@@ -118,6 +122,45 @@ def maxTrpl_collapse(myTree,N,respect_level=False):
             break
     
     for u in cList:
-        u.contract() 
+        u.marked = True
     
-    return orgScore, optScore
+    total_reduce, expected_reduce = compute_reduced_triplets(myTree,N)
+
+    for u in cList:
+        u.contract()
+    
+    #return orgScore, optScore
+    return org_totalTrpl, total_reduce, org_expTrpl, expected_reduce
+
+def preprocessing(myTree):
+    for node in myTree.traverse_postorder():
+        if node.is_leaf():
+            node.n = 1
+        else:
+            node.n = sum([x.n for x in node.child_nodes()])
+        node.marked = False        
+
+
+def compute_reduced_triplets(myTree,N):
+# suppose the branches to be collapsed are already marked in myTree    
+# and suppose that we already computed the number of leaves below each node
+    total_reduce = 0        # the reduction in the number of resolved triplets in the collapsed tree
+    expected_reduce = 0     # the expected reduction in the triplet score of the collapsed tree and gene trees
+
+    for a in myTree.traverse_preorder():
+        if not a.marked:
+            continue
+        p = a.get_parent()
+        x = a.get_edge_length()/N
+        if p.marked:
+            E = [(n,e+x) for (n,e) in p.E]
+        else:
+            E = []    
+        E.append((p.n-a.n,x))
+        a.E = E
+        pairs = count_pairs(a)
+        for (n,x) in a.E:
+            total_reduce += n*pairs
+            expected_reduce += (1-2*exp(-x)/3)*n*pairs
+    
+    return total_reduce, expected_reduce        
