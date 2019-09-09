@@ -147,6 +147,23 @@ add_executable(triplet_dist triplet_dist.cpp
   QuartetDistanceCalculator.cpp
   int_stuff.cpp)
 
+add_executable(triplet_dist_2_ref triplet_dist_to_ref.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  AbstractDistanceCalculator.cpp
+  TripletDistanceCalculator.cpp
+  QuartetDistanceCalculator.cpp
+  int_stuff.cpp)
+
 add_executable(all_pairs_triplet_dist all_pairs_triplet_distance.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
