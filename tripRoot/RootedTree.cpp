@@ -111,7 +111,7 @@ bool RootedTree::read_newick_str(string str){
 bool RootedTree::read_newick_file(string treeFile){
         this->maxDegree = 0;
         ifstream fin;
-        fin.open(treeFile);
+        fin.open(treeFile.c_str());
 		char c;
 		bool wait_for_int_lab = false;
         bool is_at_root = true;
