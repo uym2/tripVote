@@ -10,16 +10,16 @@ myTree = treeswift.read_tree_newick(argv[1])
 N = float(argv[2])
 outTree = argv[3]
 
-org_totalTrpl, total_reduce, org_expTrpl, expected_reduce = maxTrpl_collapse(myTree,N,respect_level=False)
+before_totalTrpl, after_totalTrpl, before_expTrpl, after_expTrpl = maxTrpl_collapse(myTree,N,respect_level=False)
 
 myTree.write_tree_newick(outTree)
 
 print("Before collapsing: ")
-print("Total triplets = " + str(org_totalTrpl))
-print("Expected triplets = " + str(org_expTrpl))
+print("Total triplets = " + str(before_totalTrpl))
+print("Expected triplets = " + str(before_expTrpl))
 print("After collapsing: " )
-print("Total reduce: " + str(total_reduce))
-print("Expected reduce: " + str(expected_reduce))
+print("Total triplets: " + str(after_totalTrpl))
+print("Expected triplets: " + str(after_expTrpl))
 
 #print("Expected normalized triplet score increased from " + str(orgScore) + " to " + str(optScore))
 #print("The contracted tree was written to " + str(outTree))

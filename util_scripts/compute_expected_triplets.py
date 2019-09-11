@@ -130,7 +130,7 @@ def maxTrpl_collapse(myTree,N,respect_level=False):
         u.contract()
     
     #return orgScore, optScore
-    return org_totalTrpl, total_reduce, org_expTrpl, expected_reduce
+    return org_totalTrpl, org_totalTrpl-total_reduce, org_expTrpl, org_expTrpl-expected_reduce
 
 def preprocessing(myTree):
     for node in myTree.traverse_postorder():
