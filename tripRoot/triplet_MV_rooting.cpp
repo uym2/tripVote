@@ -77,6 +77,8 @@ int main(int argc, char** argv) {
     
     // read reference tree
     rRef->read_newick_file(refTreeFile);
+
+    // read new input tree
     rTre->read_newick_str(treeStr);    
 
     TrplMVRooting tripRoot;

@@ -99,6 +99,23 @@ add_executable(tripMVRoot triplet_MV_rooting.cpp
   TrplMVRooting.cpp  
   int_stuff.cpp)
 
+add_executable(MVRoot MV_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  int_stuff.cpp)
+
 add_executable(tripVote triplet_voting.cpp
   CountingArray.cpp
   HDT.cpp
