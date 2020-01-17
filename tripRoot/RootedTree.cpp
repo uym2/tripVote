@@ -328,6 +328,20 @@ int RootedTree::set_all_idx(unsigned int startIdx){
     return currIdx;
 }
 
+RootedTree* RootedTree::search_idx(unsigned int idx){
+    if(this->idx == idx)
+        return this;
+    
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+    {
+        RootedTree *t = i->data; 
+        RootedTree *result = t->search_idx(idx);
+        if (result)
+            return result;
+    }
+    return NULL;
+}
+
 RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
     // create a deep copy of tree t
 	if (factory == NULL) factory = new RootedTreeFactory(NULL);

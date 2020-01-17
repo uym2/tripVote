@@ -59,10 +59,14 @@ class RootedTree
 		void markHDTAlternative();
 		bool isError();
 		RootedTree *contract(RootedTreeFactory *factory = NULL);
+
+
+        // uym2 added
         bool prune_subtree(RootedTree* leaf);
         void mark_active(TripletCounter *tripCount);
         bool read_newick_file(string treeFile);           
         bool read_newick_str(string str);
+        RootedTree* search_idx(unsigned int idx);
 
     private:
 		bool error;
