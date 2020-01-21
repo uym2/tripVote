@@ -245,7 +245,13 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
     double ev = v->edge_length;
     double eu = u->edge_length;
 
-    RootedTree *newRoot = this->factory->getRootedTree();
+
+    RootedTreeFactory *tFactory = new RootedTreeFactory();
+    RootedTree *newRoot = tFactory->getRootedTree();
+    newRoot->factory = tFactory;
+
+    //RootedTree *newRoot = this->factory->getRootedTree();
+    //newRoot->factory = this->factory;
     u->remove_child(v);
     newRoot->children = NULL;
     newRoot->addChild(v);
@@ -460,6 +466,21 @@ void RootedTree::initialize(string name)
 bool RootedTree::isLeaf()
 {
 	return numChildren == 0;
+}
+
+bool RootedTree::isRoot()
+{
+    return this->parent == NULL;
+}
+
+void RootedTree::compute_d2root(){
+    if (this->isRoot())
+        this->d2root = 0;
+    for(TemplatedLinkedList<RootedTree*> *i = this->children; i != NULL; i = i->next){
+        RootedTree* t = i->data;
+        t->d2root = this->d2root + t->edge_length;
+        t->compute_d2root();
+    }
 }
 
 void RootedTree::addChild(RootedTree *t)
@@ -791,4 +812,15 @@ void RootedTree::__count_children__(RootedTree *t) {
 
 void RootedTree::countChildren(){
     this->__count_children__(this);
+}
+
+bool __wayToSort__(RootedTree* i, RootedTree* j){
+    return i->d2root < j->d2root;
+}
+
+vector<RootedTree*> RootedTree::sort_leaf_by_d2root(){
+    this->compute_d2root();
+    vector<RootedTree*> L = *this->getList(); // leafset
+    sort(L.begin(),L.end(),__wayToSort__);    
+    return L;
 }

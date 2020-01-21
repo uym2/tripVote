@@ -155,6 +155,26 @@ add_executable(smplRoot smpl_rooting.cpp
   TripletRooting.cpp
   int_stuff.cpp)
 
+add_executable(smplVote smpl_d2root_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  subtree_sampler.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+
 add_executable(tripOGRoot triplet_og_rooting.cpp
   CountingArray.cpp
   HDT.cpp

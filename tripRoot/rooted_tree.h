@@ -22,6 +22,7 @@ class RootedTree
 		unsigned int level;
 		RootedTree *parent;
         double edge_length;
+        double d2root;
 
 		TemplatedLinkedList<RootedTree*> *children;
 		string name;
@@ -41,7 +42,8 @@ class RootedTree
         
 		void initialize(string name="");
 		bool isLeaf();
-		void addChild(RootedTree *t);
+		bool isRoot();
+        void addChild(RootedTree *t);
 		RootedTree* getParent();
 		INTTYPE_REST getUnresolvedTriplets();
 		INTTYPE_N4 getUnresolvedQuartets();
@@ -71,6 +73,8 @@ class RootedTree
         bool remove_child(RootedTree *child);
         void countChildren();
         void count_nodes();
+        void compute_d2root();
+        vector<RootedTree*> sort_leaf_by_d2root();
 
     private:
 		bool error;

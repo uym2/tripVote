@@ -5,8 +5,13 @@
 #include <vector>
 
 SubtreeSampler::SubtreeSampler(RootedTree *tree){
-    this->myTree = tree;
+    string treeStr = tree->toString();
+    RootedTreeFactory *factory = new RootedTreeFactory();
+    this->myTree = factory->getRootedTree();
+    this->myTree->factory = factory;
+    this->myTree->read_newick_str(treeStr);
     this->myTree->countChildren();
+    this->myTree->compute_d2root();
     this->N = this->myTree->n;
 }
 
@@ -36,4 +41,43 @@ RootedTree* SubtreeSampler::sample_subtree(unsigned int k){
         subtree->prune_subtree(leaf);
     }
     return subtree;
+}
+
+vector<RootedTree*> SubtreeSampler::sample_by_d2root(unsigned int k, double size_proportion){    
+    unsigned int n = this->myTree->n;
+    unsigned int step = n/k;
+    unsigned int m = n*size_proportion;
+    
+    unsigned int start = 0;
+    unsigned int end = m-1;
+
+    vector<RootedTree*> my_subtrees;
+    
+    for (int i=0; i<k; i++){
+        // create a new tree identical to myTree then prune it
+        string treeStr = this->myTree->toString();
+        RootedTreeFactory *factory = new RootedTreeFactory();
+        RootedTree* subtree = factory->getRootedTree();
+        subtree->factory = factory;
+        subtree->read_newick_str(treeStr);
+    
+        // get the sorted leafset
+        vector<RootedTree*> L = subtree->sort_leaf_by_d2root();
+
+        // prune the left of start
+        for (int j=0; j<start; j++)
+            subtree->prune_subtree(L[j]);
+        
+        // prune the right of end
+        for (int j=end+1; j<n; j++){
+            subtree->prune_subtree(L[j]);
+        }
+        
+        // update start and end
+        start += step;
+        end += step;
+        my_subtrees.push_back(subtree);    
+    }
+
+    return my_subtrees;
 }
