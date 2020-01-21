@@ -32,7 +32,7 @@ bool TripletRooting::compute_tripScore(){
     }
 
     // construct HDT for myRef
-    std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
+    //std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
     
     count(myTree);
@@ -54,9 +54,9 @@ void TripletRooting::__downroot__(RootedTree *t, INTTYPE_REST parent_score, bool
     
     for(TemplatedLinkedList<RootedTree*> *current = t->children; current != NULL; current = current->next) {
         unsigned int v = current->data->idx;
-        if (!tripCount->isActive[v]){
-            continue;
-        }
+        //if (!tripCount->isActive[v]){
+        //    continue;
+        //}
         
         INTTYPE_REST current_score = parent_score - tripCount->tI[u] + tripCount->tO[v] + tripCount->tR[v];
         this->tripCount->tripScore[v] = current_score;
@@ -104,7 +104,7 @@ bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
     this->myRef = ref;
     this->myTree = tree;
     this->hdt = NULL;
-    unsigned int N = this->myTree->set_all_idx(0);
+    unsigned int N = this->myTree->nodeCounts;
     tripCount = new TripletCounter(N);
     dummyHDTFactory = new HDTFactory(myTree->maxDegree+1);
     return true;

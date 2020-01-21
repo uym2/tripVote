@@ -67,7 +67,8 @@ void MVRooting::countChildren(RootedTree *t) {
 RootedTree* MVRooting::root_tree(){
     this->countChildren(myTree);
     this->mvCount->var[this->myTree->idx] = this->compute_root_var();
-    this->optimalVarScore = this->mvCount->var[this->myTree->idx]; 
+    this->optimalVarScore = this->mvCount->var[this->myTree->idx];
+    this->optimalRoot = this->myTree; 
     this->__compute_SI__(this->myTree);
     this->mvCount->ST[this->myTree->idx] = this->mvCount->SI[this->myTree->idx]; 
     this->__compute_ST__(this->myTree);

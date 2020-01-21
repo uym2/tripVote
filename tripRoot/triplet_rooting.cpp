@@ -3,7 +3,7 @@
 #include <cstring>
 
 #include "int_stuff.h"
-#include "TripletRooting.h"
+#include "TrplMVRooting.h"
 #include "newick_parser.h"
 
 #ifndef _MSC_VER
@@ -77,15 +77,19 @@ int main(int argc, char** argv) {
     
     // read reference tree
     rRef->read_newick_file(refTreeFile);
+
+    // read new input tree
     rTre->read_newick_str(treeStr);    
 
-    TripletRooting tripRoot;
+    TrplMVRooting tripRoot;
     tripRoot.initialize(rRef,rTre);
     tripRoot.find_optimal_root();
     std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
     std::cout << "Ambiguity: " << tripRoot.ambiguity << endl;
+    std::cout << "MV score at the selected root: " << tripRoot.mvCount->minVar[tripRoot.optimalRoot->idx] << endl;
     
-    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot,tripRoot.optimalRoot->edge_length/2);
+    double x =  tripRoot.mvCount->xStar[tripRoot.optimalRoot->idx];
+    RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot,x);
     rerooted->write_newick(fout);
     fout << endl;
 

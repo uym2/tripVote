@@ -4,56 +4,53 @@
 
 #include "int_stuff.h"
 #include "TripletRooting.h"
+#include "MVRooting.h"
+#include "subtree_sampler.h"
 #include "newick_parser.h"
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
 #endif
 
+TripletCounter* oneVote(RootedTree *myTree, RootedTree *refTree){
+    TripletRooting tripRoot;
+    tripRoot.initialize(refTree,myTree);
+    if (tripRoot.find_optimal_root())
+        return tripRoot.tripCount;
+    else    
+        return NULL;
+}
 
-RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
+RootedTree* rootFromSamples(RootedTree *myTree, unsigned int n_smpl){
     myTree->set_all_idx(0);
     myTree->count_nodes();
+    
+    ofstream fout;
+    fout.open("smpl_trees.txt");
 
     INTTYPE_REST *allCounts = NULL;
+    SubtreeSampler sampler(myTree);
+    unsigned int k = sampler.N/2;
     unsigned int N = 0;
     
-    ifstream fin;
-    fin.open(refTreeFile);
+    for (int i=0; i < n_smpl; i++){
+        cout << "Generating sample " << i+1 << endl;
 
-    unsigned int tr = 1;
-
-    while(1){
-        string treeStr;
-        std::getline(fin,treeStr);
-        if (fin.eof())
-            break;
+        RootedTree* tree = sampler.sample_subtree(k);  
         
-        cout << "Processing tree " << tr << endl;
-        tr++;
-        
-        RootedTreeFactory *rFactory = new RootedTreeFactory();
-        RootedTree *refTree = rFactory->getRootedTree();
-        refTree->factory = rFactory;
-        refTree->read_newick_str(treeStr); 
-           
+        MVRooting mvRoot;
+        mvRoot.initialize(tree);
+        RootedTree* refTree = mvRoot.root_tree(); 
+        refTree->write_newick(fout);
+        fout << endl;
         
         TripletRooting tripRoot;
         tripRoot.initialize(refTree,myTree);
-        if (!tripRoot.find_optimal_root()){
-            cout << "Failed to find optimal root of this sample!" << endl;
-            continue;
-        }
+        tripRoot.find_optimal_root();        
         TripletCounter* oneCount = tripRoot.tripCount;
         
-        //for (int i = 0; i<oneCount->N; i++)
-        //    cout << oneCount->tripScore[i] << " ";
-        //cout << endl;
-
         // add oneCount to allCounts
         if (allCounts != NULL){
-            if (oneCount->N != N)
-                cout << "Size mismatch!" << endl;
             for (int i=0; i<N; i++)
                 allCounts[i] += oneCount->tripScore[i];
         } else {
@@ -64,8 +61,7 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
             }
         }
     }
-
-    fin.close();
+    fout.close();
 
     unsigned int best_node_idx = -1;    
     INTTYPE_REST best_vote = -1;
@@ -76,28 +72,21 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
             best_node_idx = i;
         }
     }
-
+    
     unsigned int Ambiguity = 0;
     for (int i = 0; i<N; i++){
-        //cout << allCounts[i] << " ";
         if (allCounts[i] == best_vote)
             Ambiguity++;
     }
-    cout << endl;
 
     cout << "Best vote score: " << best_vote << endl;
     cout << "Ambiguity: " << Ambiguity << endl;       
-
-    if (allCounts != NULL)
-        delete [] allCounts;
-    
-    RootedTree* opt_root = myTree->search_idx(best_node_idx);
-
-    return opt_root;
+    cout << "Optimal root index: " << best_node_idx << endl;
+    return myTree->search_idx(best_node_idx);
 }
 
 void usage(char *programName) {
-  std::cout << "Usage: " << programName << " <inTree> <outTree> <refTrees> " << std::endl 
+  std::cout << "Usage: " << programName << " <inTree> <outTree> <n_samples> " << std::endl 
 	    << std::endl;
 }
 
@@ -107,7 +96,7 @@ int main(int argc, char** argv) {
     return 0;
   }
 
-  char *refTreeFile = argv[3];
+  unsigned int n_smpl = std::stoi(argv[3]);
   char *myTreeFile = argv[1];
   char *outputTree = argv[2];
   
@@ -119,7 +108,7 @@ int main(int argc, char** argv) {
   myTree->factory = tFactory;
   myTree->read_newick_file(myTreeFile);
 
-  RootedTree *bestRoot = rootFromVotes(myTree, refTreeFile);    
+  RootedTree *bestRoot = rootFromSamples(myTree, n_smpl);    
   RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
   
   ofstream fout;

@@ -36,15 +36,8 @@ class RootedTree
 
 		// How many leaves beneath you?
 		int n;
-
-        int set_idx (unsigned int idx) { this->idx = idx; return 0; }; // uym2 added
-        int set_all_idx (unsigned int startIdx); // uym2 added
-        RootedTree* down_root(RootedTree *u); // uym2 added
-        void print_leaves(); // uym2 added
-        RootedTree* copyTree(RootedTreeFactory *factory = NULL);
-        RootedTree* reroot_at_edge(RootedTree *node, double x);
-        void write_newick(ofstream &fout);
-        bool remove_child(RootedTree *child);
+        // How many nodes beneath you?
+        unsigned int nodeCounts;
         
 		void initialize(string name="");
 		bool isLeaf();
@@ -67,6 +60,17 @@ class RootedTree
         bool read_newick_file(string treeFile);           
         bool read_newick_str(string str);
         RootedTree* search_idx(unsigned int idx);
+        int set_idx (unsigned int idx) { this->idx = idx; return 0; };
+        unsigned int set_all_idx (unsigned int startIdx);
+        RootedTree* down_root(RootedTree *u);
+        void print_leaves(); 
+        RootedTree* copyTree(RootedTreeFactory *factory = NULL);
+        RootedTree* reroot_at_edge(RootedTree *node, double x);
+        void write_newick(ofstream &fout);
+        string toString();
+        bool remove_child(RootedTree *child);
+        void countChildren();
+        void count_nodes();
 
     private:
 		bool error;
@@ -76,6 +80,8 @@ class RootedTree
 		void computeNullChildrenData();
 		RootedTree* contractImpl(RootedTreeFactory *factory);
         void __write_newick__(ofstream &fout);
+        void __count_children__(RootedTree *t);
+        void __to_string__(string &myString);
 };
 
 #endif
