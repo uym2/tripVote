@@ -294,7 +294,7 @@ void RootedTree::write_newick(ofstream &fout){
 void RootedTree::__write_newick__(ofstream &fout){
     if (this->isLeaf()){
         fout << this->name;
-        if (this->edge_length > 0)
+        if (this->edge_length >= 0)
             fout << ":" << this->edge_length;
     }
     else {
@@ -324,7 +324,7 @@ string RootedTree::toString(){
 void RootedTree::__to_string__(string &myString){
     if (this->isLeaf()){
         myString += this->name;
-        if (this->edge_length > 0){
+        if (this->edge_length >= 0){
             myString += ":";
             myString += std::to_string(this->edge_length);
         }
