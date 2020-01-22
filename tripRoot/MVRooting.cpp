@@ -11,7 +11,7 @@ MVRooting::MVRooting(){
 
 bool MVRooting::initialize(RootedTree *tree){
     this->myTree = tree;
-    unsigned int N = this->myTree->set_all_idx(0);
+    unsigned int N = this->myTree->nodeCounts;
     mvCount = new MinVarCounter(N);
     return true;
 }
@@ -64,9 +64,18 @@ void MVRooting::countChildren(RootedTree *t) {
   t->n = nSum;
 }
 
+void MVRooting::compute_score(){
+    this->mvCount->minVar[this->myTree->idx] = this->mvCount->var[this->myTree->idx] = this->compute_root_var();
+    this->optimalVarScore = this->mvCount->var[this->myTree->idx];
+    this->optimalRoot = this->myTree; 
+    this->__compute_SI__(this->myTree);
+    this->mvCount->ST[this->myTree->idx] = this->mvCount->SI[this->myTree->idx]; 
+    this->__compute_ST__(this->myTree);
+    this->__compute_var__(this->myTree);
+}
+
 RootedTree* MVRooting::root_tree(){
-    this->countChildren(myTree);
-    this->mvCount->var[this->myTree->idx] = this->compute_root_var();
+    this->mvCount->minVar[this->myTree->idx] = this->mvCount->var[this->myTree->idx] = this->compute_root_var();
     this->optimalVarScore = this->mvCount->var[this->myTree->idx];
     this->optimalRoot = this->myTree; 
     this->__compute_SI__(this->myTree);

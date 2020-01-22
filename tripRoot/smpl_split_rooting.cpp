@@ -19,7 +19,7 @@ RootedTree* rootFromSplitVotes(RootedTree *myTree){
     ofstream fout;
     fout.open("smpl_trees.txt");
 
-    INTTYPE_REST *allCounts = NULL;
+    double *allCounts = NULL;
     SubtreeSampler sampler(myTree);
     vector<string> my_subtrees = sampler.sample_by_splits();
     cout << "Number of subtrees: " << my_subtrees.size() << endl;
@@ -41,6 +41,8 @@ RootedTree* rootFromSplitVotes(RootedTree *myTree){
         if (tree->n < 3){
             continue;
         }
+
+        double norm = tree->n * (tree->n-1) * (tree->n-2) / 6;;
         
         MVRooting mvRoot;
         mvRoot.initialize(tree);
@@ -54,25 +56,27 @@ RootedTree* rootFromSplitVotes(RootedTree *myTree){
         tripRoot.find_optimal_root();        
         TripletCounter* oneCount = tripRoot.tripCount;
         
+
         // add oneCount to allCounts
         if (allCounts != NULL){
             for (int i=0; i<N; i++)
-                allCounts[i] += oneCount->tripScore[i];
+                allCounts[i] += oneCount->tripScore[i]/norm;
         } else {
             N = oneCount->N;
-            allCounts = new INTTYPE_REST[N];
+            allCounts = new double[N];
             for (int i=0; i<N; i++){
-                allCounts[i] = oneCount->tripScore[i];
+                allCounts[i] = oneCount->tripScore[i]/norm;
             }
         }
     }
     fout.close();
 
     unsigned int best_node_idx = -1;    
-    INTTYPE_REST best_vote = -1;
+    double best_vote = -1;
 
     for (int i=0; i<N; i++){
-        if (allCounts[i] >= best_vote){
+        cout << allCounts[i] << endl;
+        if (allCounts[i] > best_vote){
             best_vote = allCounts[i];
             best_node_idx = i;
         }

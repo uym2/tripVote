@@ -46,6 +46,9 @@ int main(int argc, char** argv) {
     RootedTree *myTree = tFactory->getRootedTree();
     myTree->factory = tFactory;
     myTree->read_newick_str(treeStr);    
+    myTree->countChildren();
+    myTree->count_nodes();
+    myTree->set_all_idx(0);
     
     MVRooting mvRoot;
     mvRoot.initialize(myTree);

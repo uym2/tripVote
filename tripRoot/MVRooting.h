@@ -22,6 +22,7 @@ class MVRooting {
   ~MVRooting();
   bool initialize(RootedTree *tree);
   RootedTree* root_tree();
+  void compute_score();
   void countChildren(RootedTree *t);
   double compute_root_var();
 

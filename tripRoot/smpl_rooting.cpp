@@ -73,15 +73,33 @@ RootedTree* rootFromSamples(RootedTree *myTree, unsigned int n_smpl){
         }
     }
     
+    MVRooting mvRoot;
+    mvRoot.initialize(myTree);
+    mvRoot.compute_score();
     unsigned int Ambiguity = 0;
+    double min_MV = mvRoot.mvCount->minVar[best_node_idx];
+
     for (int i = 0; i<N; i++){
-        if (allCounts[i] == best_vote)
+        if (allCounts[i] == best_vote){
             Ambiguity++;
+            if (mvRoot.mvCount->minVar[i] < min_MV){
+                min_MV = mvRoot.mvCount->minVar[i];
+                best_node_idx = i;
+            }
+        }
     }
 
     cout << "Best vote score: " << best_vote << endl;
     cout << "Ambiguity: " << Ambiguity << endl;       
     cout << "Optimal root index: " << best_node_idx << endl;
+
+    cout << "MV score at original root: " << mvRoot.mvCount->minVar[myTree->idx] << endl;
+    cout << "MV score at best voted root: " << mvRoot.mvCount->minVar[best_node_idx] << endl;
+
+    cout << "Vote score at original root: " << allCounts[myTree->idx] << endl;
+    cout << "Vote score at best voted root: " << allCounts[best_node_idx] << endl;
+
+
     return myTree->search_idx(best_node_idx);
 }
 
