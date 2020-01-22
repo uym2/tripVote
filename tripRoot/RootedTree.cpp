@@ -2,6 +2,7 @@
 #include "rooted_tree.h"
 #include "hdt.h"
 #include <fstream>
+#include <algorithm>
 
 /**************/
 /* uym2 added */
