@@ -37,6 +37,9 @@ RootedTree* rootFromSamples(RootedTree *myTree, unsigned int n_smpl){
         cout << "Generating sample " << i+1 << endl;
 
         RootedTree* tree = sampler.sample_subtree(k);  
+        tree->count_nodes();
+        tree->countChildren();
+        tree->set_all_idx(0);
         
         MVRooting mvRoot;
         mvRoot.initialize(tree);
