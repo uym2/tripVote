@@ -31,9 +31,10 @@ RootedTree* SubtreeSampler::sample_subtree(unsigned int k){
     for (int i=0; i<this->N; i++){
         R.push_back(i);  
     }
-    std::srand(std::time(0));
+    //std::srand(std::time(0));
     //std::random_shuffle(R.begin(), R.end());
     std::random_shuffle(R.begin(), R.end(), myrandom);
+
     
     // retain only the last k leaves and remove the rest according to the shuffled list L
     for (int i=0; i < this->N-k; i++){

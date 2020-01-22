@@ -112,6 +112,7 @@ void usage(char *programName) {
 }
 
 int main(int argc, char** argv) {
+  std::srand(time(NULL));
   if(argc < 4) {
     usage(argv[0]);
     return 0;
