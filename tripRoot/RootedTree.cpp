@@ -270,11 +270,11 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
         u = v;
         eu = ev;
     }
-
-    if (u->numChildren < 2){
+    
+    if (u->numChildren == 1){
         // suppress unifurcation
         // u has a single child; it is v = u->children->data
-        v = u->children->data;;
+        v = u->children->data;
         double e = u->edge_length + v->edge_length;
         w = u->parent;
         w->remove_child(u);

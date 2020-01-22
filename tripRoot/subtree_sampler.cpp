@@ -81,3 +81,51 @@ vector<RootedTree*> SubtreeSampler::sample_by_d2root(unsigned int k, double size
 
     return my_subtrees;
 }
+
+void topdown_traverse(RootedTree* t, vector<RootedTree*> &nodeList){
+    if (!t->isRoot())
+        nodeList.push_back(t);
+                
+    for (TemplatedLinkedList<RootedTree*> *i = t->children; i != NULL; i = i->next){
+        RootedTree *c = i->data;
+        topdown_traverse(c,nodeList);
+    }
+}
+
+vector<string> SubtreeSampler::sample_by_splits(){
+    // list all the splits (represented by nodes)
+    vector<RootedTree*> nodeList;
+    topdown_traverse(this->myTree,nodeList);
+
+    vector<string> my_subtrees;
+    for (vector<RootedTree*>::iterator it = nodeList.begin() ; it != nodeList.end(); ++it){
+        RootedTree* v = *it;
+        RootedTree* u = v->parent;
+        
+        // get clade v
+        string treeStr1 = v->toString();
+        /*
+        RootedTreeFactory *factory = new RootedTreeFactory();
+        RootedTree* subtree1 = factory->getRootedTree();
+        subtree1->factory = factory;
+        subtree1->read_newick_str(treeStr); */
+    
+        // get subtree after removing clade v
+        double el = v->edge_length;
+        u->remove_child(v);
+        string treeStr2 = this->myTree->toString();
+        
+        /*factory = new RootedTreeFactory();
+        RootedTree* subtree2 = factory->getRootedTree();
+        subtree2->factory = factory;
+        subtree2->read_newick_str(treeStr);*/
+
+        my_subtrees.push_back(treeStr1);
+        my_subtrees.push_back(treeStr2);
+
+        u->addChild(v);
+        v->edge_length = el;
+    }
+
+    return my_subtrees;
+}
