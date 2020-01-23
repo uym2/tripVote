@@ -28,7 +28,7 @@ bool itemCmp(item x, item y){
 }
 
 vector<unsigned int> shuffle(unsigned int N){
-    std::srand(std::time(0));
+    //std::srand(std::time(0));
     vector<item> S;
     for (int i=0; i<N; i++){
         item x;

@@ -76,6 +76,7 @@ class RootedTree
         void count_nodes();
         void compute_d2root();
         vector<RootedTree*> sort_leaf_by_d2root();
+        double mean_d2root(); 
 
     private:
 		bool error;

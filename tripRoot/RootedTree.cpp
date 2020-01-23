@@ -839,3 +839,23 @@ vector<RootedTree*> RootedTree::sort_leaf_by_d2root(){
     sort(L.begin(),L.end(),__wayToSort__);    
     return L;
 }
+
+void __sum_d2root__(RootedTree *t, double & nleaves, double d2root, double & acc_sum){
+    if (t->isLeaf()){
+        nleaves += 1;
+        acc_sum += d2root;
+    } else {
+        for (TemplatedLinkedList<RootedTree*> *i = t->children; i != NULL; i = i->next){
+            __sum_d2root__(i->data, nleaves, d2root + i->data->edge_length, acc_sum);
+        }
+    }
+}
+
+double RootedTree::mean_d2root(){
+    double acc_sum = 0;
+    double nleaves = 0;
+
+    __sum_d2root__(this, nleaves, 0, acc_sum);
+    return acc_sum/nleaves;
+}
+
