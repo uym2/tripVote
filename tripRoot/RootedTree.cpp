@@ -399,6 +399,20 @@ RootedTree* RootedTree::search_idx(unsigned int idx){
     return NULL;
 }
 
+RootedTree* RootedTree::search_name(string name){
+    if(this->name == name)
+        return this;
+    
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+    {
+        RootedTree *t = i->data; 
+        RootedTree *result = t->search_name(name);
+        if (result)
+            return result;
+    }
+    return NULL;
+}
+
 RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
     // create a deep copy of tree t
 	if (factory == NULL) factory = new RootedTreeFactory(NULL);

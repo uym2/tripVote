@@ -5,6 +5,7 @@
 #include "int_stuff.h"
 #include "TripletRooting.h"
 #include "newick_parser.h"
+#include "MVRooting.h"
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
@@ -76,24 +77,34 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
             best_node_idx = i;
         }
     }
-
+    MVRooting mvRoot;
+    mvRoot.initialize(myTree);
+    mvRoot.compute_score();
     unsigned int Ambiguity = 0;
+    double min_MV = mvRoot.mvCount->minVar[best_node_idx];
+
     for (int i = 0; i<N; i++){
-        //cout << allCounts[i] << " ";
-        if (allCounts[i] == best_vote)
+        if (allCounts[i] == best_vote){
             Ambiguity++;
+            if (mvRoot.mvCount->minVar[i] < min_MV){
+                min_MV = mvRoot.mvCount->minVar[i];
+                best_node_idx = i;
+            }
+        }
     }
-    cout << endl;
 
     cout << "Best vote score: " << best_vote << endl;
     cout << "Ambiguity: " << Ambiguity << endl;       
+    cout << "Optimal root index: " << best_node_idx << endl;
 
-    if (allCounts != NULL)
-        delete [] allCounts;
-    
-    RootedTree* opt_root = myTree->search_idx(best_node_idx);
+    cout << "MV score at original root: " << mvRoot.mvCount->minVar[myTree->idx] << endl;
+    cout << "MV score at best voted root: " << mvRoot.mvCount->minVar[best_node_idx] << endl;
 
-    return opt_root;
+    cout << "Vote score at original root: " << allCounts[myTree->idx] << endl;
+    cout << "Vote score at best voted root: " << allCounts[best_node_idx] << endl;
+
+
+    return myTree->search_idx(best_node_idx);
 }
 
 void usage(char *programName) {

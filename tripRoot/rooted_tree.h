@@ -62,6 +62,7 @@ class RootedTree
         bool read_newick_file(string treeFile);           
         bool read_newick_str(string str);
         RootedTree* search_idx(unsigned int idx);
+        RootedTree* search_name(string name);
         int set_idx (unsigned int idx) { this->idx = idx; return 0; };
         unsigned int set_all_idx (unsigned int startIdx);
         RootedTree* down_root(RootedTree *u);

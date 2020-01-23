@@ -18,6 +18,35 @@ SubtreeSampler::SubtreeSampler(RootedTree *tree){
 // random generator function:
 int myrandom (int i) { return std::rand()%i;}
 
+struct item {
+    unsigned int idx;
+    unsigned int value;
+};
+
+bool itemCmp(item x, item y){
+    return x.value < y.value;
+}
+
+vector<unsigned int> shuffle(unsigned int N){
+    std::srand(std::time(0));
+    vector<item> S;
+    for (int i=0; i<N; i++){
+        item x;
+        x.idx = i;
+        x.value = rand();
+        S.push_back(x);
+    }
+    sort(S.begin(),S.end(),itemCmp);
+    
+    vector<unsigned int> shuffled_idx;
+
+    for (vector<item>::iterator it = S.begin(); it != S.end(); ++it){
+        shuffled_idx.push_back(it->idx);
+    }
+
+    return shuffled_idx;
+}
+
 RootedTree* SubtreeSampler::sample_subtree(unsigned int k){
     string treeStr = this->myTree->toString();
     RootedTreeFactory *factory = new RootedTreeFactory();
@@ -27,15 +56,21 @@ RootedTree* SubtreeSampler::sample_subtree(unsigned int k){
     vector<RootedTree*> L = *subtree->getList(); // leafset
     
    // create the list R = [ 0 1 2 ... n ] then shuffle it
-    std::vector<int> R;
+
+    /*std::vector<int> R;
     for (int i=0; i<this->N; i++){
         R.push_back(i);  
-    }
+    }*/
     //std::srand(std::time(0));
     //std::random_shuffle(R.begin(), R.end());
-    std::random_shuffle(R.begin(), R.end(), myrandom);
-
+    //std::random_shuffle(R.begin(), R.end(), myrandom);
     
+    /*unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    auto gen = std::default_random_engine(seed);
+    std::shuffle (R.begin(), R.end(), gen); */
+    
+    vector<unsigned int> R = shuffle(this->N);
+
     // retain only the last k leaves and remove the rest according to the shuffled list L
     for (int i=0; i < this->N-k; i++){
         RootedTree* leaf = L[R[i]];
