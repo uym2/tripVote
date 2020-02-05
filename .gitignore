@@ -4,3 +4,6 @@
 *CMake*
 trees/*
 **/Test*/*
+*.trees
+*txt
+
