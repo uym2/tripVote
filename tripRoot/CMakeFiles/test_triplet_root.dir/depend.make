@@ -6,6 +6,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.o: tripRoot/counting
 tripRoot/CMakeFiles/test_triplet_root.dir/CountingArray.cpp.o: tripRoot/int_stuff.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/HDT.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/counting_linked_list.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/counting_linked_list_num_only.h
@@ -19,6 +20,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/templated_linked_l
 tripRoot/CMakeFiles/test_triplet_root.dir/HDT.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/HDTCountingCCToC.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/hdt.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/hdt_factory.h
@@ -30,6 +32,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/templ
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCCToC.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/HDTCountingCTransform.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/hdt.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/hdt_factory.h
@@ -41,6 +44,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingCTransform.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/HDTCountingG.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/counting_linked_list.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/counting_linked_list_num_only.h
@@ -54,6 +58,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/templated
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingG.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/HDTCountingIGToC.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/hdt.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/hdt_factory.h
@@ -65,6 +70,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/templ
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingIGToC.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/HDTCountingLeaf.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/hdt.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/hdt_factory.h
@@ -76,6 +82,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/templa
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTCountingLeaf.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/HDTFactory.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/counting_linked_list.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/counting_linked_list_num_only.h
@@ -89,6 +96,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/templated_l
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTFactory.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/HDTListUtils.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/counting_linked_list.h
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/counting_linked_list_num_only.h
@@ -102,6 +110,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/templated
 tripRoot/CMakeFiles/test_triplet_root.dir/HDTListUtils.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/NewickParser.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/int_stuff.h
 tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/memory_allocator.h
 tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/newick_parser.h
@@ -111,6 +120,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/templated
 tripRoot/CMakeFiles/test_triplet_root.dir/NewickParser.cpp.o: tripRoot/unrooted_tree.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/RootedTree.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/counting_array.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/hdt.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/int_stuff.h
@@ -121,6 +131,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/templated_l
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTree.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o: tripRoot/RootedTreeFactory.cpp
+tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o: tripRoot/int_stuff.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o: tripRoot/memory_allocator.h
 tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o: tripRoot/rooted_tree.h
@@ -129,22 +140,12 @@ tripRoot/CMakeFiles/test_triplet_root.dir/RootedTreeFactory.cpp.o: tripRoot/temp
 
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/TripletCounter.cpp
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/TripletCounter.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/counting_array.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/counting_linked_list_num_only.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/hdt.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/hdt_factory.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/int_stuff.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/memory_allocator.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/rooted_tree.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/rooted_tree_factory.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/templated_linked_list.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletCounter.cpp.o: tripRoot/util.h
 
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/TripletRooting.cpp
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/TripletRooting.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/counting_array.h
-tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/counting_linked_list_num_only.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/hdt.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/hdt_factory.h
 tripRoot/CMakeFiles/test_triplet_root.dir/TripletRooting.cpp.o: tripRoot/int_stuff.h
@@ -163,9 +164,7 @@ tripRoot/CMakeFiles/test_triplet_root.dir/int_stuff.cpp.o: tripRoot/int_stuff.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/TripletCounter.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/TripletRooting.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/counting_array.h
-tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/counting_linked_list_num_only.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/hdt.h
-tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/hdt_factory.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/int_stuff.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/memory_allocator.h
 tripRoot/CMakeFiles/test_triplet_root.dir/test_triplet_root.cpp.o: tripRoot/newick_parser.h
