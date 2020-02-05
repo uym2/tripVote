@@ -44,8 +44,8 @@ prune_tree(myTree,RS)
 
 # TreeShrink round 1,2,...  
 n = myFilter.nleaf - len(RS)
-k = min(n,int(4/3*sqrt(n)))
-m = 6
+k = min(n,int(2*sqrt(n)))
+m = 5
 #k = int(sqrt(n))
 ranking = {}
 curr_rank = 0
@@ -71,7 +71,7 @@ with open(outFile,'w') as fout:
 
         j = m
 
-        while (j < len(R)):
+        while (j <= len(R)):
             for _,r in R[j-m:j]:
                 fout.write(str(r) + " ")
             fout.write("\n")
