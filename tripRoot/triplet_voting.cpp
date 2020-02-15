@@ -12,11 +12,11 @@
 #endif
 
 
-RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
+RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scaling = true){
     myTree->set_all_idx(0);
     myTree->count_nodes();
 
-    INTTYPE_REST *allCounts = NULL;
+    double *allCounts = NULL;
     unsigned int N = 0;
     
     ifstream fin;
@@ -37,7 +37,7 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
         RootedTree *refTree = rFactory->getRootedTree();
         refTree->factory = rFactory;
         refTree->read_newick_str(treeStr); 
-           
+        refTree->countChildren();           
         
         TripletRooting tripRoot;
         tripRoot.initialize(refTree,myTree);
@@ -50,18 +50,25 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
         //for (int i = 0; i<oneCount->N; i++)
         //    cout << oneCount->tripScore[i] << " ";
         //cout << endl;
-
+        
+        double M;
+        if (size_scaling)
+            M = refTree->n*(refTree->n-1)*(refTree->n-2)/6;
+        else
+            M = 1;     
+        cout << M << endl;
+    
         // add oneCount to allCounts
         if (allCounts != NULL){
             if (oneCount->N != N)
                 cout << "Size mismatch!" << endl;
             for (int i=0; i<N; i++)
-                allCounts[i] += oneCount->tripScore[i];
+                allCounts[i] += oneCount->tripScore[i]/M;
         } else {
             N = oneCount->N;
-            allCounts = new INTTYPE_REST[N];
+            allCounts = new double[N];
             for (int i=0; i<N; i++){
-                allCounts[i] = oneCount->tripScore[i];
+                allCounts[i] = oneCount->tripScore[i]/M;
             }
         }
     }
@@ -69,7 +76,7 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile){
     fin.close();
 
     unsigned int best_node_idx = -1;    
-    INTTYPE_REST best_vote = -1;
+    double best_vote = -1;
 
     for (int i=0; i<N; i++){
         if (allCounts[i] > best_vote){
@@ -119,24 +126,44 @@ int main(int argc, char** argv) {
   }
 
   char *refTreeFile = argv[3];
-  char *myTreeFile = argv[1];
+  char *inTreeFile = argv[1];
   char *outputTree = argv[2];
   
   NewickParser parser;
+  unsigned int i = 1;
 
+  ifstream fin;
+  fin.open(inTreeFile);
 
-  RootedTreeFactory *tFactory = new RootedTreeFactory();
-  RootedTree *myTree = tFactory->getRootedTree();
-  myTree->factory = tFactory;
-  myTree->read_newick_file(myTreeFile);
-
-  RootedTree *bestRoot = rootFromVotes(myTree, refTreeFile);    
-  RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
-  
   ofstream fout;
-  fout.open(outputTree);  
-  rerooted->write_newick(fout);
-  fout.close();    
+  fout.open(outputTree);
 
+  while (1){
+      std::cout << "Rooting tree " << i << std::endl;
+      string treeStr;
+      std::getline(fin,treeStr);
+
+      if (fin.eof())
+          break;
+
+      RootedTreeFactory *tFactory = new RootedTreeFactory();
+      RootedTree *myTree = tFactory->getRootedTree();
+      myTree->factory = tFactory;
+      myTree->read_newick_str(treeStr);
+
+      RootedTree *bestRoot = rootFromVotes(myTree, refTreeFile);    
+      RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
+      
+      //ofstream fout;
+      //fout.open(outputTree);  
+      rerooted->write_newick(fout);
+      fout << endl;
+      //fout.close(); 
+      delete tFactory;   
+      i++;
+  }  
+  fin.close();
+  fout.close();
+  
   return 0;
 }
