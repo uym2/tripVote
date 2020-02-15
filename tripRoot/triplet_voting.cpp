@@ -70,6 +70,7 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
                 allCounts[i] = oneCount->tripScore[i]/M;
             }
         }
+        delete rFactory;
     }
 
     fin.close();
