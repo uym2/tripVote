@@ -30,7 +30,7 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
         if (fin.eof())
             break;
         
-        cout << "Processing tree " << tr << endl;
+        //cout << "Processing tree " << tr << endl;
         tr++;
         
         RootedTreeFactory *rFactory = new RootedTreeFactory();
@@ -56,7 +56,6 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
             M = refTree->n*(refTree->n-1)*(refTree->n-2)/6;
         else
             M = 1;     
-        cout << M << endl;
     
         // add oneCount to allCounts
         if (allCounts != NULL){
