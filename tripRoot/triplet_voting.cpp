@@ -15,6 +15,7 @@
 RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scaling = true){
     myTree->set_all_idx(0);
     myTree->count_nodes();
+    myTree->countChildren();           
 
     double *allCounts = NULL;
     unsigned int N = 0;
@@ -41,10 +42,13 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
         
         TripletRooting tripRoot;
         tripRoot.initialize(refTree,myTree);
+        
         if (!tripRoot.find_optimal_root()){
             cout << "Failed to find optimal root of this sample!" << endl;
+            delete rFactory;
             continue;
         }
+        
         TripletCounter* oneCount = tripRoot.tripCount;
         
         //for (int i = 0; i<oneCount->N; i++)
@@ -52,11 +56,13 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
         //cout << endl;
         
         double M;
-        if (size_scaling)
-            M = refTree->n*(refTree->n-1)*(refTree->n-2)/6;
+        if (size_scaling){
+            M = double(refTree->n)*(refTree->n-1)*(refTree->n-2)/6;
+        }
         else
             M = 1;     
     
+
         // add oneCount to allCounts
         if (allCounts != NULL){
             if (oneCount->N != N)
@@ -75,6 +81,7 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
 
     fin.close();
 
+
     unsigned int best_node_idx = -1;    
     double best_vote = -1;
 
@@ -84,7 +91,8 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
             best_node_idx = i;
         }
     }
-    MVRooting mvRoot;
+    
+    /*MVRooting mvRoot;
     mvRoot.initialize(myTree);
     mvRoot.compute_score();
     unsigned int Ambiguity = 0;
@@ -98,19 +106,19 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
                 best_node_idx = i;
             }
         }
-    }
+    }*/
 
     cout << "Best vote score: " << best_vote << endl;
-    cout << "Ambiguity: " << Ambiguity << endl;       
+    //cout << "Ambiguity: " << Ambiguity << endl;       
     cout << "Optimal root index: " << best_node_idx << endl;
 
-    cout << "MV score at original root: " << mvRoot.mvCount->minVar[myTree->idx] << endl;
-    cout << "MV score at best voted root: " << mvRoot.mvCount->minVar[best_node_idx] << endl;
+    //cout << "MV score at original root: " << mvRoot.mvCount->minVar[myTree->idx] << endl;
+    //cout << "MV score at best voted root: " << mvRoot.mvCount->minVar[best_node_idx] << endl;
 
     cout << "Vote score at original root: " << allCounts[myTree->idx] << endl;
     cout << "Vote score at best voted root: " << allCounts[best_node_idx] << endl;
 
-
+    delete allCounts;
     return myTree->search_idx(best_node_idx);
 }
 
