@@ -123,12 +123,14 @@ string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true
     cout << "Vote score at original root: " << allCounts[myTree->idx] << endl;
     cout << "Vote score at best voted root: " << allCounts[best_node_idx] << endl;
 
-    delete [] allCounts;
-    delete tFactory;   
     RootedTree *bestRoot = myTree->search_idx(best_node_idx);
     RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
+    string rerooted_str = rerooted->toString();
 
-    return rerooted->toString();
+    delete [] allCounts;
+    delete tFactory;   
+
+    return rerooted_str;
 }
 
 void usage(char *programName) {
