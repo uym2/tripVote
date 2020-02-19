@@ -42,7 +42,7 @@ string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true
         RootedTreeFactory *rFactory = new RootedTreeFactory();
         RootedTree *refTree = rFactory->getRootedTree();
         refTree->factory = rFactory;
-        refTree->read_newick_str(treeStr); 
+        refTree->read_newick_str(rtreeStr); 
         refTree->countChildren();           
         
         TripletRooting tripRoot;
