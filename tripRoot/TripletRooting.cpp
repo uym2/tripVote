@@ -111,7 +111,7 @@ bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
 }
 
 TripletRooting::~TripletRooting(){
-    delete tripCount;
+    delete [] tripCount;
     while (this->optimaltripRoots != NULL){
         TemplatedLinkedList<RootedTree*> *curr = this->optimaltripRoots;
         this->optimaltripRoots = this->optimaltripRoots->next;
