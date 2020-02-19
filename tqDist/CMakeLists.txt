@@ -79,6 +79,23 @@ set_target_properties(tqDist_quartet PROPERTIES COMPILE_FLAGS -DquartetsToo)
 set_target_properties(tqDist_quartet PROPERTIES PREFIX "lib" SUFFIX ${extension})
 
 ## EXECUTABLES
+add_executable(quartet_dist_2_ref quartet_dist_to_ref.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  AbstractDistanceCalculator.cpp
+  QuartetDistanceCalculator.cpp
+  int_stuff.cpp)
+set_target_properties(quartet_dist_2_ref PROPERTIES COMPILE_FLAGS -DquartetsToo)
+
 add_executable(quartet_dist quartet_dist.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
