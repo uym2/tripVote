@@ -12,7 +12,12 @@
 #endif
 
 
-RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scaling = true){
+string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true){
+    RootedTreeFactory *tFactory = new RootedTreeFactory();
+    RootedTree *myTree = tFactory->getRootedTree();
+    myTree->factory = tFactory;
+    myTree->read_newick_str(treeStr);    
+
     myTree->set_all_idx(0);
     myTree->count_nodes();
     myTree->countChildren();           
@@ -26,8 +31,8 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
     unsigned int tr = 1;
 
     while(1){
-        string treeStr;
-        std::getline(fin,treeStr);
+        string rtreeStr;
+        std::getline(fin,rtreeStr);
         if (fin.eof())
             break;
         
@@ -118,8 +123,12 @@ RootedTree* rootFromVotes(RootedTree *myTree, char *refTreeFile, bool size_scali
     cout << "Vote score at original root: " << allCounts[myTree->idx] << endl;
     cout << "Vote score at best voted root: " << allCounts[best_node_idx] << endl;
 
-    delete allCounts;
-    return myTree->search_idx(best_node_idx);
+    delete [] allCounts;
+    delete tFactory;   
+    RootedTree *bestRoot = myTree->search_idx(best_node_idx);
+    RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
+
+    return rerooted->toString();
 }
 
 void usage(char *programName) {
@@ -154,20 +163,20 @@ int main(int argc, char** argv) {
       if (fin.eof())
           break;
 
-      RootedTreeFactory *tFactory = new RootedTreeFactory();
-      RootedTree *myTree = tFactory->getRootedTree();
-      myTree->factory = tFactory;
-      myTree->read_newick_str(treeStr);
+      //RootedTreeFactory *tFactory = new RootedTreeFactory();
+      //RootedTree *myTree = tFactory->getRootedTree();
+      //myTree->factory = tFactory;
+      //myTree->read_newick_str(treeStr);
 
-      RootedTree *bestRoot = rootFromVotes(myTree, refTreeFile);    
-      RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
+      string rerooted = rootFromVotes(treeStr, refTreeFile);    
+      //RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
       
       //ofstream fout;
       //fout.open(outputTree);  
-      rerooted->write_newick(fout);
-      fout << endl;
-      //fout.close(); 
-      delete tFactory;   
+      //rerooted->write_newick(fout);
+      fout << rerooted << endl;
+      
+      //delete tFactory;   
       i++;
   }  
   fin.close();
