@@ -85,9 +85,23 @@ int main(int argc, char** argv) {
 
     QuartetDistanceCalculator quartetCalc;
     INTTYPE_N4 dist = quartetCalc.calculateQuartetDistance(uRef,uTre);
+    INTTYPE_N4 resolvedQuartetsAgree = quartetCalc.get_resolvedQuartetsAgree();
+    INTTYPE_N4 resolvedQuartetsAgreeDiag = quartetCalc.get_resolvedQuartetsAgreeDiag();
+    INTTYPE_N4 resolvedQuartetsDisagree = quartetCalc.get_resolvedQuartetsDisagree();
+    INTTYPE_N4 resolvedQuartetsDisagreeDiag = quartetCalc.get_resolvedQuartetsDisagreeDiag();
+    INTTYPE_N4 resolvedQuartetsAgreeUpper = quartetCalc.get_resolvedQuartetsAgreeUpper();
+    INTTYPE_N4 resolvedQuartetsDisagreeUpper = quartetCalc.get_resolvedQuartetsDisagreeUpper();
+
+    INTTYPE_N4 n = quartetCalc.get_n();
+    INTTYPE_N4 totalNoQuartets = quartetCalc.get_totalNoQuartets();
+    double dist_norm = double(dist) / double(totalNoQuartets);
+    INTTYPE_N4 resAgree = resolvedQuartetsAgree + resolvedQuartetsAgreeDiag + resolvedQuartetsAgreeUpper;
+    double resAgree_norm = double(resAgree) / double(totalNoQuartets);
+    INTTYPE_N4 unresolvedQuartetsAgree = quartetCalc.get_unresolvedQuartets();
+    double unresolvedQuartetsAgree_norm = double(unresolvedQuartetsAgree) / double(totalNoQuartets);
     
     if (!verbose)
-       fout << dist << endl;
+       fout << dist_norm << endl;
     else{
     INTTYPE_N4 resolvedQuartetsAgree = quartetCalc.get_resolvedQuartetsAgree();
     INTTYPE_N4 resolvedQuartetsAgreeDiag = quartetCalc.get_resolvedQuartetsAgreeDiag();
