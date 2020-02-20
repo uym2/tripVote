@@ -1,18 +1,19 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-
+#include <cmath>
 #include "int_stuff.h"
 #include "TripletRooting.h"
 #include "newick_parser.h"
 #include "MVRooting.h"
+#include <vector>
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
 #endif
 
 
-string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true){
+string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> weights ,bool size_scaling = true){
     RootedTreeFactory *tFactory = new RootedTreeFactory();
     RootedTree *myTree = tFactory->getRootedTree();
     myTree->factory = tFactory;
@@ -24,25 +25,14 @@ string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true
 
     double *allCounts = NULL;
     unsigned int N = 0;
+
+    unsigned int idx = 0;
     
-    ifstream fin;
-    fin.open(refTreeFile);
-
-    unsigned int tr = 1;
-
-    while(1){
-        string rtreeStr;
-        std::getline(fin,rtreeStr);
-        if (fin.eof())
-            break;
-        
-        cout << "Processing tree " << tr << endl;
-        tr++;
-        
+    for (std::vector<string>::iterator it = refTreeStrs.begin(); it != refTreeStrs.end(); ++it) {
         RootedTreeFactory *rFactory = new RootedTreeFactory();
         RootedTree *refTree = rFactory->getRootedTree();
         refTree->factory = rFactory;
-        refTree->read_newick_str(rtreeStr); 
+        refTree->read_newick_str(*it); 
         refTree->countChildren();           
         
         TripletRooting tripRoot;
@@ -66,25 +56,25 @@ string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true
         }
         else
             M = 1;     
-    
+        
+        double w = weights[idx];
 
         // add oneCount to allCounts
         if (allCounts != NULL){
             if (oneCount->N != N)
                 cout << "Size mismatch!" << endl;
             for (int i=0; i<N; i++)
-                allCounts[i] += oneCount->tripScore[i]/M;
+                allCounts[i] += w*oneCount->tripScore[i]/M;
         } else {
             N = oneCount->N;
             allCounts = new double[N];
             for (int i=0; i<N; i++){
-                allCounts[i] = oneCount->tripScore[i]/M;
+                allCounts[i] = w*oneCount->tripScore[i]/M;
             }
         }
         delete rFactory;
+        ++idx;
     }
-
-    fin.close();
 
 
     unsigned int best_node_idx = -1;    
@@ -134,7 +124,7 @@ string rootFromVotes(string treeStr, char *refTreeFile, bool size_scaling = true
 }
 
 void usage(char *programName) {
-  std::cout << "Usage: " << programName << " <inTree> <outTree> <refTrees> " << std::endl 
+  std::cout << "Usage: " << programName << " <inTree> <outTree> <refTrees> <weights> " << std::endl 
 	    << std::endl;
 }
 
@@ -147,41 +137,48 @@ int main(int argc, char** argv) {
   char *refTreeFile = argv[3];
   char *inTreeFile = argv[1];
   char *outputTree = argv[2];
-  
+  char *weightFile = argv[4];
+
   NewickParser parser;
   unsigned int i = 1;
 
+  vector<string> outTreeStrs;
+  vector<string> refTreeStrs;
+  vector<double> weights;
+  
+  string inTreeStr, treeStr;
+
   ifstream fin;
   fin.open(inTreeFile);
-
-  ofstream fout;
-  fout.open(outputTree);
-
+  std::getline(fin,inTreeStr);
+  fin.close();
+ 
+  fin.open(refTreeFile);
   while (1){
-      std::cout << "Rooting tree " << i << std::endl;
-      string treeStr;
       std::getline(fin,treeStr);
-
+      
       if (fin.eof())
           break;
-
-      //RootedTreeFactory *tFactory = new RootedTreeFactory();
-      //RootedTree *myTree = tFactory->getRootedTree();
-      //myTree->factory = tFactory;
-      //myTree->read_newick_str(treeStr);
-
-      string rerooted = rootFromVotes(treeStr, refTreeFile);    
-      //RootedTree *rerooted = myTree->reroot_at_edge(bestRoot,bestRoot->edge_length/2);
       
-      //ofstream fout;
-      //fout.open(outputTree);  
-      //rerooted->write_newick(fout);
-      fout << rerooted << endl;
-      
-      //delete tFactory;   
-      i++;
-  }  
+      refTreeStrs.push_back(treeStr);
+  }
   fin.close();
+
+  fin.open(weightFile);
+  string w;
+  while (1){
+      std::getline(fin,w);
+      if (fin.eof())
+          break;
+      weights.push_back(exp(-std::stod(w)));
+  }
+  fin.close();
+   
+  string outTreeStr = rootFromVotes(inTreeStr, refTreeStrs,weights);    
+ 
+  ofstream fout;
+  fout.open(outputTree);
+  fout << outTreeStr << endl;
   fout.close();
   
   return 0;
