@@ -170,7 +170,7 @@ int main(int argc, char** argv) {
       std::getline(fin,w);
       if (fin.eof())
           break;
-      weights.push_back(exp(-std::stod(w)));
+      weights.push_back(exp(10-10*std::stod(w)));
   }
   fin.close();
    
