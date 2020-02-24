@@ -7,6 +7,7 @@
 #include "newick_parser.h"
 #include "MVRooting.h"
 #include <vector>
+#include <stdlib.h>
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
@@ -170,7 +171,7 @@ int main(int argc, char** argv) {
       std::getline(fin,w);
       if (fin.eof())
           break;
-      weights.push_back(exp(10-10*std::stod(w)));
+      weights.push_back(exp(10-10*atof(w.c_str())));
   }
   fin.close();
    
