@@ -2,7 +2,9 @@
 #include "rooted_tree.h"
 #include "hdt.h"
 #include <fstream>
+#include <sstream>
 #include <algorithm>
+#include <string>
 
 /**************/
 /* uym2 added */
@@ -326,7 +328,9 @@ void RootedTree::__to_string__(string &myString){
         myString += this->name;
         if (this->edge_length >= 0){
             myString += ":";
-            myString += std::to_string(this->edge_length);
+            std::ostringstream convertor;
+            convertor << this->edge_length;
+            myString += convertor.str(); //std::to_string(this->edge_length);
         }
     }
     else {
@@ -343,7 +347,9 @@ void RootedTree::__to_string__(string &myString){
         myString += this->name;
         if (this->edge_length >= 0){
             myString += ":";
-            myString += std::to_string(this->edge_length);
+            std::ostringstream convertor;
+            convertor << this->edge_length;
+            myString += convertor.str(); //std::to_string(this->edge_length);
         }
     }
 }
