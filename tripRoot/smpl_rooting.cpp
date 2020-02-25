@@ -8,6 +8,7 @@
 #include "subtree_sampler.h"
 #include "newick_parser.h"
 #include <cmath>
+#include <stdlib.h>
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
@@ -148,7 +149,8 @@ int main(int argc, char** argv) {
     return 0;
   }
 
-  unsigned int n_smpl = std::stoi(argv[3]);
+  //unsigned int n_smpl = std::stoi(argv[3]);
+  unsigned int n_smpl = atoi(argv[3]);
   char *myTreeFile = argv[1];
   char *outputTree = argv[2];
   
