@@ -35,6 +35,9 @@ class RootedTree
         int set_idx (unsigned int idx) { this->idx = idx; return 0; }; // uym2 added
         int set_all_idx (unsigned int startIdx); // uym2 added
         RootedTree* down_root(RootedTree *u); // uym2 added
+        bool prune_subtree(RootedTree* u); // uym2 added
+        bool remove_child(RootedTree *child); // uym2 added
+
         RootedTree* copyTree(RootedTreeFactory *factory = NULL);
 
         
@@ -46,7 +49,7 @@ class RootedTree
 		INTTYPE_N4 getUnresolvedQuartets();
 		void toDot();
 		vector<RootedTree*>* getList();
-		void pairAltWorld(RootedTree *t);
+		void pairAltWorld(RootedTree *t, bool do_pruning = true); // uym2 modified
 		void colorSubtree(int c);
 		void markHDTAlternative();
 		bool isError();
