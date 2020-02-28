@@ -102,7 +102,12 @@ bool RootedTree::isLeaf()
 
 void RootedTree::addChild(RootedTree *t)
 {
-	numChildren++;
+    // uym2 added: if t has a parent, remove it from the parent's children first
+    if (t->parent != NULL){
+        t->parent->remove_child(t);
+    }
+	
+    numChildren++;
 	t->parent = this;
 	TemplatedLinkedList<RootedTree*> *newItem = factory->getTemplatedLinkedList();
 	newItem->data = t;

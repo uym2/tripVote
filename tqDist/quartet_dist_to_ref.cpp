@@ -64,10 +64,11 @@ int main(int argc, char** argv) {
   unsigned int i = 1;
 
   while (1){
-    UnrootedTree *uRef = NULL;
-    UnrootedTree *uTre = NULL;
-    RootedTree *rRef = NULL;
-    RootedTree *rTre = NULL;
+    cout << "Processing tree " << i << endl;  
+    UnrootedTree *uRef;
+    UnrootedTree *uTre;
+    //RootedTree *rRef = NULL;
+    //RootedTree *rTre = NULL;
 
     // read new tree to reroot it
     string treeStr;
@@ -78,10 +79,10 @@ int main(int argc, char** argv) {
   
     // read reference tree
     uRef = parser.parseFile(refTreeFile);
-    rRef = uRef->convertToRootedTree(NULL);
+    //rRef = uRef->convertToRootedTree(NULL);
     
     uTre = parser.parseStr(treeStr);
-    rTre = uTre->convertToRootedTree(rRef->factory);
+    //rTre = uTre->convertToRootedTree(rRef->factory);
 
     QuartetDistanceCalculator quartetCalc;
     INTTYPE_N4 dist = quartetCalc.calculateQuartetDistance(uRef,uTre);
@@ -101,34 +102,35 @@ int main(int argc, char** argv) {
     double unresolvedQuartetsAgree_norm = double(unresolvedQuartetsAgree) / double(totalNoQuartets);
     
     if (!verbose)
-       fout << dist_norm << endl;
+       cout << dist_norm << endl;
     else{
-    INTTYPE_N4 resolvedQuartetsAgree = quartetCalc.get_resolvedQuartetsAgree();
-    INTTYPE_N4 resolvedQuartetsAgreeDiag = quartetCalc.get_resolvedQuartetsAgreeDiag();
-    INTTYPE_N4 resolvedQuartetsDisagree = quartetCalc.get_resolvedQuartetsDisagree();
-    INTTYPE_N4 resolvedQuartetsDisagreeDiag = quartetCalc.get_resolvedQuartetsDisagreeDiag();
-    INTTYPE_N4 resolvedQuartetsAgreeUpper = quartetCalc.get_resolvedQuartetsAgreeUpper();
-    INTTYPE_N4 resolvedQuartetsDisagreeUpper = quartetCalc.get_resolvedQuartetsDisagreeUpper();
+        INTTYPE_N4 resolvedQuartetsAgree = quartetCalc.get_resolvedQuartetsAgree();
+        INTTYPE_N4 resolvedQuartetsAgreeDiag = quartetCalc.get_resolvedQuartetsAgreeDiag();
+        INTTYPE_N4 resolvedQuartetsDisagree = quartetCalc.get_resolvedQuartetsDisagree();
+        INTTYPE_N4 resolvedQuartetsDisagreeDiag = quartetCalc.get_resolvedQuartetsDisagreeDiag();
+        INTTYPE_N4 resolvedQuartetsAgreeUpper = quartetCalc.get_resolvedQuartetsAgreeUpper();
+        INTTYPE_N4 resolvedQuartetsDisagreeUpper = quartetCalc.get_resolvedQuartetsDisagreeUpper();
 
-    INTTYPE_N4 n = quartetCalc.get_n();
-    INTTYPE_N4 totalNoQuartets = quartetCalc.get_totalNoQuartets();
-    double dist_norm = double(dist) / double(totalNoQuartets);
-    INTTYPE_N4 resAgree = resolvedQuartetsAgree + resolvedQuartetsAgreeDiag + resolvedQuartetsAgreeUpper;
-    double resAgree_norm = double(resAgree) / double(totalNoQuartets);
-    INTTYPE_N4 unresolvedQuartetsAgree = quartetCalc.get_unresolvedQuartets();
-    double unresolvedQuartetsAgree_norm = double(unresolvedQuartetsAgree) / double(totalNoQuartets);
-    
-    fout << n                            << "\t"
-	      << totalNoQuartets              << "\t"
-	      << dist                         << "\t"
-	      << dist_norm                    << "\t"
-	      << resAgree                     << "\t"
-	      << resAgree_norm                << "\t"
-	      << unresolvedQuartetsAgree      << "\t"
-	      << unresolvedQuartetsAgree_norm << std::endl;
+        INTTYPE_N4 n = quartetCalc.get_n();
+        INTTYPE_N4 totalNoQuartets = quartetCalc.get_totalNoQuartets();
+        double dist_norm = double(dist) / double(totalNoQuartets);
+        INTTYPE_N4 resAgree = resolvedQuartetsAgree + resolvedQuartetsAgreeDiag + resolvedQuartetsAgreeUpper;
+        double resAgree_norm = double(resAgree) / double(totalNoQuartets);
+        INTTYPE_N4 unresolvedQuartetsAgree = quartetCalc.get_unresolvedQuartets();
+        double unresolvedQuartetsAgree_norm = double(unresolvedQuartetsAgree) / double(totalNoQuartets);
+        
+        fout << n                            << "\t"
+              << totalNoQuartets              << "\t"
+              << dist                         << "\t"
+              << dist_norm                    << "\t"
+              << resAgree                     << "\t"
+              << resAgree_norm                << "\t"
+              << unresolvedQuartetsAgree      << "\t"
+              << unresolvedQuartetsAgree_norm << std::endl;
   }
-  
     i++;
+    delete uRef;
+    delete uTre;
   }
   fin.close();  
   fout.close();    
