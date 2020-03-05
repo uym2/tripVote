@@ -6,6 +6,7 @@
 #include "quartet_calc.h"
 #include "hdt.h"
 #include "TripletCounter.h"
+#include "rooted_tree_factory.h"
 
 #ifndef CONTRACT_MAX_EXTRA_SIZE
 #define CONTRACT_MAX_EXTRA_SIZE 20000
@@ -28,6 +29,7 @@ class TripletRooting {
   bool compute_tripScore();
 
   HDTFactory *dummyHDTFactory;
+  RootedTreeFactory *factory;
   RootedTree *myRef, *myTree;
   HDT *hdt;
   TripletCounter *tripCount;
