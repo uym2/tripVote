@@ -49,7 +49,7 @@ class RootedTree
 		INTTYPE_N4 getUnresolvedQuartets();
 		void toDot();
 		vector<RootedTree*>* getList();
-		void pairAltWorld(RootedTree *t, bool do_pruning=true, TripletCounter *tripCount=NULL);
+		bool pairAltWorld(RootedTree *t, bool do_pruning=true, TripletCounter *tripCount=NULL);
 		void colorSubtree(int c);
 		void markHDTAlternative();
 		bool isError();

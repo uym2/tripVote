@@ -130,6 +130,24 @@ add_executable(all_pairs_quartet_dist all_pairs_quartet_distance.cpp
   int_stuff.cpp)
 set_target_properties(all_pairs_quartet_dist PROPERTIES COMPILE_FLAGS -DquartetsToo)
 
+add_executable(t2q_score compute_t2q_score.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  AbstractDistanceCalculator.cpp
+  TripletDistanceCalculator.cpp
+  QuartetDistanceCalculator.cpp
+  int_stuff.cpp)
+set_target_properties(t2q_score PROPERTIES COMPILE_FLAGS -DquartetsToo)
+
 add_executable(pairs_quartet_dist pairs_quartet_distance.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
