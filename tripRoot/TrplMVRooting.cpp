@@ -3,6 +3,7 @@
 #include "hdt_factory.h"
 
 TrplMVRooting::TrplMVRooting(){
+    this->factory = NULL;
     this->myRef = this->myTree = NULL;
     this->hdt = NULL;
     this->tripCount = NULL;
@@ -13,17 +14,21 @@ TrplMVRooting::TrplMVRooting(){
 }
 
 bool TrplMVRooting::initialize(RootedTree *ref, RootedTree *tree){
-    this->myRef = ref;
-    this->myTree = tree;
-    this->hdt = NULL;
-    unsigned int N = this->myTree->set_all_idx(0);
-    tripCount = new TripletCounter(N);
+    TripletRooting::initialize(ref,tree);
+    unsigned int N = this->myTree->nodeCounts;
     mvCount = new MinVarCounter(N);
-    dummyHDTFactory = new HDTFactory(myTree->maxDegree+1);
     return true;
 }
 
 TrplMVRooting::~TrplMVRooting(){
+    //delete this->tripCount;
+    //delete this->factory;
+
+    /*while (this->optimaltripRoots != NULL){
+        TemplatedLinkedList<RootedTree*> *curr = this->optimaltripRoots;
+        this->optimaltripRoots = this->optimaltripRoots->next;
+        delete curr;
+    }*/
     delete mvCount;
 }
 

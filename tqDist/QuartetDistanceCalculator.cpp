@@ -81,7 +81,7 @@ void QuartetDistanceCalculator::pairs_quartet_distance_verbose(std::ostream &out
   }
 }
 
-std::vector<std::vector<INTTYPE_N4> > QuartetDistanceCalculator::calculateAllPairsQuartetDistance(const char *filename) {
+std::vector<std::vector<double> > QuartetDistanceCalculator::calculateAllPairsQuartetDistance(const char *filename, bool normalized) {
   NewickParser parser;
 
   std::vector<UnrootedTree *> unrootedTrees  = parser.parseMultiFile(filename); 
@@ -91,7 +91,7 @@ std::vector<std::vector<INTTYPE_N4> > QuartetDistanceCalculator::calculateAllPai
     std::exit(-1);
   }
 
-  const std::vector<std::vector<INTTYPE_N4> > results = calculateAllPairsQuartetDistance(unrootedTrees);
+  const std::vector<std::vector<double> > results = calculateAllPairsQuartetDistance(unrootedTrees, normalized);
 
   for(size_t i = 0; i < unrootedTrees.size(); ++i) {
     UnrootedTree * tmp = unrootedTrees[i];
@@ -101,12 +101,16 @@ std::vector<std::vector<INTTYPE_N4> > QuartetDistanceCalculator::calculateAllPai
   return results;
 }
 
-std::vector<std::vector<INTTYPE_N4> > QuartetDistanceCalculator::calculateAllPairsQuartetDistance(std::vector<UnrootedTree *> trees) {
-  std::vector<std::vector<INTTYPE_N4> > results(trees.size());
+std::vector<std::vector<double> > QuartetDistanceCalculator::calculateAllPairsQuartetDistance(std::vector<UnrootedTree *> trees, bool normalized) {
+  std::vector<std::vector<double> > results(trees.size());
 
   for(size_t r = 0; r < trees.size(); ++r) {
     for(size_t c = 0; c < r; ++c) {
-      INTTYPE_N4 distance = calculateQuartetDistance(trees[r], trees[c]);
+      double distance = calculateQuartetDistance(trees[r], trees[c]);
+      if (normalized){
+        double totalNoQuartets = get_totalNoQuartets();
+        distance /= totalNoQuartets;
+      }      
       results[r].push_back(distance);
     }
     results[r].push_back(0);
@@ -162,6 +166,7 @@ INTTYPE_N4 QuartetDistanceCalculator::calculateQuartetDistance(UnrootedTree *t1,
     delete this->t2->factory;
     return -1;
   }
+ 
   
   // Section 3 of Soda13: Counting unresolved triplets and quartets in a single tree
   countChildren(this->t1);

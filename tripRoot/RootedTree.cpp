@@ -13,6 +13,7 @@ void RootedTree::__set_label__(stack<RootedTree*> &stk, string &label, bool &wai
         if (label != ""){
             if (!wait_for_int_lab){
                 RootedTree *p = this->factory->getRootedTree(label);
+                //cout << "Added one tree to the factory" << endl;
                 stk.push(p);
             } else {
                 stk.top()->name = label;
@@ -421,14 +422,13 @@ RootedTree* RootedTree::search_name(string name){
 
 RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
     // create a deep copy of tree t
-	if (factory == NULL) factory = new RootedTreeFactory(NULL);
-    RootedTree *t_new = factory->getRootedTree();
-	*t_new = *this;
+	//if (factory == NULL) factory = new RootedTreeFactory(NULL);
+	if (factory == NULL) factory = this->factory;
 
-    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
-	{
-        t_new->addChild(i->data->copyTree(factory));
-    }
+    string tree_str = this->toString();
+    RootedTree *t_new = factory->getRootedTree();
+    t_new->factory = factory;
+	t_new->read_newick_str(tree_str);
 
     return t_new;
 }
@@ -582,9 +582,9 @@ bool RootedTree::prune_subtree(RootedTree* u){
     return true;
 }
 
-void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tripCount)
+bool RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tripCount)
 {
-	error = false;
+	//bool error = false;
 	vector<RootedTree*>* l = t->getList();
 	map<string, RootedTree*> altWorldLeaves;
 
@@ -606,21 +606,21 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
 			// This leaf wasn't found in the input tree!
             if (do_pruning){
                 // prune the leaf out from the first tree then continue
-                cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
+                //cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
                 if (this->prune_subtree(leaf)){
                     continue;
                 }
                 else {
                     cerr << "Could not remove leaf. Aborting!" << endl;
-                    error = true;
+                    //error = true;
                     delete l;
-                    return;
+                    return false;
                 }
             } else {
 			    cerr << "Leaves don't agree! Aborting! (" << leaf->name << " didn't exist in the second tree)" << endl;
-			    error = true;
+			    //error = true;
 			    delete l;
-			    return;
+			    return false;
             }
 		}
 				
@@ -650,12 +650,13 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
             if (altWorldLeaves.size() > 1)
                 cerr << " (and " << (altWorldLeaves.size() - 1) << " other leaves missing from first tree!)";
             cerr << endl;
-            error = true;
+            //error = true;
             delete l;
-            return;
+            return false;
         }
 	}
 	delete l;
+    return true;
 }
 
 void RootedTree::colorSubtree(int c)
@@ -694,7 +695,7 @@ void RootedTree::markHDTAlternative()
 
 bool RootedTree::isError()
 {
-	return error;
+	return this->error;
 }
 
 void RootedTree::toDotImpl()
