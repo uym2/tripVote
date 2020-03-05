@@ -4,8 +4,10 @@ inTrees=$1
 outTrees=$2
 refTrees=$3
 weights=$4
+count=1
 
 while read tree; do 
+    echo "Processing tree $count"
     tempIn=`mktemp` 
     tempOut=`mktemp`
     tempWeights=`mktemp`  
@@ -23,4 +25,5 @@ while read tree; do
     rm $tempIn 
     rm $tempOut 
     rm $tempWeights
+    count=$((count+1))
 done < $inTrees

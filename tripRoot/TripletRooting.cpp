@@ -3,11 +3,9 @@
 #include "hdt_factory.h"
 
 bool TripletRooting::pairing(){
-    myRef->pairAltWorld(myTree,true,tripCount);
-    
-    if (myTree->isError()) {
-        std::cerr << "The two trees do not have the same set of leaves." << std::endl;
-        std::cerr << "Aborting." << std::endl;
+    if (!myRef->pairAltWorld(myTree,true,tripCount)) {    
+    //if (myTree->isError()) {
+        std::cerr << "TripletRooting::pairing: Failed to pair the two trees. Aborting!" << std::endl;
         return false;
     }
 
@@ -16,7 +14,6 @@ bool TripletRooting::pairing(){
 }
 
 bool TripletRooting::find_optimal_root(){
-    countChildren(myTree);
     if (this->compute_tripScore()){
         this->optimalRoot = optimaltripRoots->data;
         return true;
@@ -27,14 +24,13 @@ bool TripletRooting::find_optimal_root(){
 
 bool TripletRooting::compute_tripScore(){
     if (!this->pairing()){
-        cerr << "Error: could not pair the two trees. Aborting!" << endl;
+        cerr << "TripletRooting::compute_tripScore: Could not pair the two trees. Aborting!" << endl;
         return false;
     }
-
     // construct HDT for myRef
     //std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
-    
+
     count(myTree);
 
     unsigned int r = myTree->idx;
@@ -98,12 +94,19 @@ TripletRooting::TripletRooting(){
     this->tripCount = NULL;
     this->dummyHDTFactory = NULL;
     this->ambiguity = 0;
+    this->factory = NULL;
 }
 
 bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
-    this->myRef = ref;
-    this->myTree = tree;
     this->hdt = NULL;
+    this->factory = new RootedTreeFactory();
+    this->myRef = ref->copyTree(this->factory);
+    this->myTree = tree->copyTree(this->factory);
+    
+    myTree->set_all_idx(0);
+    myTree->count_nodes();
+    myTree->countChildren();           
+    
     unsigned int N = this->myTree->nodeCounts;
     tripCount = new TripletCounter(N);
     dummyHDTFactory = new HDTFactory(myTree->maxDegree+1);
@@ -111,7 +114,8 @@ bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
 }
 
 TripletRooting::~TripletRooting(){
-    delete tripCount;
+    delete this->tripCount;
+    delete this->factory;
     while (this->optimaltripRoots != NULL){
         TemplatedLinkedList<RootedTree*> *curr = this->optimaltripRoots;
         this->optimaltripRoots = this->optimaltripRoots->next;

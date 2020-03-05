@@ -30,6 +30,8 @@ string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> 
     unsigned int idx = 0;
     
     for (std::vector<string>::iterator it = refTreeStrs.begin(); it != refTreeStrs.end(); ++it) {
+        //cout << "Processing reference tree " << idx+1 << endl;
+
         RootedTreeFactory *rFactory = new RootedTreeFactory();
         RootedTree *refTree = rFactory->getRootedTree();
         refTree->factory = rFactory;
@@ -40,16 +42,12 @@ string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> 
         tripRoot.initialize(refTree,myTree);
         
         if (!tripRoot.find_optimal_root()){
-            cout << "Failed to find optimal root of this sample!" << endl;
+            cerr << "rootFromVotes: Failed to find optimal root of this sample!" << endl;
             delete rFactory;
             continue;
         }
         
         TripletCounter* oneCount = tripRoot.tripCount;
-        
-        //for (int i = 0; i<oneCount->N; i++)
-        //    cout << oneCount->tripScore[i] << " ";
-        //cout << endl;
         
         double M;
         if (size_scaling){
@@ -120,7 +118,6 @@ string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> 
 
     delete [] allCounts;
     delete tFactory;   
-
     return rerooted_str;
 }
 
@@ -171,7 +168,7 @@ int main(int argc, char** argv) {
       std::getline(fin,w);
       if (fin.eof())
           break;
-      weights.push_back(exp(10-10*atof(w.c_str())));
+      weights.push_back(exp(-10*atof(w.c_str())));
   }
   fin.close();
    

@@ -24,3 +24,11 @@ TripletCounter::~TripletCounter(){
     delete [] this->tripScore;
     delete [] this->isActive;
 }
+
+void TripletCounter::erase(){
+    delete [] this->tI;
+    delete [] this->tO;
+    delete [] this->tR;
+    delete [] this->tripScore;
+    delete [] this->isActive;
+}

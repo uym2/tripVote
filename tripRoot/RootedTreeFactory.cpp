@@ -30,11 +30,11 @@ RootedTreeFactory::RootedTreeFactory(RootedTreeFactory *copyMemAllocFrom)
 
 RootedTreeFactory::~RootedTreeFactory()
 {
-	{
+    {
 		RootedTree *current = createdRT;
 		while (current != NULL)
-		{
-			RootedTree *next = current->altWorldSelf;
+	    {
+            RootedTree *next = current->altWorldSelf;
 			memRT->releaseMemory(current);
 			current = next;
 		}

@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
   unsigned int i = 1;
 
   while (1){
-    cout << "Processing tree " << i << endl;  
+    //cout << "Processing tree " << i << endl;  
     UnrootedTree *uRef;
     UnrootedTree *uTre;
     //RootedTree *rRef = NULL;
@@ -95,14 +95,18 @@ int main(int argc, char** argv) {
 
     INTTYPE_N4 n = quartetCalc.get_n();
     INTTYPE_N4 totalNoQuartets = quartetCalc.get_totalNoQuartets();
-    double dist_norm = double(dist) / double(totalNoQuartets);
+    double dist_norm;
+    if (totalNoQuartets == 0)
+        dist_norm = 1;
+    else    
+        dist_norm = double(dist) / double(totalNoQuartets);
     INTTYPE_N4 resAgree = resolvedQuartetsAgree + resolvedQuartetsAgreeDiag + resolvedQuartetsAgreeUpper;
     double resAgree_norm = double(resAgree) / double(totalNoQuartets);
     INTTYPE_N4 unresolvedQuartetsAgree = quartetCalc.get_unresolvedQuartets();
     double unresolvedQuartetsAgree_norm = double(unresolvedQuartetsAgree) / double(totalNoQuartets);
     
     if (!verbose)
-       cout << dist_norm << endl;
+       fout << dist_norm << endl;
     else{
         INTTYPE_N4 resolvedQuartetsAgree = quartetCalc.get_resolvedQuartetsAgree();
         INTTYPE_N4 resolvedQuartetsAgreeDiag = quartetCalc.get_resolvedQuartetsAgreeDiag();
