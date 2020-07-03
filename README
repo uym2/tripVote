@@ -1,9 +1,11 @@
-This is an implementation of triplet rooting algorithm: 
+This is an implementation of the triplet rooting algorithm: 
     Root a tree T according to a reference tree R such that the triplet score of T and R is maximized.
+
 The algorithm and the code heavily depend on the tqDist software http://birc.au.dk/software/tqDist/. 
 We would like to thank the authors for the code and algorithmic ideas.
 
 ############### Build procedure: ############### 
+First, install CMake https://cmake.org/download/
 
 To build and install the library, unzip the directory and execute the
 following commands in a terminal:
