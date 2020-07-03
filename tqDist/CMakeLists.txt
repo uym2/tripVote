@@ -60,110 +60,7 @@ add_library(tqDist_triplet SHARED
     int_stuff.cpp)
 set_target_properties(tqDist_triplet PROPERTIES PREFIX "lib" SUFFIX ${extension})
 
-add_library(tqDist_quartet SHARED
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(tqDist_quartet PROPERTIES COMPILE_FLAGS -DquartetsToo)
-set_target_properties(tqDist_quartet PROPERTIES PREFIX "lib" SUFFIX ${extension})
-
 ## EXECUTABLES
-add_executable(quartet_dist_2_ref quartet_dist_to_ref.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(quartet_dist_2_ref PROPERTIES COMPILE_FLAGS -DquartetsToo)
-
-add_executable(quartet_dist quartet_dist.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(quartet_dist PROPERTIES COMPILE_FLAGS -DquartetsToo)
-
-add_executable(all_pairs_quartet_dist all_pairs_quartet_distance.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(all_pairs_quartet_dist PROPERTIES COMPILE_FLAGS -DquartetsToo)
-
-add_executable(t2q_score compute_t2q_score.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  TripletDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(t2q_score PROPERTIES COMPILE_FLAGS -DquartetsToo)
-
-add_executable(pairs_quartet_dist pairs_quartet_distance.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(pairs_quartet_dist PROPERTIES COMPILE_FLAGS -DquartetsToo)
 
 add_executable(triplet_dist triplet_dist.cpp
   HDT.cpp
@@ -255,56 +152,10 @@ add_test(
   WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
   COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_triplet)
 
-add_executable(test_triplet_root_naive test_triplet_root.cpp
-  TripletRooting.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  TripletDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-add_test(
-  NAME test_triplet_root_naive 
-  WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
-  COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_triplet_root_naive)
-
-add_executable(test_quartet test_quartet.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  AbstractDistanceCalculator.cpp
-  QuartetDistanceCalculator.cpp
-  int_stuff.cpp)
-set_target_properties(test_quartet PROPERTIES COMPILE_FLAGS -DquartetsToo)
-add_test(
-  NAME test_quartet 
-  WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
-  COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_quartet)
-
 ## Installation
 install(TARGETS triplet_dist RUNTIME DESTINATION bin)
-install(TARGETS quartet_dist RUNTIME DESTINATION bin)
 install(TARGETS pairs_triplet_dist RUNTIME DESTINATION bin)
-install(TARGETS pairs_quartet_dist RUNTIME DESTINATION bin)
 install(TARGETS all_pairs_triplet_dist RUNTIME DESTINATION bin)
-install(TARGETS all_pairs_quartet_dist RUNTIME DESTINATION bin)
 if(WIN32)
   install(FILES VCredist/msvcp120.dll VCredist/msvcr120.dll DESTINATION bin)
 endif(WIN32)

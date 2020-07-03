@@ -45,44 +45,7 @@ message(STATUS "CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 ## LIBRARIES
 ## EXECUTABLES
 
-add_executable(test_read_write_newick test_read_write_newick.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-    
-
-add_executable(tripRoot2 triplet_MV_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  TripletCounter.cpp
-  MinVarCounter.cpp
-  TripletRooting.cpp
-  TrplMVRooting.cpp  
-  int_stuff.cpp)
-
-add_executable(tripMVRoot triplet_MV_rooting.cpp
+add_executable(triplet_root triplet_MV_rooting.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
@@ -118,120 +81,6 @@ add_executable(MVRoot MV_rooting.cpp
   RootedTreeFactory.cpp
   int_stuff.cpp)
 
-add_executable(pruneTree prune_tree.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  int_stuff.cpp)
-
-add_executable(tripVote triplet_voting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
-add_executable(smplRoot smpl_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  subtree_sampler.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
-add_executable(smplVote smpl_d2root_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  subtree_sampler.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
-add_executable(splitVote smpl_split_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  subtree_sampler.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
-add_executable(tripOGRoot triplet_og_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  TripletRooting_OG.cpp
-  int_stuff.cpp)
-
 add_executable(ogRoot outgroup_rooting.cpp
   CountingArray.cpp
   HDT.cpp
@@ -249,22 +98,6 @@ add_executable(ogRoot outgroup_rooting.cpp
   int_stuff.cpp  
 )
 
-add_executable(collapseTree collapse_tree.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  RefTreeGen.cpp
-  int_stuff.cpp  
-)
 add_executable(test_trplMV_root test_trplMV_root.cpp
   CountingArray.cpp
   HDT.cpp
