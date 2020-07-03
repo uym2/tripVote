@@ -64,6 +64,25 @@ add_executable(triplet_root triplet_MV_rooting.cpp
   TrplMVRooting.cpp  
   int_stuff.cpp)
 
+add_executable(delta_triplet_dist delta_triplet_distance.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  MinVarCounter.cpp
+  TripletRooting.cpp
+  TrplMVRooting.cpp  
+  int_stuff.cpp)
+
 add_executable(MVRoot MV_rooting.cpp
   CountingArray.cpp
   HDT.cpp
@@ -81,7 +100,7 @@ add_executable(MVRoot MV_rooting.cpp
   RootedTreeFactory.cpp
   int_stuff.cpp)
 
-add_executable(ogRoot outgroup_rooting.cpp
+add_executable(OGRoot outgroup_rooting.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp

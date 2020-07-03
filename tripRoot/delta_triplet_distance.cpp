@@ -13,10 +13,14 @@
 void usage(char *programName) {
   std::cout << "Usage: " << programName << " <refTree> <inTree>" << std::endl 
 	    << std::endl;
-  std::cout << "Where <refTree> and <inTree> point to two files each containing one"                            << std::endl
-	    << "tree in Newick format. In both trees all leaves should be labeled and the"                          << std::endl
-	    << "two trees must have the same leaf set.Report the triplet distance, ideal"                           << std::endl
-        << "triplet distance, and the delta triplet distance"                                                   << std::endl;                
+  std::cout << "Where <refTree> and <inTree> are two trees in Newick format"                                    << std::endl
+	    << "In both trees all leaves should be labeled and the"                                                 << std::endl
+	    << "two trees must have the same leaf set. Output:"                                                     << std::endl                  
+        << " + The number of leaves in each tree"                                                               << std::endl
+        << " + The triplet distance between the two trees"                                                      << std::endl
+        << " + The minimum triplet distance of any rooting of <inTree> to <refTree>"                            << std::endl
+        << " + The delta triplet distance"                                                                      << std::endl
+        << "Note that the delta triplet distance is NOT symmetric."                                             << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -83,7 +87,7 @@ int main(int argc, char** argv) {
           INTTYPE_REST ntrpls = rTre->n*(rTre->n-1)*(rTre->n-2)/6;
           INTTYPE_REST dtrpl_root = ntrpls-tripRoot.compute_root_tripScore();
           INTTYPE_REST dtrpl_ideal = ntrpls-tripRoot.optimalTripScore;
-          std::cout << dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << std::endl;
+          std::cout << rTre->n << " " << ntrpls << " " <<  dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << std::endl;
           delete rFactory;
           delete tFactory;
       }

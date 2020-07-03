@@ -12,6 +12,10 @@
 
 void usage(char *programName) {
   std::cout << "Usage: " << programName << " <inTree> <outTree>" << std::endl;
+  std::cout << std::endl;
+  std::cout << "Where <inTree> is a newick tree. The tree will be" << std::endl
+            << "(re)rooted to minimize root-to-tip variance and "  << std::endl
+            << "output to <outTree> file"                          << std::endl;
 }
 
 int main(int argc, char** argv) {
