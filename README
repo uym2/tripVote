@@ -49,6 +49,6 @@ root-to-tip variance and output to <outTree> file
 ## OGRoot
 Usage: bin/OGRoot <inTree> <outTree> <outgroups>
 
-Where <inTree> point to a file containing one tree in Newick format; 
+Where <inTree> points to a file containing one tree in Newick format; 
 <outTree> is the name of the output file; <outgroups> is a list of outgroup labels.
 The tree will be (re)rooted at the biggest clade containing only outgroups.
