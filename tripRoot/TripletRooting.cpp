@@ -3,11 +3,9 @@
 #include "hdt_factory.h"
 
 bool TripletRooting::pairing(){
-    myRef->pairAltWorld(myTree,true,tripCount);
-    
-    if (myTree->isError()) {
-        std::cerr << "The two trees do not have the same set of leaves." << std::endl;
-        std::cerr << "Aborting." << std::endl;
+    if (!myRef->pairAltWorld(myTree,true,tripCount)) {    
+    //if (myTree->isError()) {
+        std::cerr << "TripletRooting::pairing: Failed to pair the two trees. Aborting!" << std::endl;
         return false;
     }
 
@@ -16,46 +14,49 @@ bool TripletRooting::pairing(){
 }
 
 bool TripletRooting::find_optimal_root(){
-    if (!this->pairing()){
-        cerr << "Error: could not pair the two trees. Aborting!" << endl;
+    if (this->compute_tripScore()){
+        this->optimalRoot = optimaltripRoots->data;
+        return true;
+    } else{
         return false;
     }
+}
 
+bool TripletRooting::compute_tripScore(){
+    if (!this->pairing()){
+        cerr << "TripletRooting::compute_tripScore: Could not pair the two trees. Aborting!" << endl;
+        return false;
+    }
     // construct HDT for myRef
-    countChildren(myTree);
-    std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
+    //std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
-    
-    count(myTree);
 
-    // HDT is deleted in count if extracting and contracting!
-/*
-#ifndef doExtractAndContract
-    delete hdt->factory;
-#endif
-*/    
-    this->compute_tA(this->myTree);
-    
+    count(myTree);
 
     unsigned int r = myTree->idx;
 
-    this->optimalRoot = NULL;
+    this->optimaltripRoots = NULL;
     this->optimalTripScore = -1;
+
+    this->tripCount->tripScore[r] = this->compute_root_tripScore();
     
-    this->downroot(myTree,tripCount->tA[r],false);
+    this->__downroot__(myTree,this->tripCount->tripScore[r],false);
 
     return true;
 }
 
-void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool parent_active){
+void TripletRooting::__downroot__(RootedTree *t, INTTYPE_REST parent_score, bool parent_active){
     unsigned int u = t->idx;
     
     for(TemplatedLinkedList<RootedTree*> *current = t->children; current != NULL; current = current->next) {
         unsigned int v = current->data->idx;
-        if (!tripCount->isActive[v]){
-            continue;
-        }
+        //if (!tripCount->isActive[v]){
+        //    continue;
+        //}
+        
         INTTYPE_REST current_score = parent_score - tripCount->tI[u] + tripCount->tO[v] + tripCount->tR[v];
+        this->tripCount->tripScore[v] = current_score;
+        
         bool sister_active = false;
         for(TemplatedLinkedList<RootedTree*> *sis = t->children; sis != NULL; sis = sis->next) {
             if (sis != current){
@@ -67,17 +68,23 @@ void TripletRooting::downroot(RootedTree *t, INTTYPE_REST parent_score, bool par
             }
         }
         if (parent_active || sister_active){
-            if (current_score == this->optimalTripScore && t != this->myTree)
+            TemplatedLinkedList<RootedTree*> *newItem = new TemplatedLinkedList<RootedTree*>;
+            newItem->data =  current->data;
+            if (current_score == this->optimalTripScore && t != this->myTree){
+                newItem->next = this->optimaltripRoots;
+                this->optimaltripRoots = newItem;
                 this->ambiguity += 1;
+            }
             else if (current_score > this->optimalTripScore){
                 this->optimalTripScore = current_score;
-                this->optimalRoot = current->data;
+                newItem->next = NULL;
+                this->optimaltripRoots = newItem;
                 this->ambiguity = 1;
             }
         }
         INTTYPE_REST v_parent_score = current_score - tripCount->tR[v]; 
         bool v_parent_active = parent_active | sister_active;
-        this->downroot(current->data,v_parent_score,v_parent_active);
+        this->__downroot__(current->data,v_parent_score,v_parent_active);
     }   
 }
 
@@ -87,21 +94,33 @@ TripletRooting::TripletRooting(){
     this->tripCount = NULL;
     this->dummyHDTFactory = NULL;
     this->ambiguity = 0;
+    this->factory = NULL;
 }
 
 bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
-    this->myRef = ref;
-    this->myTree = tree;
     this->hdt = NULL;
-    unsigned int N = this->myTree->set_all_idx(0);
+    this->factory = new RootedTreeFactory();
+    this->myRef = ref->copyTree(this->factory);
+    this->myTree = tree->copyTree(this->factory);
+    
+    myTree->set_all_idx(0);
+    myTree->count_nodes();
+    myTree->countChildren();           
+    
+    unsigned int N = this->myTree->nodeCounts;
     tripCount = new TripletCounter(N);
     dummyHDTFactory = new HDTFactory(myTree->maxDegree+1);
     return true;
 }
 
 TripletRooting::~TripletRooting(){
-    delete tripCount;
-    delete dummyHDTFactory;
+    delete this->tripCount;
+    delete this->factory;
+    while (this->optimaltripRoots != NULL){
+        TemplatedLinkedList<RootedTree*> *curr = this->optimaltripRoots;
+        this->optimaltripRoots = this->optimaltripRoots->next;
+        delete curr;
+    }
 }
 
 void TripletRooting::update_tI(unsigned int nodeIdx, bool count_unresolved){
@@ -131,13 +150,16 @@ void TripletRooting::updateCounters(unsigned int nodeIdx, unsigned int color){
     this->tripCount->tR[nodeIdx] = this->hdt->getResolvedTriplets_root();
 }*/
 
-void TripletRooting::compute_tA(RootedTree *v){
+INTTYPE_REST TripletRooting::__compute_root_tripScore__(RootedTree *v){
     INTTYPE_REST acc = this->tripCount->tI[v->idx];
     for(TemplatedLinkedList<RootedTree*> *current = v->children; current != NULL; current = current->next) {
-        this->compute_tA(current->data);
-        acc += this->tripCount->tA[current->data->idx];
+        acc += this->__compute_root_tripScore__(current->data);
     }
-    this->tripCount->tA[v->idx] = acc;    
+    return acc;    
+}
+
+INTTYPE_REST TripletRooting::compute_root_tripScore(){
+    return this->__compute_root_tripScore__(this->myTree);
 }
 
 void TripletRooting::count(RootedTree *v) {

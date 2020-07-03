@@ -56,7 +56,7 @@ void OutgroupRooting::initialize(RootedTree *myTree, set<string> outgroups){
     RootedTree* ig = this->__find_one_ingroup__(myTree, outgroups);
     RootedTree* rTree = NULL;
     if (ig != NULL){
-        rTree = myTree->reroot_at_edge(ig);
+        rTree = myTree->reroot_at_edge(ig,ig->edge_length/2);
     }
     if (rTree == NULL)
         this->myTree = myTree;
@@ -77,7 +77,7 @@ RootedTree* OutgroupRooting::findRoot(){
 RootedTree* OutgroupRooting::reroot(){
    RootedTree* newRoot = this->findRoot();
    if (newRoot != NULL)
-       return myTree->reroot_at_edge(newRoot);
+       return myTree->reroot_at_edge(newRoot,newRoot->edge_length/2);
    else{
         cerr << "Could not find any clade of outgroups. Possibly because the tree contains none of the specified outgroups. Randomly rerooted at one leaf!" << endl;
         return myTree;

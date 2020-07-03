@@ -6,6 +6,7 @@
 #include "quartet_calc.h"
 #include "hdt.h"
 #include "TripletCounter.h"
+#include "rooted_tree_factory.h"
 
 #ifndef CONTRACT_MAX_EXTRA_SIZE
 #define CONTRACT_MAX_EXTRA_SIZE 20000
@@ -14,7 +15,7 @@
 class TripletRooting {
  public:
   TripletRooting();
-  bool initialize(RootedTree *ref, RootedTree *tree);
+  virtual bool initialize(RootedTree *ref, RootedTree *tree);
   ~TripletRooting();
   
   virtual bool pairing();
@@ -23,17 +24,23 @@ class TripletRooting {
   void update_tI(unsigned int nodeIdx, bool count_unresolved=false);
   void update_tO(unsigned int nodeIdx, unsigned int color, bool count_unresolved=false);
   void update_tR(unsigned int nodeIdx);
-  void compute_tA(RootedTree *v);
-  bool find_optimal_root();
-  void downroot(RootedTree *v, INTTYPE_REST parent_score, bool parent_active);      
+  INTTYPE_REST compute_root_tripScore();
+  virtual bool find_optimal_root();
+  bool compute_tripScore();
 
   HDTFactory *dummyHDTFactory;
+  RootedTreeFactory *factory;
   RootedTree *myRef, *myTree;
   HDT *hdt;
   TripletCounter *tripCount;
   INTTYPE_REST optimalTripScore;
   unsigned int ambiguity;
+  TemplatedLinkedList<RootedTree*> *optimaltripRoots; // the nodes that have optimal tripScore
   RootedTree *optimalRoot; // the node in myTree where the optimal root placed above
+
+private:
+  INTTYPE_REST __compute_root_tripScore__(RootedTree *v);       
+  void __downroot__(RootedTree *v, INTTYPE_REST parent_score, bool parent_active);      
 };
 
 #endif

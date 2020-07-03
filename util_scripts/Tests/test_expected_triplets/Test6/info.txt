@@ -1,0 +1,3 @@
+Species: 5k
+Model: outgroup.0.25.species.1.5.genes.1.5
+Rep: 11

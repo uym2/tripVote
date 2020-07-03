@@ -2,6 +2,9 @@
 #include "rooted_tree.h"
 #include "hdt.h"
 #include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <string>
 
 /**************/
 /* uym2 added */
@@ -10,6 +13,7 @@ void RootedTree::__set_label__(stack<RootedTree*> &stk, string &label, bool &wai
         if (label != ""){
             if (!wait_for_int_lab){
                 RootedTree *p = this->factory->getRootedTree(label);
+                //cout << "Added one tree to the factory" << endl;
                 stk.push(p);
             } else {
                 stk.top()->name = label;
@@ -19,7 +23,99 @@ void RootedTree::__set_label__(stack<RootedTree*> &stk, string &label, bool &wai
         wait_for_int_lab = false;
 }
 
-bool RootedTree::read_newick(ifstream &fin){
+bool RootedTree::read_newick_str(string str){
+        this->maxDegree = 0;
+		char c;
+		bool wait_for_int_lab = false;
+        bool is_at_root = true;
+		stack<RootedTree*> stk;
+
+		string label = "";
+        string::iterator it = str.begin();
+
+        while (it != str.end()){
+			c = *it;
+            if (c == '('){
+                if (is_at_root){
+                    stk.push(this);
+                    is_at_root = false;
+                }
+                else{
+				    stk.push(NULL);
+                }
+				label = "";
+                ++it;
+
+			} else if (c == ',') {
+				this->__set_label__(stk,label,wait_for_int_lab);
+                ++it;
+
+            } else if (c == ')'){
+				this->__set_label__(stk,label,wait_for_int_lab);
+				
+				RootedTree *q = stk.top();
+			    stk.pop();
+                unsigned int numChildren = 0;
+                TemplatedLinkedList<RootedTree*> *children = NULL;
+
+				while (q != NULL && q != this){
+                    numChildren++;
+                    TemplatedLinkedList<RootedTree*> *newItem = factory->getTemplatedLinkedList();
+                    newItem->data = q;
+                    newItem->next = children;
+                    children = newItem;
+                    q = stk.top();
+					stk.pop();
+				}
+
+                if (q == NULL){
+                    q = this->factory->getRootedTree();
+                }
+                
+                q->children = children;
+                q->numChildren = numChildren;  
+                
+                for (TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+                    i->data->parent = q;
+				
+                if (numChildren > this->maxDegree)
+                    this->maxDegree = numChildren;  
+                
+                stk.push(q);
+				label = "";
+				wait_for_int_lab = true;
+			    ++it;
+
+            } else if (c == ';'){
+				stk.pop();
+				break;
+
+			} else if (c == ':'){
+				this->__set_label__(stk,label,wait_for_int_lab);
+                string se = "";
+                ++it;
+                c = *it;
+                while (c != ',' && c != ')' && c != ';'){
+				    se += c;
+                    ++it;
+                    c = *it;
+                }
+                double e = strtod(se.c_str(),NULL);
+				stk.top()->edge_length = e;
+				wait_for_int_lab = false;
+			}
+			else {
+				label += c;
+                ++it;
+			}
+		}
+		return true;
+}
+
+bool RootedTree::read_newick_file(string treeFile){
+        this->maxDegree = 0;
+        ifstream fin;
+        fin.open(treeFile.c_str());
 		char c;
 		bool wait_for_int_lab = false;
         bool is_at_root = true;
@@ -65,7 +161,13 @@ bool RootedTree::read_newick(ifstream &fin){
                 }
                 
                 q->children = children;
-                q->numChildren = numChildren;  
+                q->numChildren = numChildren;
+
+                for (TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+                    i->data->parent = q;
+
+                if (numChildren > this->maxDegree)
+                    this->maxDegree = numChildren;  
 				
                 stk.push(q);
 				label = "";
@@ -85,6 +187,7 @@ bool RootedTree::read_newick(ifstream &fin){
 				label += c;
 			}
 		}
+        fin.close();
 		return true;
 	}
 	
@@ -131,7 +234,7 @@ bool RootedTree::remove_child(RootedTree *child){
     return false;
 }
 
-RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
+RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
     RootedTree* v = node;
     if (v == this) // v is the root
         return this;
@@ -143,26 +246,44 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node){
         
     RootedTree *u = v->parent;    
     RootedTree *w = u->parent;
-    RootedTree *newRoot = this->factory->getRootedTree();
+    double ev = v->edge_length;
+    double eu = u->edge_length;
+
+
+    RootedTreeFactory *tFactory = new RootedTreeFactory();
+    RootedTree *newRoot = tFactory->getRootedTree();
+    newRoot->factory = tFactory;
+
+    //RootedTree *newRoot = this->factory->getRootedTree();
+    //newRoot->factory = this->factory;
     u->remove_child(v);
     newRoot->children = NULL;
     newRoot->addChild(v);
     newRoot->addChild(u);
-
+    v->edge_length = ev-x;
+    u->edge_length = x;
+  
    
     while(w != NULL){
         v = w;
         w = w->parent;
-        
+        ev = v->edge_length;;
         u->addChild(v);
-        u = v;
-    }
+        v->edge_length = eu;
 
-    if (u->numChildren < 2){
+        u = v;
+        eu = ev;
+    }
+    
+    if (u->numChildren == 1){
         // suppress unifurcation
+        // u has a single child; it is v = u->children->data
+        v = u->children->data;
+        double e = u->edge_length + v->edge_length;
         w = u->parent;
         w->remove_child(u);
-        w->addChild(u->children->data);
+        v->edge_length = e;
+        w->addChild(v);
     }
     
     return newRoot;
@@ -176,7 +297,7 @@ void RootedTree::write_newick(ofstream &fout){
 void RootedTree::__write_newick__(ofstream &fout){
     if (this->isLeaf()){
         fout << this->name;
-        if (this->edge_length > 0)
+        if (this->edge_length >= 0)
             fout << ":" << this->edge_length;
     }
     else {
@@ -190,8 +311,47 @@ void RootedTree::__write_newick__(ofstream &fout){
             i->data->__write_newick__(fout);
         }
         fout << ")" << this->name;
-        if (this->edge_length > 0)
+        if (this->edge_length >= 0)
             fout << ":" << this->edge_length;
+    }
+}
+
+string RootedTree::toString(){
+    string myString = "";
+    this->__to_string__(myString);
+    myString += ";";
+
+    return myString;
+}
+
+void RootedTree::__to_string__(string &myString){
+    if (this->isLeaf()){
+        myString += this->name;
+        if (this->edge_length >= 0){
+            myString += ":";
+            std::ostringstream convertor;
+            convertor << this->edge_length;
+            myString += convertor.str(); //std::to_string(this->edge_length);
+        }
+    }
+    else {
+        myString += "(";
+        // first child
+        RootedTree *firstChild = this->children->data;
+        firstChild->__to_string__(myString);
+        // the remaining children
+        for (TemplatedLinkedList<RootedTree*> *i = children->next; i != NULL; i = i->next){
+            myString += ",";
+            i->data->__to_string__(myString);
+        }
+        myString += ")";
+        myString += this->name;
+        if (this->edge_length >= 0){
+            myString += ":";
+            std::ostringstream convertor;
+            convertor << this->edge_length;
+            myString += convertor.str(); //std::to_string(this->edge_length);
+        }
     }
 }
 
@@ -205,7 +365,7 @@ void RootedTree::print_leaves(){
     }       
 }
 
-int RootedTree::set_all_idx(unsigned int startIdx){
+unsigned int RootedTree::set_all_idx(unsigned int startIdx){
     unsigned int currIdx = startIdx;
     this->set_idx(currIdx); 
     currIdx++;
@@ -217,16 +377,58 @@ int RootedTree::set_all_idx(unsigned int startIdx){
     return currIdx;
 }
 
+void RootedTree::count_nodes(){
+    if (this->isLeaf())
+        this->nodeCounts = 1;
+    else{
+        unsigned int count = 1;
+        for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+        {
+            RootedTree *t = i->data;
+            t->count_nodes(); 
+            count += t->nodeCounts;
+        }
+        this->nodeCounts = count;
+    }
+}
+
+RootedTree* RootedTree::search_idx(unsigned int idx){
+    if(this->idx == idx)
+        return this;
+    
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+    {
+        RootedTree *t = i->data; 
+        RootedTree *result = t->search_idx(idx);
+        if (result)
+            return result;
+    }
+    return NULL;
+}
+
+RootedTree* RootedTree::search_name(string name){
+    if(this->name == name)
+        return this;
+    
+    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+    {
+        RootedTree *t = i->data; 
+        RootedTree *result = t->search_name(name);
+        if (result)
+            return result;
+    }
+    return NULL;
+}
+
 RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
     // create a deep copy of tree t
-	if (factory == NULL) factory = new RootedTreeFactory(NULL);
-    RootedTree *t_new = factory->getRootedTree();
-	*t_new = *this;
+	//if (factory == NULL) factory = new RootedTreeFactory(NULL);
+	if (factory == NULL) factory = this->factory;
 
-    for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
-	{
-        t_new->addChild(i->data->copyTree(factory));
-    }
+    string tree_str = this->toString();
+    RootedTree *t_new = factory->getRootedTree();
+    t_new->factory = factory;
+	t_new->read_newick_str(tree_str);
 
     return t_new;
 }
@@ -287,6 +489,21 @@ bool RootedTree::isLeaf()
 	return numChildren == 0;
 }
 
+bool RootedTree::isRoot()
+{
+    return this->parent == NULL;
+}
+
+void RootedTree::compute_d2root(){
+    if (this->isRoot())
+        this->d2root = 0;
+    for(TemplatedLinkedList<RootedTree*> *i = this->children; i != NULL; i = i->next){
+        RootedTree* t = i->data;
+        t->d2root = this->d2root + t->edge_length;
+        t->compute_d2root();
+    }
+}
+
 void RootedTree::addChild(RootedTree *t)
 {
     // uym2 added: if t has a parent, remove it from the parent's children first
@@ -328,9 +545,7 @@ bool RootedTree::prune_subtree(RootedTree* u){
         cerr << "Are you trying to remove the root?" << endl;
         return false;
     }    
-    if (w->remove_child(u))
-        cerr << "Removed" << endl;
-    else{
+    if (!w->remove_child(u)){
         cerr << "Could not remove leaf!" << endl;
         return false;
     }
@@ -341,8 +556,9 @@ bool RootedTree::prune_subtree(RootedTree* u){
     }
     else if (w->numChildren == 1){
         // supress unifurcation
-        cerr << "Supress unifurcation after removing leaf ..." << endl;
+        //cerr << "Supress unifurcation after removing leaf ..." << endl;
         RootedTree *v = w->children->data;
+        double l = v->edge_length;
         w->remove_child(v);
         
         if (w->parent == NULL) { // the leaf we are trying to remove is a child of the root
@@ -351,20 +567,24 @@ bool RootedTree::prune_subtree(RootedTree* u){
         
             while(v->children != NULL){
                 RootedTree *t = v->children->data;
+                double l1 = t->edge_length;
                 w->addChild(t);
+                t->edge_length = l+l1;
             }
         } else {
             RootedTree *p = w->parent;
+            double l1 = w->edge_length;
             p->remove_child(w);
             p->addChild(v);
+            v->edge_length = l+l1;
         }
     } 
     return true;
 }
 
-void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tripCount)
+bool RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tripCount)
 {
-	error = false;
+	//bool error = false;
 	vector<RootedTree*>* l = t->getList();
 	map<string, RootedTree*> altWorldLeaves;
 
@@ -386,21 +606,21 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
 			// This leaf wasn't found in the input tree!
             if (do_pruning){
                 // prune the leaf out from the first tree then continue
-                cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
+                //cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
                 if (this->prune_subtree(leaf)){
                     continue;
                 }
                 else {
                     cerr << "Could not remove leaf. Aborting!" << endl;
-                    error = true;
+                    //error = true;
                     delete l;
-                    return;
+                    return false;
                 }
             } else {
 			    cerr << "Leaves don't agree! Aborting! (" << leaf->name << " didn't exist in the second tree)" << endl;
-			    error = true;
+			    //error = true;
 			    delete l;
-			    return;
+			    return false;
             }
 		}
 				
@@ -418,7 +638,7 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
 	{
         if (tripCount != NULL){
             for(map<string,RootedTree*>::iterator i = altWorldLeaves.begin(); i != altWorldLeaves.end(); i++){
-                cerr << i->first << " didn't exist in the first tree. It will be ignored in the second tree..." << endl;
+                //cerr << i->first << " didn't exist in the first tree. It will be ignored in the second tree..." << endl;
                 /*if (t->prune_subtree(i->second)){
                     cerr << "Success!" << endl;
                 } else
@@ -430,12 +650,13 @@ void RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
             if (altWorldLeaves.size() > 1)
                 cerr << " (and " << (altWorldLeaves.size() - 1) << " other leaves missing from first tree!)";
             cerr << endl;
-            error = true;
+            //error = true;
             delete l;
-            return;
+            return false;
         }
 	}
 	delete l;
+    return true;
 }
 
 void RootedTree::colorSubtree(int c)
@@ -474,7 +695,7 @@ void RootedTree::markHDTAlternative()
 
 bool RootedTree::isError()
 {
-	return error;
+	return this->error;
 }
 
 void RootedTree::toDotImpl()
@@ -595,3 +816,53 @@ RootedTree* RootedTree::contractImpl(RootedTreeFactory *factory)
 
 	return ourNewNode;
 }
+
+void RootedTree::__count_children__(RootedTree *t) {
+  if (t->isLeaf()) {
+    t->n = 1;
+    return;
+  }
+  
+  int nSum = 0;
+  for(TemplatedLinkedList<RootedTree*> *i = t->children; i != NULL; i = i->next) {
+    RootedTree *childI = i->data;
+    this->__count_children__(childI);
+    nSum += childI->n;
+  }
+  t->n = nSum;
+}
+
+void RootedTree::countChildren(){
+    this->__count_children__(this);
+}
+
+bool __wayToSort__(RootedTree* i, RootedTree* j){
+    return i->d2root < j->d2root;
+}
+
+vector<RootedTree*> RootedTree::sort_leaf_by_d2root(){
+    this->compute_d2root();
+    vector<RootedTree*> L = *this->getList(); // leafset
+    sort(L.begin(),L.end(),__wayToSort__);    
+    return L;
+}
+
+void __sum_d2root__(RootedTree *t, double & nleaves, double d2root, double & acc_sum){
+    if (t->isLeaf()){
+        nleaves += 1;
+        acc_sum += d2root;
+    } else {
+        for (TemplatedLinkedList<RootedTree*> *i = t->children; i != NULL; i = i->next){
+            __sum_d2root__(i->data, nleaves, d2root + i->data->edge_length, acc_sum);
+        }
+    }
+}
+
+double RootedTree::mean_d2root(){
+    double acc_sum = 0;
+    double nleaves = 0;
+
+    __sum_d2root__(this, nleaves, 0, acc_sum);
+    return acc_sum/nleaves;
+}
+

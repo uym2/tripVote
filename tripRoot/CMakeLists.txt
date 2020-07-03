@@ -63,7 +63,7 @@ add_executable(test_read_write_newick test_read_write_newick.cpp
   int_stuff.cpp)
     
 
-add_executable(tripRoot triplet_rooting.cpp
+add_executable(tripRoot2 triplet_MV_rooting.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
@@ -76,6 +76,140 @@ add_executable(tripRoot triplet_rooting.cpp
   NewickParser.cpp
   RootedTree.cpp
   RootedTreeFactory.cpp
+  TripletCounter.cpp
+  MinVarCounter.cpp
+  TripletRooting.cpp
+  TrplMVRooting.cpp  
+  int_stuff.cpp)
+
+add_executable(tripMVRoot triplet_MV_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  MinVarCounter.cpp
+  TripletRooting.cpp
+  TrplMVRooting.cpp  
+  int_stuff.cpp)
+
+add_executable(MVRoot MV_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  int_stuff.cpp)
+
+add_executable(pruneTree prune_tree.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  int_stuff.cpp)
+
+add_executable(tripVote triplet_voting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+
+add_executable(smplRoot smpl_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  subtree_sampler.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+
+add_executable(smplVote smpl_d2root_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  subtree_sampler.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+
+add_executable(splitVote smpl_split_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  subtree_sampler.cpp
   TripletCounter.cpp
   TripletRooting.cpp
   int_stuff.cpp)
@@ -131,6 +265,25 @@ add_executable(collapseTree collapse_tree.cpp
   RefTreeGen.cpp
   int_stuff.cpp  
 )
+add_executable(test_trplMV_root test_trplMV_root.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  MinVarCounter.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  TrplMVRooting.cpp
+  int_stuff.cpp
+)
 
 add_executable(test_triplet_root test_triplet_root.cpp
   CountingArray.cpp
@@ -154,7 +307,7 @@ add_test(
   COMMAND ${EXECUTABLE_OUTPUT_PATH}/test_triplet_root)
 
 ## Installation
-install(TARGETS tripRoot RUNTIME DESTINATION bin)
-if(WIN32)
-  install(FILES VCredist/msvcp120.dll VCredist/msvcr120.dll DESTINATION bin)
-endif(WIN32)
+#install(TARGETS tripRoot RUNTIME DESTINATION bin)
+#if(WIN32)
+#  install(FILES VCredist/msvcp120.dll VCredist/msvcr120.dll DESTINATION bin)
+#endif(WIN32)
