@@ -21,7 +21,7 @@ Triplet_rooting $ make install
 ## triplet_root
 Usage: bin/triplet_root <refTree> <inTree> <outTree>
 
-Where <refTree> and <inTree> point to two files each containing one
+Where <refTree> and <inTree> point to two files each contains one
 tree in Newick format. In both trees all leaves should be labeled and the
 two trees should share some a majority of the leaf labels. <inTree> will be (re)rooted
 such that its triplet score to <refTree> is maximized. The (re)rooted tree
