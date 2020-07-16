@@ -17,6 +17,7 @@ void usage(char *programName) {
 	    << "In both trees all leaves should be labeled and the"                                                 << std::endl
 	    << "two trees must have the same leaf set. Output:"                                                     << std::endl                  
         << " + The number of leaves in each tree"                                                               << std::endl
+        << " + The number of triplets in each tree"                                                             << std::endl
         << " + The triplet distance between the two trees"                                                      << std::endl
         << " + The minimum triplet distance of any rooting of <inTree> to <refTree>"                            << std::endl
         << " + The delta triplet distance"                                                                      << std::endl
