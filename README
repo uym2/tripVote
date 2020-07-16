@@ -12,7 +12,6 @@ $ cd <path to library>/Triplet_rooting/
 Triplet_rooting $ cmake .
 Triplet_rooting $ make
 Triplet_rooting $ make test
-Triplet_rooting $ make install
 
 ################ Executables ###################
 
