@@ -1,9 +1,11 @@
-This is an implementation of triplet rooting algorithm: 
+This is an implementation of the triplet rooting algorithm: 
     Root a tree T according to a reference tree R such that the triplet score of T and R is maximized.
+
 The algorithm and the code heavily depend on the tqDist software http://birc.au.dk/software/tqDist/. 
 We would like to thank the authors for the code and algorithmic ideas.
 
 ############### Build procedure: ############### 
+First, install CMake https://cmake.org/download/
 
 To build and install the library, unzip the directory and execute the
 following commands in a terminal:
@@ -18,7 +20,7 @@ Triplet_rooting $ make test
 ## triplet_root
 Usage: bin/triplet_root <refTree> <inTree> <outTree>
 
-Where <refTree> and <inTree> point to two files each containing one
+Where <refTree> and <inTree> point to two files each contains one
 tree in Newick format. In both trees all leaves should be labeled and the
 two trees should share some a majority of the leaf labels. <inTree> will be (re)rooted
 such that its triplet score to <refTree> is maximized. The (re)rooted tree
@@ -46,6 +48,6 @@ root-to-tip variance and output to <outTree> file
 ## OGRoot
 Usage: bin/OGRoot <inTree> <outTree> <outgroups>
 
-Where <inTree> point to a file containing one tree in Newick format; 
+Where <inTree> points to a file containing one tree in Newick format; 
 <outTree> is the name of the output file; <outgroups> is a list of outgroup labels.
 The tree will be (re)rooted at the biggest clade containing only outgroups.
