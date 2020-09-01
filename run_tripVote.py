@@ -114,4 +114,4 @@ print(end - start)
 
 if args.mv == "temp": 
     os.remove(MVrootedTrees.name)
-os.remove(weightsFile)
+os.remove(weightsFile.name)
