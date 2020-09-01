@@ -28,25 +28,25 @@ if args.mv == "temp":
     call(["./bin/MVRoot", args.input, MVrootedTrees.name])
 else: 
     call(["./bin/MVRoot", args.input, args.mv])
-exit()
+
 print("Step1b: computing weight matrix")
 
-if MVrootedTrees == "temp":
+if args.mv == "temp":
     f = open(MVrootedTrees.name)
 else:
-    f = open(MVrootedFile)
+    f = open(args.mv)
 trees = f.readlines()
 f.close()
 
-if MVrootedFile == "temp":
+if args.mv == "temp":
     call(["./bin/matrix_quartet_dist_to_ref", MVrootedTrees.name, weightsFile.name])
 else:
-    call(["./bin/matrix_quartet_dist_to_ref", MVrootedFile, weightsFile.name])
+    call(["./bin/matrix_quartet_dist_to_ref", args.mv , weightsFile.name])
 
 numTree = len(trees)
 weightMatrix = [[0]*numTree for i in range(numTree)]
 
-f = open(weightsFile)
+f = open(weightsFile.name)
 for i in range(numTree):
     for j in range(numTree):
         if i <= j:
@@ -71,7 +71,7 @@ def tripvote(tree, count):
     if MVrootedFile == "temp":
         copyfile(MVrootedTrees.name, tempMV.name)
     else:
-        copyfile(MVrootedFile, tempMV.name)
+        copyfile(args.mv, tempMV.name)
     tempIn.write(tree.encode()) # write() method takes input in bytes
     tempIn.close()
 
@@ -112,6 +112,6 @@ f3.close()
 end = time.time()
 print(end - start) 
 
-if MVrootedFile == "temp": 
+if args.mv == "temp": 
     os.remove(MVrootedTrees.name)
 os.remove(weightsFile)
