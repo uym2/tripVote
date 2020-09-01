@@ -85,7 +85,7 @@ std::vector<INTTYPE_REST> TripletDistanceCalculator::pairs_triplet_distance(std:
   return res;
 }
 
-std::vector<std::vector<double> > TripletDistanceCalculator::calculateAllPairsTripletDistance(const char *filename, bool normalized) {
+std::vector<std::vector<INTTYPE_REST> > TripletDistanceCalculator::calculateAllPairsTripletDistance(const char *filename) {
   NewickParser parser;
   
   std::vector<UnrootedTree *> unrootedTrees  = parser.parseMultiFile(filename); 
@@ -95,7 +95,7 @@ std::vector<std::vector<double> > TripletDistanceCalculator::calculateAllPairsTr
     std::exit(-1);
   }
 
-  std::vector<std::vector<double> > results = calculateAllPairsTripletDistance(unrootedTrees, normalized);
+  std::vector<std::vector<INTTYPE_REST> > results = calculateAllPairsTripletDistance(unrootedTrees);
 
   for(std::vector<UnrootedTree *>::iterator it = unrootedTrees.begin(); it != unrootedTrees.end(); ++it)
     delete (*it);
@@ -103,8 +103,8 @@ std::vector<std::vector<double> > TripletDistanceCalculator::calculateAllPairsTr
   return results;
 }
 
-std::vector<std::vector<double> > TripletDistanceCalculator::calculateAllPairsTripletDistance(std::vector<UnrootedTree *> trees, bool normalized) {
-  std::vector<std::vector<double> > results(trees.size());
+std::vector<std::vector<INTTYPE_REST> > TripletDistanceCalculator::calculateAllPairsTripletDistance(std::vector<UnrootedTree *> trees) {
+  std::vector<std::vector<INTTYPE_REST> > results(trees.size());
   
   RootedTree *rt1;
   RootedTree *rt2;
@@ -114,13 +114,7 @@ std::vector<std::vector<double> > TripletDistanceCalculator::calculateAllPairsTr
       rt1 = trees[r]->convertToRootedTree(NULL);
       rt2 = trees[c]->convertToRootedTree(rt1->factory);
  
-      double distance = calculateTripletDistance(rt1, rt2);
-
-      if (normalized){
-          double totalNoTriplets = get_totalNoTriplets();
-          distance /= totalNoTriplets;
-      }
-      
+      INTTYPE_REST distance = calculateTripletDistance(rt1, rt2);
       results[r].push_back(distance);
 
       delete rt1->factory;

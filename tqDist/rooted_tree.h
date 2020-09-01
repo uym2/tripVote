@@ -15,7 +15,6 @@ using namespace std;
 class RootedTree
 {
 	public:
-        unsigned int idx; // added by uym2
 		unsigned int level;
 		RootedTree *parent;
 		TemplatedLinkedList<RootedTree*> *children;
@@ -32,15 +31,6 @@ class RootedTree
 		// How many leaves beneath you?
 		int n;
 
-        int set_idx (unsigned int idx) { this->idx = idx; return 0; }; // uym2 added
-        int set_all_idx (unsigned int startIdx); // uym2 added
-        RootedTree* down_root(RootedTree *u); // uym2 added
-        bool prune_subtree(RootedTree* u); // uym2 added
-        bool remove_child(RootedTree *child); // uym2 added
-
-        RootedTree* copyTree(RootedTreeFactory *factory = NULL);
-
-        
 		void initialize(string name);
 		bool isLeaf();
 		void addChild(RootedTree *t);
@@ -49,7 +39,7 @@ class RootedTree
 		INTTYPE_N4 getUnresolvedQuartets();
 		void toDot();
 		vector<RootedTree*>* getList();
-		void pairAltWorld(RootedTree *t, bool do_pruning = true); // uym2 modified
+		void pairAltWorld(RootedTree *t);
 		void colorSubtree(int c);
 		void markHDTAlternative();
 		bool isError();
