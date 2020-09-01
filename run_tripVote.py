@@ -68,7 +68,7 @@ def tripvote(tree, count):
     tempWeights = NamedTemporaryFile(delete=False)
 
     tempMV = NamedTemporaryFile(delete=False) 
-    if MVrootedFile == "temp":
+    if args.mv == "temp":
         copyfile(MVrootedTrees.name, tempMV.name)
     else:
         copyfile(args.mv, tempMV.name)
