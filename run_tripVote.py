@@ -12,26 +12,36 @@ start = time.time()
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
-parser.add_argument('-o', '--output', required=True, help="Output rooted Trees")
+parser.add_argument('-o', '--output', required=True, help="Output Rooted Trees")
+parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
 
-# parser.add_argument('-i', '--input', required=False, default="test_cases/unrooted.trees", help="Input Unrooted Trees")
-# parser.add_argument('-o', '--output', required=False, default="test_cases/wMVvote_rooted.trees", help="Output rooted Trees")
-parser.add_argument('-w', '--weight', required=False, default="y", help="Weight")
+#parser.add_argument('-w', '--weight', required=False, default="y", help="Weight")
 args = parser.parse_args()
 
 print("Step1a: running MinVar")
+weightsFile = NamedTemporaryFile(delete=False)
 
-MVrootedTrees = "./test_cases/MV_rooted.trees"
-weightsFile = "./test_cases/weights.txt"
-call(["./bin/MVRoot", args.input, MVrootedTrees])
- 
+print(args.mv)
+
+if args.mv == "temp":
+    MVrootedTrees = NamedTemporaryFile(delete=False)
+    call(["./bin/MVRoot", args.input, MVrootedTrees.name])
+else: 
+    call(["./bin/MVRoot", args.input, args.mv])
+exit()
 print("Step1b: computing weight matrix")
 
-f = open(MVrootedTrees)
+if MVrootedTrees == "temp":
+    f = open(MVrootedTrees.name)
+else:
+    f = open(MVrootedFile)
 trees = f.readlines()
 f.close()
 
-call(["./bin/matrix_quartet_dist_to_ref", MVrootedTrees, weightsFile])
+if MVrootedFile == "temp":
+    call(["./bin/matrix_quartet_dist_to_ref", MVrootedTrees.name, weightsFile.name])
+else:
+    call(["./bin/matrix_quartet_dist_to_ref", MVrootedFile, weightsFile.name])
 
 numTree = len(trees)
 weightMatrix = [[0]*numTree for i in range(numTree)]
@@ -45,15 +55,12 @@ for i in range(numTree):
             weightMatrix[i][j] = weightMatrix[j][i]
 f.close()
         
-mid = time.time()
-print(mid - start) 
+#mid = time.time()
+#print(mid - start) 
 
 print("Step2: running all-pairs tripRoot")
 
-# count = 1
-
 def tripvote(tree, count):
-    # global count
     print("Processing tree {}".format(count))
 
     tempIn = NamedTemporaryFile(delete=False)
@@ -61,8 +68,10 @@ def tripvote(tree, count):
     tempWeights = NamedTemporaryFile(delete=False)
 
     tempMV = NamedTemporaryFile(delete=False) 
-    copyfile(MVrootedTrees, tempMV.name)
-
+    if MVrootedFile == "temp":
+        copyfile(MVrootedTrees.name, tempMV.name)
+    else:
+        copyfile(MVrootedFile, tempMV.name)
     tempIn.write(tree.encode()) # write() method takes input in bytes
     tempIn.close()
 
@@ -103,5 +112,6 @@ f3.close()
 end = time.time()
 print(end - start) 
 
-os.remove(MVrootedTrees)
+if MVrootedFile == "temp": 
+    os.remove(MVrootedTrees.name)
 os.remove(weightsFile)
