@@ -8,7 +8,8 @@ import multiprocessing
 
 import time
 
-def main():
+if __name__ == "__main__": 
+    multiprocessing.set_start_method('fork')
     start = time.time()
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
@@ -55,9 +56,7 @@ def main():
             else:
                 weightMatrix[i][j] = weightMatrix[j][i]
     f.close()
-            
-#mid = time.time()
-#print(mid - start) 
+
 
     print("Step2: running all-pairs tripRoot")
 
@@ -98,8 +97,8 @@ def main():
         return line
 
     counts = [x for x in range(1, numTree + 1)]
-    cores = os.cpu_count()
-    pool = multiprocessing.Pool(2)
+    # cores = os.cpu_count()
+    pool = multiprocessing.Pool(4)
 # results = pool.starmap(tripvote, zip(trees, counts))
     results = pool.starmap(tripvote, zip(trees, counts))
     pool.close()
@@ -116,7 +115,3 @@ def main():
     if args.mv == "temp": 
         os.remove(MVrootedTrees.name)
     os.remove(weightsFile.name)
-
-if __name__ == "__main__": 
-    multiprocessing.set_start_method('fork')
-    main()
