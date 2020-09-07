@@ -1,3 +1,4 @@
+#! /usr/bin python
 from subprocess import call, run
 from tempfile import NamedTemporaryFile
 from shutil import copyfile
@@ -98,7 +99,7 @@ if __name__ == "__main__":
 
     counts = [x for x in range(1, numTree + 1)]
     # cores = os.cpu_count()
-    pool = multiprocessing.Pool(4)
+    pool = multiprocessing.Pool(2)
 # results = pool.starmap(tripvote, zip(trees, counts))
     results = pool.starmap(tripvote, zip(trees, counts))
     pool.close()
