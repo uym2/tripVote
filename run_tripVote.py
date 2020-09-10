@@ -1,4 +1,5 @@
-#! /usr/bin python
+#! /usr/bin/env python
+
 from subprocess import call, run
 from tempfile import NamedTemporaryFile
 from shutil import copyfile
@@ -6,7 +7,6 @@ import sys
 import os
 import argparse
 import multiprocessing
-
 import time
 
 if __name__ == "__main__": 
@@ -23,8 +23,6 @@ if __name__ == "__main__":
 
     print("Step1a: running MinVar")
     weightsFile = NamedTemporaryFile(delete=False)
-
-    print(args.mv)
 
     if args.mv == "temp":
         MVrootedTrees = NamedTemporaryFile(delete=False)
@@ -58,54 +56,49 @@ if __name__ == "__main__":
                 weightMatrix[i][j] = weightMatrix[j][i]
     f.close()
 
-
     print("Step2: running all-pairs tripRoot")
 
     def tripvote(tree, count):
         print("Processing tree {}".format(count))
 
-        tempIn = NamedTemporaryFile(delete=False)
-        tempOut = NamedTemporaryFile(delete=False) 
-        tempWeights = NamedTemporaryFile(delete=False)
+        tempIn = NamedTemporaryFile(mode='w+t', delete=False) # text data
+        tempOut = NamedTemporaryFile(mode='w+t', delete=False) 
+        tempWeights = NamedTemporaryFile(mode='w+t', delete=False)
 
-        tempMV = NamedTemporaryFile(delete=False) 
-        if args.mv == "temp":
-            copyfile(MVrootedTrees.name, tempMV.name)
-        else:
-            copyfile(args.mv, tempMV.name)
-        tempIn.write(tree.encode()) # write() method takes input in bytes
+        # tempMV = NamedTemporaryFile(delete=False) 
+        # if args.mv == "temp":
+        #     copyfile(MVrootedTrees.name, tempMV.name)
+        # else:
+        #     copyfile(args.mv, tempMV.name)
+
+        tempIn.write(tree) # write() method takes input in bytes
         tempIn.close()
-
-        f1 = open(tempWeights.name, 'w')
-        f1.writelines(weightMatrix[count - 1])
-        f1.close()
-        # print(tempWeights.name)
         
-        call(["./bin/tripVote", tempIn.name, tempOut.name, tempMV.name, tempWeights.name])
-        # call(["./bin/tripVote", tempIn.name, tempOut.name, MVrootedTrees, tempWeights.name])
-        
-        f2 = open(tempOut.name, 'r')
-        line = f2.readline()
-        f2.close()
-
-        tempOut.close()
+        tempWeights.writelines(weightMatrix[count - 1])
         tempWeights.close()
+    
+        # call(["./bin/tripVote", tempIn.name, tempOut.name, tempMV.name, tempWeights.name])
+        if args.mv == "temp":
+            call(["./bin/tripVote", tempIn.name, tempOut.name, MVrootedTrees, tempWeights.name])
+        else:
+            call(["./bin/tripVote", tempIn.name, tempOut.name, args.mv, tempWeights.name])
+                
+        tempOut.seek(0)
+        line = tempOut.read()
+        tempOut.close()
 
         os.remove(tempIn.name)
         os.remove(tempOut.name)
         os.remove(tempWeights.name)
-        os.remove(tempMV.name)
+        # os.remove(tempMV.name)
         return line
 
     counts = [x for x in range(1, numTree + 1)]
-    # cores = os.cpu_count()
-    pool = multiprocessing.Pool(2)
-# results = pool.starmap(tripvote, zip(trees, counts))
+    pool = multiprocessing.Pool(6)
     results = pool.starmap(tripvote, zip(trees, counts))
     pool.close()
     pool.join()
 
-# print(results)
     f3 = open(args.output, 'w')
     f3.writelines(results)
     f3.close()
