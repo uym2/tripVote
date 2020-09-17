@@ -57,6 +57,7 @@ print(mid - start)
 
 print("Step2: running all-pairs tripRoot")
 count = 1
+lines = []
 for tree in trees:
     print("Processing tree {}".format(count))
 
@@ -71,24 +72,25 @@ for tree in trees:
     tempWeights.close()
     
     if args.mv == "temp":
-        call(["./bin/tripVote", tempIn.name, tempOut.name, MVrootedTrees, tempWeights.name])
+        call(["./bin/tripVote", tempIn.name, tempOut.name, MVrootedTrees.name, tempWeights.name])
     else:
         call(["./bin/tripVote", tempIn.name, tempOut.name, args.mv, tempWeights.name])
                     
     tempOut.seek(0)
-    lines = tempOut.readlines()
+    line = tempOut.readlines()[0]
     tempOut.close()
 
-    f2 = open(args.output, 'a')
-    f2.writelines(lines)
-    f2.close()
+    lines.append(line)
 
     count += 1
 
     os.remove(tempIn.name)
     os.remove(tempOut.name)
     os.remove(tempWeights.name)
-      
-        
+
+f2 = open(args.output, 'a')
+f2.writelines(lines)
+f2.close()   
+
 end = time.time()
 print(end - start) 
