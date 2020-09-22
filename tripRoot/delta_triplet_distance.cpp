@@ -21,6 +21,7 @@ void usage(char *programName) {
         << " + The triplet distance between the two trees"                                                      << std::endl
         << " + The minimum triplet distance of any rooting of <inTree> to <refTree>"                            << std::endl
         << " + The delta triplet distance"                                                                      << std::endl
+        << " + The normalized delta triplet distance"                                                           << std::endl
         << "Note that the delta triplet distance is NOT symmetric."                                             << std::endl;
 }
 
@@ -88,7 +89,7 @@ int main(int argc, char** argv) {
           INTTYPE_REST ntrpls = rTre->n*(rTre->n-1)*(rTre->n-2)/6;
           INTTYPE_REST dtrpl_root = ntrpls-tripRoot.compute_root_tripScore();
           INTTYPE_REST dtrpl_ideal = ntrpls-tripRoot.optimalTripScore;
-          std::cout << rTre->n << " " << ntrpls << " " <<  dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << std::endl;
+          std::cout << rTre->n << " " << ntrpls << " " <<  dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << " " << double(dtrpl_root-dtrpl_ideal)/ntrpls << std::endl;
           delete rFactory;
           delete tFactory;
       }
