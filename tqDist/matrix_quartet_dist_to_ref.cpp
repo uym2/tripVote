@@ -57,22 +57,16 @@ int main(int argc, char** argv) {
   double dist_norm;
   
   int numTree = treeList.size();
-  // vector<vector<int> > weightMatrix(numTree , vector<int> (numTree, 0));
-  
-  // cout << numTree << endl;
-  // int count = 1;
 
+  // output the weights in the symmetric weight matrix
   for (int i = 0; i < numTree; i++) {
     uRef = parser.parseStr(treeList[i]);
     for (int j = i; j < numTree; j++) {
-      // count = count + 1;
       uTre = parser.parseStr(treeList[j]);
       dist = quartetCalc.calculateQuartetDistance(uRef,uTre);
       totalNoQuartets = quartetCalc.get_totalNoQuartets();
       if (totalNoQuartets == 0) dist_norm = 1;
       else dist_norm = double(dist) / double(totalNoQuartets);
-      // weightMatrix[i][j] = dist_norm;
-      // if (i != j) weightMatrix[j][i] = dist_norm;
       fout << dist_norm << endl;
       // cout << "i = " << i << " "<< "j = " << j << " "<< "dist_norm is " << dist_norm << endl;
       // cout << dist_norm << endl;

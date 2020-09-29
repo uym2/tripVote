@@ -95,6 +95,9 @@ add_executable(matrix_quartet_dist_to_ref matrix_quartet_dist_to_ref.cpp
   QuartetDistanceCalculator.cpp
   int_stuff.cpp)
 
+set_target_properties(matrix_quartet_dist_to_ref PROPERTIES COMPILE_FLAGS -DquartetsToo)
+
+
 add_executable(quartet_dist quartet_dist.cpp
   HDT.cpp
   HDTCountingCCToC.cpp

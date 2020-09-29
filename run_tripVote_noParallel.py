@@ -18,13 +18,13 @@ parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Roote
 args = parser.parse_args()
 
 print("Step1a: running MinVar")
-weightsFile = NamedTemporaryFile(delete=False)
+weightsFile = NamedTemporaryFile(mode='w+t', delete=False)
 
 if args.mv == "temp":
-    MVrootedTrees = NamedTemporaryFile(delete=False)
-    call(["./bin/MVRoot", args.input, MVrootedTrees.name])
+    MVrootedTrees = NamedTemporaryFile(mode='w+t', delete=False)
+    call(["MVRoot", args.input, MVrootedTrees.name])
 else: 
-    call(["./bin/MVRoot", args.input, args.mv])
+    call(["MVRoot", args.input, args.mv])
 
 print("Step1b: computing weight matrix")
 
@@ -35,10 +35,11 @@ else:
 trees = f.readlines()
 f.close()
 
+
 if args.mv == "temp":
-    call(["./bin/matrix_quartet_dist_to_ref", MVrootedTrees.name, weightsFile.name])
+    call(["matrix_quartet_dist_to_ref", MVrootedTrees.name, weightsFile.name])
 else:
-    call(["./bin/matrix_quartet_dist_to_ref", args.mv , weightsFile.name])
+    call(["matrix_quartet_dist_to_ref", args.mv , weightsFile.name])
 
 numTree = len(trees)
 weightMatrix = [[0]*numTree for i in range(numTree)]
@@ -51,7 +52,27 @@ for i in range(numTree):
         else:
             weightMatrix[i][j] = weightMatrix[j][i]
 f.close()
-        
+
+## test weight matrix
+#print(weightMatrix[0])
+#for i in range(numTree):
+#    print("Checking line {} of matrix".format(i))
+#    testIn = NamedTemporaryFile(mode='w+t', delete=False)
+#    testWeight = NamedTemporaryFile(mode='w+t', delete=False)
+#    testIn.write(trees[i])
+#    call(["quartet_dist_to_ref", testIn.name, args.mv, testWeight.name])
+
+#    f_test = open(testWeight.name)
+#    testWeightList = f_test.readlines()
+#    f_test.close()
+#    if testWeightList != weightMatrix[i]:
+#        print("Error with weight matrix")
+#    os.remove(testIn.name)
+#    os.remove(testWeight.name)
+#print("Weight Matrix Correct")
+#exit(0)
+
+
 mid = time.time()
 print(mid - start) 
 
@@ -72,9 +93,9 @@ for tree in trees:
     tempWeights.close()
     
     if args.mv == "temp":
-        call(["./bin/tripVote", tempIn.name, tempOut.name, MVrootedTrees.name, tempWeights.name])
+        call(["tripVote", tempIn.name, tempOut.name, MVrootedTrees.name, tempWeights.name])
     else:
-        call(["./bin/tripVote", tempIn.name, tempOut.name, args.mv, tempWeights.name])
+        call(["tripVote", tempIn.name, tempOut.name, args.mv, tempWeights.name])
                     
     tempOut.seek(0)
     line = tempOut.readlines()[0]
@@ -93,4 +114,4 @@ f2.writelines(lines)
 f2.close()   
 
 end = time.time()
-print(end - start) 
+print("Runtime: ", end - start) 
