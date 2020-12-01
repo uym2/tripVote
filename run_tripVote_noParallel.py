@@ -54,7 +54,7 @@ for i in range(numTree):
 f.close()
 
 ## test weight matrix
-#print(weightMatrix[0])
+print(weightMatrix[0])
 #for i in range(numTree):
 #    print("Checking line {} of matrix".format(i))
 #    testIn = NamedTemporaryFile(mode='w+t', delete=False)
@@ -70,11 +70,6 @@ f.close()
 #    os.remove(testIn.name)
 #    os.remove(testWeight.name)
 #print("Weight Matrix Correct")
-#exit(0)
-
-
-mid = time.time()
-print(mid - start) 
 
 print("Step2: running all-pairs tripRoot")
 count = 1

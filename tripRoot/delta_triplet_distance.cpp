@@ -86,10 +86,11 @@ int main(int argc, char** argv) {
           tripRoot.initialize(rRef,rTre);
           tripRoot.find_optimal_root();
           rTre->countChildren();
-          INTTYPE_REST ntrpls = rTre->n*(rTre->n-1)*(rTre->n-2)/6;
+          INTTYPE_REST n = rTre->n;
+          INTTYPE_REST ntrpls = n*(n-1)*(n-2)/6;
           INTTYPE_REST dtrpl_root = ntrpls-tripRoot.compute_root_tripScore();
           INTTYPE_REST dtrpl_ideal = ntrpls-tripRoot.optimalTripScore;
-          std::cout << rTre->n << " " << ntrpls << " " <<  dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << " " << double(dtrpl_root-dtrpl_ideal)/ntrpls << std::endl;
+          std::cout << n << " " << ntrpls << " " <<  dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << " " << double(dtrpl_root-dtrpl_ideal)/ntrpls << std::endl;
           delete rFactory;
           delete tFactory;
       }
