@@ -154,7 +154,7 @@ add_executable(tripVote triplet_voting.cpp
   TripletRooting.cpp
   int_stuff.cpp)
 
-add_executable(smplRoot smpl_rooting.cpp
+add_executable(delta_triplet_dist delta_triplet_distance.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
@@ -169,47 +169,6 @@ add_executable(smplRoot smpl_rooting.cpp
   NewickParser.cpp
   RootedTree.cpp
   RootedTreeFactory.cpp
-  subtree_sampler.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
-add_executable(smplVote smpl_d2root_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  subtree_sampler.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
-add_executable(splitVote smpl_split_rooting.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  subtree_sampler.cpp
   TripletCounter.cpp
   TripletRooting.cpp
   int_stuff.cpp)

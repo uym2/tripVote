@@ -37,15 +37,15 @@ int main(int argc, char** argv) {
     outFilename = argv[2];
 
   TripletDistanceCalculator tripletCalc;
-  std::vector<std::vector<double> > results = tripletCalc.calculateAllPairsTripletDistance(inFilename,true);
+  std::vector<std::vector<INTTYPE_REST> > results = tripletCalc.calculateAllPairsTripletDistance(inFilename);
   
   std::ofstream fout;
   if(outFilename != NULL)
     fout.open(outFilename);
   std::ostream &out = outFilename != NULL ? fout : std::cout; // redirect to std out if no ouput filename given
 
-  for(std::vector<std::vector<double> >::const_iterator it1 = results.begin(); it1 != results.end(); ++it1) {
-    for(std::vector<double>::const_iterator it2 = it1->begin(); it2 != it1->end(); ++it2) {
+  for(std::vector<std::vector<INTTYPE_REST> >::const_iterator it1 = results.begin(); it1 != results.end(); ++it1) {
+    for(std::vector<INTTYPE_REST>::const_iterator it2 = it1->begin(); it2 != it1->end(); ++it2) {
       out << (*it2) << "\t";
     }
     out << std::endl;
