@@ -54,7 +54,7 @@ for i in range(numTree):
 f.close()
 
 ## test weight matrix
-print(weightMatrix[0])
+#print(weightMatrix[0])
 #for i in range(numTree):
 #    print("Checking line {} of matrix".format(i))
 #    testIn = NamedTemporaryFile(mode='w+t', delete=False)
@@ -83,7 +83,7 @@ for tree in trees:
 
     tempIn.write(tree) # write() method takes input in bytes
     tempIn.close()
-
+    
     tempWeights.writelines(weightMatrix[count - 1])
     tempWeights.close()
     
