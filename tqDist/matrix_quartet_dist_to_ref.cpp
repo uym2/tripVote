@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
   // output the weights in the symmetric weight matrix
   for (int i = 0; i < numTree; i++) {
     uRef = parser.parseStr(treeList[i]);
-    for (int j = i; j < numTree; j++) {
+    for (int j = 0; j <= i; j++) {
       uTre = parser.parseStr(treeList[j]);
       dist = quartetCalc.calculateQuartetDistance(uRef,uTre);
       totalNoQuartets = quartetCalc.get_totalNoQuartets();

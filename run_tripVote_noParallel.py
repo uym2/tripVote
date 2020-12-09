@@ -12,64 +12,53 @@ start = time.time()
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
+parser.add_argument('-r', '--references', required=False, default=None, help="Reference trees (i.e. OG, MV, MP). If not given, the input trees will be rooted by MV first, then the MV trees are used as references. Default: None")
 parser.add_argument('-o', '--output', required=True, help="Output rooted Trees")
 parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
-# parser.add_argument('-w', '--weight', required=False, default="y", help="Weight")
+parser.add_argument('-w', '--weight', required=False, default=None, help="A file that contains the weight matrix. Given as a LOWER triangular matrix")
 args = parser.parse_args()
 
-print("Step1a: running MinVar")
-weightsFile = NamedTemporaryFile(mode='w+t', delete=False)
+print("Step1a: processing reference trees")
 
-if args.mv == "temp":
-    MVrootedTrees = NamedTemporaryFile(mode='w+t', delete=False)
-    call(["MVRoot", args.input, MVrootedTrees.name])
-else: 
-    call(["MVRoot", args.input, args.mv])
+if args.references is not None:
+    refTrees = args.references
+else:
+    print("Running MV to use as references")
+    if args.mv == "temp":
+        MVrootedTrees = NamedTemporaryFile(mode='w+t', delete=False)
+        call(["MVRoot", args.input, MVrootedTrees.name])
+        refTrees = MVrootedTrees.name
+    else: 
+        call(["MVRoot", args.input, args.mv])
+        refTrees = args.mv
 
 print("Step1b: computing weight matrix")
 
-if args.mv == "temp":
-    f = open(MVrootedTrees.name)
-else:
-    f = open(args.mv)
+f = open(refTrees)    
 trees = f.readlines()
 f.close()
 
+weightsFileTemp = NamedTemporaryFile(mode='w+t', delete=False) if args.weight is None else None
+weightsFile = weightsFileTemp.name if weightsFileTemp else args.weight
 
-if args.mv == "temp":
-    call(["matrix_quartet_dist_to_ref", MVrootedTrees.name, weightsFile.name])
-else:
-    call(["matrix_quartet_dist_to_ref", args.mv , weightsFile.name])
+if weightsFileTemp:
+    call(["matrix_quartet_dist_to_ref", refTrees, weightsFile])
 
 numTree = len(trees)
 weightMatrix = [[0]*numTree for i in range(numTree)]
 
-f = open(weightsFile.name)
+f = open(weightsFile)
+ws = f.read().split()
+k = 0
 for i in range(numTree):
-    for j in range(numTree):
-        if i <= j:
-            weightMatrix[i][j] = f.readline()   # line is str
-        else:
-            weightMatrix[i][j] = weightMatrix[j][i]
+    for j in range(i+1):
+        weightMatrix[i][j] = float(ws[k])
+        k += 1
+        
+for i in range(numTree):
+    for j in range(i+1,numTree):        
+        weightMatrix[i][j] = weightMatrix[j][i]
 f.close()
-
-## test weight matrix
-#print(weightMatrix[0])
-#for i in range(numTree):
-#    print("Checking line {} of matrix".format(i))
-#    testIn = NamedTemporaryFile(mode='w+t', delete=False)
-#    testWeight = NamedTemporaryFile(mode='w+t', delete=False)
-#    testIn.write(trees[i])
-#    call(["quartet_dist_to_ref", testIn.name, args.mv, testWeight.name])
-
-#    f_test = open(testWeight.name)
-#    testWeightList = f_test.readlines()
-#    f_test.close()
-#    if testWeightList != weightMatrix[i]:
-#        print("Error with weight matrix")
-#    os.remove(testIn.name)
-#    os.remove(testWeight.name)
-#print("Weight Matrix Correct")
 
 print("Step2: running all-pairs tripRoot")
 count = 1
@@ -84,14 +73,11 @@ for tree in trees:
     tempIn.write(tree) # write() method takes input in bytes
     tempIn.close()
     
-    tempWeights.writelines(weightMatrix[count - 1])
+    tempWeights.writelines("%s\n" % x for x in weightMatrix[count - 1])
     tempWeights.close()
+        
+    call(["tripVote", tempIn.name, tempOut.name, refTrees, tempWeights.name])
     
-    if args.mv == "temp":
-        call(["tripVote", tempIn.name, tempOut.name, MVrootedTrees.name, tempWeights.name])
-    else:
-        call(["tripVote", tempIn.name, tempOut.name, args.mv, tempWeights.name])
-                    
     tempOut.seek(0)
     line = tempOut.readlines()[0]
     tempOut.close()
@@ -104,7 +90,10 @@ for tree in trees:
     os.remove(tempOut.name)
     os.remove(tempWeights.name)
 
-f2 = open(args.output, 'a')
+if args.references is None and args.mv == "temp":
+    os.remove(MVrootedTrees.name)
+    
+f2 = open(args.output, 'w')
 f2.writelines(lines)
 f2.close()   
 
