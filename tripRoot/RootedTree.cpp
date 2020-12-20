@@ -191,8 +191,6 @@ bool RootedTree::read_newick_file(string treeFile){
 		return true;
 	}
 	
-
-
 void RootedTree::mark_active(TripletCounter *tripCount){
     if (this->isLeaf())
         return;

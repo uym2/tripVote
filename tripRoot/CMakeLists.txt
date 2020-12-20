@@ -45,25 +45,7 @@ message(STATUS "CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 ## LIBRARIES
 ## EXECUTABLES
 
-add_executable(test_read_write_newick test_read_write_newick.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-    
-
-add_executable(tripRoot2 triplet_MV_rooting.cpp
+add_executable(triplet_root triplet_MV_rooting.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
@@ -82,7 +64,7 @@ add_executable(tripRoot2 triplet_MV_rooting.cpp
   TrplMVRooting.cpp  
   int_stuff.cpp)
 
-add_executable(tripMVRoot triplet_MV_rooting.cpp
+add_executable(delta_triplet_dist delta_triplet_distance.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp
@@ -208,22 +190,6 @@ add_executable(ogRoot outgroup_rooting.cpp
   int_stuff.cpp  
 )
 
-add_executable(collapseTree collapse_tree.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  RefTreeGen.cpp
-  int_stuff.cpp  
-)
 add_executable(test_trplMV_root test_trplMV_root.cpp
   CountingArray.cpp
   HDT.cpp

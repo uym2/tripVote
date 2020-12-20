@@ -1,2 +1,53 @@
-An implementation of triplet rooting algorithm: root a tree T according to a reference tree R such that the triplet score of T and R is maximized
-The algorithm and the code heavily depend on the tqDist software http://birc.au.dk/software/tqDist/. We would like to thank the authors for the code and algorithmic ideas.
+This is an implementation of the triplet rooting algorithm: 
+    Root a tree T according to a reference tree R such that the triplet score of T and R is maximized.
+
+The algorithm and the code heavily depend on the tqDist software http://birc.au.dk/software/tqDist/. 
+We would like to thank the authors for the code and algorithmic ideas.
+
+############### Build procedure: ############### 
+First, install CMake https://cmake.org/download/
+
+To build and install the library, unzip the directory and execute the
+following commands in a terminal:
+
+$ cd <path to library>/Triplet_rooting/
+Triplet_rooting $ cmake .
+Triplet_rooting $ make
+Triplet_rooting $ make test
+
+################ Executables ###################
+
+## triplet_root
+Usage: bin/triplet_root <refTree> <inTree> <outTree>
+
+Where <refTree> and <inTree> point to two files each contains one
+tree in Newick format. In both trees all leaves should be labeled and the
+two trees should share some a majority of the leaf labels. <inTree> will be (re)rooted
+such that its triplet score to <refTree> is maximized. The (re)rooted tree
+will be written to <outTree>
+The maximum triplet score between the two trees will be printed to stdout.
+
+## delta_triplet_dist
+Usage: bin/delta_triplet_dist <refTree> <inTree>
+
+Where <refTree> and <inTree> are two trees in Newick format
+In both trees all leaves should be labeled and the
+two trees must have the same leaf set. Output:
+ + The number of leaves in each tree
+ + The triplet distance between the two trees
+ + The minimum triplet distance of any rooting of <inTree> to <refTree>
+ + The delta triplet distance
+Note that the delta triplet distance is NOT symmetric.
+
+## MVRoot
+Usage: bin/MVRoot <inTree> <outTree>
+
+Where <inTree> is a newick tree. The tree will be (re)rooted to minimize the 
+root-to-tip variance and output to <outTree> file
+
+## OGRoot
+Usage: bin/OGRoot <inTree> <outTree> <outgroups>
+
+Where <inTree> points to a file containing one tree in Newick format; 
+<outTree> is the name of the output file; <outgroups> is a list of outgroup labels.
+The tree will be (re)rooted at the biggest clade containing only outgroups.

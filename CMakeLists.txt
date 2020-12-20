@@ -7,7 +7,7 @@ project(tqDist CXX C)
 enable_testing()
 
 add_subdirectory(tripRoot)
-add_subdirectory(tqDist)
+#add_subdirectory(tqDist)
 
 set(CPACK_PACKAGE_NAME "tripRoot")
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
@@ -73,10 +73,10 @@ set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSIO
 set(CPACK_RESOURCE_FILE_README  "${CMAKE_SOURCE_DIR}/README")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING") 
 
-SET(CPACK_NSIS_DISPLAY_NAME "tqDist")
-SET(CPACK_NSIS_HELP_LINK "http://birc.au.dk/software/tqDist")
-SET(CPACK_NSIS_URL_INFO_ABOUT "http://birc.au.dk/software/tqDist")
-SET(CPACK_NSIS_CONTACT "cstorm@birc.au.dk")
+#SET(CPACK_NSIS_DISPLAY_NAME "tqDist")
+#SET(CPACK_NSIS_HELP_LINK "http://birc.au.dk/software/tqDist")
+#SET(CPACK_NSIS_URL_INFO_ABOUT "http://birc.au.dk/software/tqDist")
+#SET(CPACK_NSIS_CONTACT "cstorm@birc.au.dk")
 
 set(CPACK_NSIS_MODIFY_PATH ON)
 set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "\${EnvVarUpdate} \"$0\" \"PATH\"  \"A\" \"HKCU\" \"${INSTDIR}\\\\bin\"")
