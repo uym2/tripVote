@@ -3,7 +3,7 @@
 #include <cstring>
 
 #include "int_stuff.h"
-#include "TripletRooting.h"
+#include "TrplMVRooting.h"
 #include "newick_parser.h"
 
 #ifndef _MSC_VER
@@ -11,18 +11,12 @@
 #endif
 
 void usage(char *programName) {
-  std::cout << "Usage: " << programName << " <refTree> <inTree>" << std::endl 
+  std::cout << "Usage: " << programName << " <refTree> <inTree> <outTree>" << std::endl 
 	    << std::endl;
   std::cout << "Where <refTree> and <inTree> are two trees in Newick format"                                    << std::endl
 	    << "In both trees all leaves should be labeled and the"                                                 << std::endl
-	    << "two trees must have the same leaf set. Output:"                                                     << std::endl                  
-        << " + The number of leaves in each tree"                                                               << std::endl
-        << " + The number of triplets in each tree"                                                             << std::endl
-        << " + The triplet distance between the two trees"                                                      << std::endl
-        << " + The minimum triplet distance of any rooting of <inTree> to <refTree>"                            << std::endl
-        << " + The delta triplet distance"                                                                      << std::endl
-        << " + The normalized delta triplet distance"                                                           << std::endl
-        << "Note that the delta triplet distance is NOT symmetric."                                             << std::endl;
+	    << "two trees must have the same leaf set. Output: <outTree> is"                                        << std::endl                  
+        << "a rerooted version of <inTree> that has the minimum triplet distance to <refTree>"                  << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -43,8 +37,9 @@ int main(int argc, char** argv) {
     verbose = true;
   }
 
-  char *refTreeFile = argv[argc-2];
-  char *myTreeFile = argv[argc-1];
+  char *refTreeFile = argv[argc-3];
+  char *myTreeFile = argv[argc-2];
+  char *outputTree = argv[argc-1];
 
   vector<string> ref_nwk;
   vector<string> tre_nwk;
@@ -71,6 +66,8 @@ int main(int argc, char** argv) {
   if (ref_nwk.size() != tre_nwk.size()) {
       std::cout << "Input files have different number of trees!" << std::endl;
   } else {
+      ofstream fout;
+      fout.open(outputTree);
       for (int i = 0; i <ref_nwk.size(); i++) {
           RootedTreeFactory *rFactory = new RootedTreeFactory();
           RootedTreeFactory *tFactory = new RootedTreeFactory();
@@ -81,18 +78,22 @@ int main(int argc, char** argv) {
           
           rRef->read_newick_str(ref_nwk[i]);
           rTre->read_newick_str(tre_nwk[i]);
-
-          TripletRooting tripRoot;
+            
+          TrplMVRooting tripRoot;
           tripRoot.initialize(rRef,rTre);
           tripRoot.find_optimal_root();
-          rTre->countChildren();
-          INTTYPE_REST n = rTre->n;
-          INTTYPE_REST ntrpls = n*(n-1)*(n-2)/6;
-          INTTYPE_REST dtrpl_root = ntrpls-tripRoot.compute_root_tripScore();
-          INTTYPE_REST dtrpl_ideal = ntrpls-tripRoot.optimalTripScore;
-          std::cout << n << " " << ntrpls << " " <<  dtrpl_root << " " << dtrpl_ideal << " " << dtrpl_root-dtrpl_ideal << " " << double(dtrpl_root-dtrpl_ideal)/ntrpls << std::endl;
+          std::cout << "Optimal triplet score: " << tripRoot.optimalTripScore << endl;
+          std::cout << "Ambiguity: " << tripRoot.ambiguity << endl;
+          std::cout << "MV score at the selected root: " << tripRoot.mvCount->minVar[tripRoot.optimalRoot->idx] << endl;
+            
+          double x =  tripRoot.mvCount->xStar[tripRoot.optimalRoot->idx];
+          RootedTree *rerooted = rTre->reroot_at_edge(tripRoot.optimalRoot,x);
+          rerooted->write_newick(fout);
+          fout << endl;
+
           delete rFactory;
           delete tFactory;
       }
+      fout.close();
   }
   return 0;}

@@ -100,7 +100,80 @@ add_executable(MVRoot MV_rooting.cpp
   RootedTreeFactory.cpp
   int_stuff.cpp)
 
-add_executable(OGRoot outgroup_rooting.cpp
+add_executable(pruneTree prune_tree.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  int_stuff.cpp)
+
+add_executable(tripVote triplet_voting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+
+add_executable(delta_triplet_dist delta_triplet_distance.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  MinVarCounter.cpp
+  MVRooting.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  int_stuff.cpp)
+
+add_executable(tripOGRoot triplet_og_rooting.cpp
+  CountingArray.cpp
+  HDT.cpp
+  HDTCountingCCToC.cpp
+  HDTCountingCTransform.cpp
+  HDTCountingG.cpp
+  HDTCountingIGToC.cpp
+  HDTCountingLeaf.cpp
+  HDTFactory.cpp
+  HDTListUtils.cpp
+  NewickParser.cpp
+  RootedTree.cpp
+  RootedTreeFactory.cpp
+  TripletCounter.cpp
+  TripletRooting.cpp
+  TripletRooting_OG.cpp
+  int_stuff.cpp)
+
+add_executable(ogRoot outgroup_rooting.cpp
   CountingArray.cpp
   HDT.cpp
   HDTCountingCCToC.cpp

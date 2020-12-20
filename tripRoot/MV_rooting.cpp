@@ -57,7 +57,6 @@ int main(int argc, char** argv) {
     MVRooting mvRoot;
     mvRoot.initialize(myTree);
     RootedTree *rerooted = mvRoot.root_tree();
-    std::cout << "Optimal MV score: " << mvRoot.optimalVarScore << endl;
     rerooted->write_newick(fout);
     fout << endl;
 

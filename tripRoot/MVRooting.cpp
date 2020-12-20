@@ -82,8 +82,6 @@ RootedTree* MVRooting::root_tree(){
     this->mvCount->ST[this->myTree->idx] = this->mvCount->SI[this->myTree->idx]; 
     this->__compute_ST__(this->myTree);
     this->__compute_var__(this->myTree);
-
-    cout << "Optimal var score: " << this->optimalVarScore << endl;
     RootedTree* rerooted = myTree->reroot_at_edge(this->optimalRoot,mvCount->xStar[this->optimalRoot->idx]);
 
     return rerooted;
