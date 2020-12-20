@@ -20,8 +20,9 @@ parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help
 args = parser.parse_args()
 
 start = time.time()
-print("Step1a: processing reference trees")
+print("Running tripVote version " + MY_VERSION)
 
+print("Step1a: processing reference trees")
 if args.references is not None:
     refTrees = args.references
 else:
