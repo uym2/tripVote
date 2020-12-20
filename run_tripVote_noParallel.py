@@ -5,19 +5,21 @@ from tempfile import NamedTemporaryFile
 import sys
 import os
 import argparse
-
 import time
-start = time.time()
+
+MY_VERSION='1.0.0'
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
 parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
 parser.add_argument('-r', '--references', required=False, default=None, help="Reference trees (i.e. OG, MV, MP). If not given, the input trees will be rooted by MV first, then the MV trees are used as references. Default: None")
 parser.add_argument('-o', '--output', required=True, help="Output rooted Trees")
 parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
 parser.add_argument('-w', '--weight', required=False, default=None, help="A file that contains the weight matrix. Given as a LOWER triangular matrix")
+parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
+
 args = parser.parse_args()
 
+start = time.time()
 print("Step1a: processing reference trees")
 
 if args.references is not None:
