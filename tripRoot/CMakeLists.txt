@@ -136,25 +136,6 @@ add_executable(tripVote triplet_voting.cpp
   TripletRooting.cpp
   int_stuff.cpp)
 
-add_executable(delta_triplet_dist delta_triplet_distance.cpp
-  CountingArray.cpp
-  HDT.cpp
-  HDTCountingCCToC.cpp
-  HDTCountingCTransform.cpp
-  HDTCountingG.cpp
-  HDTCountingIGToC.cpp
-  HDTCountingLeaf.cpp
-  HDTFactory.cpp
-  HDTListUtils.cpp
-  MinVarCounter.cpp
-  MVRooting.cpp
-  NewickParser.cpp
-  RootedTree.cpp
-  RootedTreeFactory.cpp
-  TripletCounter.cpp
-  TripletRooting.cpp
-  int_stuff.cpp)
-
 add_executable(tripOGRoot triplet_og_rooting.cpp
   CountingArray.cpp
   HDT.cpp
