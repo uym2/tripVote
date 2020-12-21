@@ -21,6 +21,7 @@ args = parser.parse_args()
 
 start = time.time()
 print("Running tripVote version " + MY_VERSION)
+print("tripVote was called as follow: " + " ".join(sys.argv))
 
 print("Step1a: processing reference trees")
 if args.references is not None:
