@@ -14,13 +14,11 @@ class HDTFactory
 	private:
 		vector<HDT*> createdHDTs;
 		HDT* currentHDT;
-		TemplatedLinkedList<HDT*> *createdTLL; 
+		vector<TemplatedLinkedList<HDT*>* > createdTLL; 
 		TemplatedLinkedList<HDT*> *currentTLL;
 
 		int hdtLocation;
         int currentLocationTLL;
-		
-		MemoryAllocator<TemplatedLinkedList<HDT*> > *memTLL;
 
 	public:
 		int numD;

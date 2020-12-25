@@ -10,45 +10,31 @@ HDTFactory::HDTFactory(int numD)
 {
 	this->numD = numD;
 
-    memTLL = new MemoryAllocator<TemplatedLinkedList<HDT*> >(HDTFactorySize+1);
-	memTLL->numUses++;
-
 	currentHDT = NULL;
-    
-    createdTLL = memTLL->getMemory();
-	createdTLL->initialize();
-	currentTLL = createdTLL;
-	currentLocationTLL = 1;
+    currentTLL = NULL;    
 }
 
 HDTFactory::~HDTFactory()
 {
+    //std::cout << "HDTFactory: destructor" << std::endl;
     for (vector<HDT*>::iterator it = createdHDTs.begin(); it != createdHDTs.end(); ++it) {
         delete *it;
+        *it = NULL;
     }
     
-    TemplatedLinkedList<HDT*> *current = createdTLL;
-    while (current != NULL)
-    {
-        TemplatedLinkedList<HDT*> *next = current->next;
-        memTLL->releaseMemory(current);
-        current = next;
+    for (vector<TemplatedLinkedList<HDT*>* >::iterator it = createdTLL.begin(); it != createdTLL.end(); ++it) {
+        delete *it;
+        *it = NULL;
     }
-	
-	memTLL->numUses--;
-	if (memTLL->numUses == 0) delete memTLL;
 }
 
 void HDTFactory::deleteTemplatedLinkedList()
 {
-	TemplatedLinkedList<HDT*> *current = createdTLL;
-	while (current != NULL)
-	{
-		TemplatedLinkedList<HDT*> *next = current->next;
-		memTLL->releaseMemory(current);
-		current = next;
-	}
-	createdTLL = currentTLL = NULL;
+    //std::cout << "HDTFactory: deleteTemplatedLinkedList" << std::endl;
+    for (vector< TemplatedLinkedList<HDT*>* >::iterator it = createdTLL.begin(); it != createdTLL.end(); ++it) {
+        delete *it;
+        *it = NULL;
+    }
 }
 
 HDT* HDTFactory::getHDT(HDT::NodeType type, RootedTree *link, bool doLink)
@@ -64,16 +50,11 @@ HDT* HDTFactory::getHDT(HDT::NodeType type, RootedTree *link, bool doLink)
 
 TemplatedLinkedList<HDT*>* HDTFactory::getTemplatedLinkedList()
 {
-	if (currentLocationTLL > HDTFactorySize)
-	{
-		currentTLL->next = memTLL->getMemory();
-		currentTLL = currentTLL->next;
-		currentTLL->initialize();
-		currentLocationTLL = 1;
-	}
-
-	TemplatedLinkedList<HDT*> *returnMe = &currentTLL[currentLocationTLL];
+	TemplatedLinkedList<HDT*> *returnMe = new TemplatedLinkedList<HDT*>;
 	returnMe->initialize();
-	currentLocationTLL++;
+
+    this->currentTLL = returnMe;
+    this->createdTLL.push_back(returnMe);
+
 	return returnMe;
 }
