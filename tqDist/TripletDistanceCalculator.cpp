@@ -5,6 +5,7 @@
 #include "newick_parser.h"
 #include "unrooted_tree.h"
 #include "rooted_tree.h"
+#include <unistd.h>
 
 #include <cstdlib>
 #include <vector>
@@ -80,6 +81,8 @@ std::vector<INTTYPE_REST> TripletDistanceCalculator::pairs_triplet_distance(std:
     
     INTTYPE_REST dist = calculateTripletDistance(rt1, rt2);
     res.push_back(dist);
+    delete rt1->factory;
+    delete rt2->factory;
   }
 
   return res;
