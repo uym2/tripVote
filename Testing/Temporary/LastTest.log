@@ -1,48 +1,48 @@
-Start testing: Sep 28 20:16 PDT
+Start testing: Dec 25 12:55 PST
 ----------------------------------------------------------
 1/3 Testing: test_triplet_root
 1/3 Test: test_triplet_root
-Command: "/calab_data/mirarab/home/k6hong/Triplet_rooting/bin/test_triplet_root"
-Directory: /calab_data/mirarab/home/k6hong/Triplet_rooting/bin
-"test_triplet_root" start time: Sep 28 20:16 PDT
+Command: "/Users/uym2/my_gits/Triplet_rooting/bin/test_triplet_root"
+Directory: /Users/uym2/my_gits/Triplet_rooting/bin
+"test_triplet_root" start time: Dec 25 12:55 PST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.68 sec
+Test time =   0.46 sec
 ----------------------------------------------------------
 Test Passed.
-"test_triplet_root" end time: Sep 28 20:16 PDT
+"test_triplet_root" end time: Dec 25 12:55 PST
 "test_triplet_root" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 2/3 Testing: test_triplet
 2/3 Test: test_triplet
-Command: "/calab_data/mirarab/home/k6hong/Triplet_rooting/bin/test_triplet"
-Directory: /calab_data/mirarab/home/k6hong/Triplet_rooting/bin
-"test_triplet" start time: Sep 28 20:16 PDT
+Command: "/Users/uym2/my_gits/Triplet_rooting/bin/test_triplet"
+Directory: /Users/uym2/my_gits/Triplet_rooting/bin
+"test_triplet" start time: Dec 25 12:55 PST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.09 sec
+Test time =   0.03 sec
 ----------------------------------------------------------
 Test Passed.
-"test_triplet" end time: Sep 28 20:16 PDT
+"test_triplet" end time: Dec 25 12:55 PST
 "test_triplet" time elapsed: 00:00:00
 ----------------------------------------------------------
 
 3/3 Testing: test_quartet
 3/3 Test: test_quartet
-Command: "/calab_data/mirarab/home/k6hong/Triplet_rooting/bin/test_quartet"
-Directory: /calab_data/mirarab/home/k6hong/Triplet_rooting/bin
-"test_quartet" start time: Sep 28 20:16 PDT
+Command: "/Users/uym2/my_gits/Triplet_rooting/bin/test_quartet"
+Directory: /Users/uym2/my_gits/Triplet_rooting/bin
+"test_quartet" start time: Dec 25 12:55 PST
 Output:
 ----------------------------------------------------------
 <end of output>
-Test time =   0.05 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"test_quartet" end time: Sep 28 20:16 PDT
+"test_quartet" end time: Dec 25 12:55 PST
 "test_quartet" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Sep 28 20:16 PDT
+End testing: Dec 25 12:55 PST

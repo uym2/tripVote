@@ -28,9 +28,9 @@ void HDT::handleCCToC()
 
     // compute n_i,n_parent_ii, n_i_circ, n_i_arrow_circ, and n_circ_square
     n_circ_square = 0; // Initialize sum to 0 so we can increment it in the loop
-    CountingArray *ourCount = this->countingVars;
-    CountingArray *c1Count = c1->countingVars;
-    CountingArray *c2Count = c2->countingVars;
+    CountingArray *ourCount = &this->countingVars;
+    CountingArray *c1Count = &c1->countingVars;
+    CountingArray *c2Count = &c2->countingVars;
 
     for (int i = 0; i < this->degree; i++){
         ourCount->set_n_i(i,c1Count->get_n_i(i) + c2Count->get_n_i(i));

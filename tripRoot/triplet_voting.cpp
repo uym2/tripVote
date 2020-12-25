@@ -8,6 +8,7 @@
 #include "MVRooting.h"
 #include <vector>
 #include <stdlib.h>
+#include <unistd.h>
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
@@ -73,6 +74,7 @@ string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> 
         }
         delete rFactory;
         ++idx;
+        //sleep(1);
     }
 
 
@@ -86,22 +88,6 @@ string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> 
         }
     }
     
-    /*MVRooting mvRoot;
-    mvRoot.initialize(myTree);
-    mvRoot.compute_score();
-    unsigned int Ambiguity = 0;
-    double min_MV = mvRoot.mvCount->minVar[best_node_idx];
-
-    for (int i = 0; i<N; i++){
-        if (allCounts[i] == best_vote){
-            Ambiguity++;
-            if (mvRoot.mvCount->minVar[i] < min_MV){
-                min_MV = mvRoot.mvCount->minVar[i];
-                best_node_idx = i;
-            }
-        }
-    }*/
-
     cout << "Best vote score: " << best_vote << endl;
     //cout << "Ambiguity: " << Ambiguity << endl;       
     cout << "Optimal root index: " << best_node_idx << endl;

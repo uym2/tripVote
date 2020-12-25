@@ -5,7 +5,7 @@
 #include "counting_linked_list.h"
 
 void HDT::resetCounters(){
-    countingVars->initialize(this->degree);
+    countingVars.initialize(this->degree);
     
     n_circ = 0;
     n_circ_square = 0;
@@ -20,7 +20,7 @@ void HDT::resetCounters(){
     tripResolved_root = 0;                    
 }
 
-void HDT::initialize(CountingArray *countingVars, NodeType type, int numD, RootedTree *link, bool doLink)
+void HDT::initialize(NodeType type, int numD, RootedTree *link, bool doLink)
 {
 	parent = childParent = left = right = NULL;
 	children = NULL;
@@ -51,11 +51,11 @@ void HDT::initialize(CountingArray *countingVars, NodeType type, int numD, Roote
 		link->hdtLink = this;
 	}
 	this->degree = numD;
-	this->countingVars = countingVars;
+	this->countingVars.initialize(numD);
 }
 
 HDT::~HDT(){
-    //delete countingVars;
+   // std::cout << "Calling HDT destructor" << std::endl;
     delete [] tripResolved;
     delete [] tripUnresolved;
 }
@@ -278,9 +278,8 @@ INTTYPE_REST HDT::getResolvedTriplets_root()
 }
 
 
-HDT* HDT::constructHDT(RootedTree *t, int numD, HDTFactory *copyStuffFromFactory, bool doLink)
+HDT* HDT::constructHDT(RootedTree *t, int numD, HDTFactory *factory, bool doLink)
 {
-	HDTFactory *factory = new HDTFactory(numD, copyStuffFromFactory);
 	HDT *hdt = preFirstRound(t, numD, doLink, factory);
     while(hdt->children != NULL)
 	{

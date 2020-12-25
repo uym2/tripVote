@@ -21,15 +21,15 @@ void HDT::handleIGToC()
     tripResolved_root = right->tripResolved_root;
 
     // copy tripResolved and tripUnresolved and countingVars from the G component
-    CountingArray *rCV = right->countingVars;
+    CountingArray *rCV = &right->countingVars;
     
     for (int i = 0; i < this->degree; i++){
         tripResolved[i] = right->tripResolved[i];
         tripUnresolved[i] = right->tripUnresolved[i];
-        countingVars->set_n_i(i, rCV->get_n_i(i));
-        countingVars->set_n_i_circ(i, rCV->get_n_i_circ(i));
-        countingVars->set_n_parent_ii(i, rCV->get_n_parent_ii(i));
-        countingVars->set_n_i_arrow_circ(i, 0);
+        countingVars.set_n_i(i, rCV->get_n_i(i));
+        countingVars.set_n_i_circ(i, rCV->get_n_i_circ(i));
+        countingVars.set_n_parent_ii(i, rCV->get_n_parent_ii(i));
+        countingVars.set_n_i_arrow_circ(i, 0);
     }
 
     // copy n_ij from G component
@@ -37,7 +37,7 @@ void HDT::handleIGToC()
     //    for (int i = j + 1; i < this->degree; i++){
     for (int i = 1; i < this->degree; i++){
         for (int j = 0; j < i; j++){
-            countingVars->set_n_ij(i,j,rCV->get_n_ij(i,j));
+            countingVars.set_n_ij(i,j,rCV->get_n_ij(i,j));
         }
     }
     
