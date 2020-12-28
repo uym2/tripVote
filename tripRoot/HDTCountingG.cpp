@@ -28,9 +28,9 @@ void HDT::handleG()
     
     // compute n_i, n_i_circ, n_parent_ii, and n_circ_square
 	n_circ_square = 0; // Initialize sum to 0 so we can increment it in the loop
-    CountingArray *ourCount = this->countingVars;
-    CountingArray *g1Count = g1->countingVars;
-    CountingArray *g2Count = g2->countingVars;
+    CountingArray *ourCount = &this->countingVars;
+    CountingArray *g1Count = &g1->countingVars;
+    CountingArray *g2Count = &g2->countingVars;
 
     for (int i = 0; i < this->degree; i++){
         ourCount->set_n_i(i,g1Count->get_n_i(i) + g2Count->get_n_i(i));

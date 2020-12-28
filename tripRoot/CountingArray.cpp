@@ -60,6 +60,7 @@ CountingArray::CountingArray(){
 }
 
 CountingArray::~CountingArray(){
+    //std::cout << "Calling CountingArray destructor" << std::endl;
     delete [] this->n_i;
     delete [] this->n_i_circ;
     delete [] this->n_parent_ii;

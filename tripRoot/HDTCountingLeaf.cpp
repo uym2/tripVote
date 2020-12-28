@@ -14,11 +14,11 @@ void HDT::handleLeaf()
 
 	if (link == NULL)
 	{
-		countingVars->set_n_i(0,numZeroes);
+		countingVars.set_n_i(0,numZeroes);
 	}
 	else
 	{
-        countingVars->set_n_i(this->link->color, 1);
+        countingVars.set_n_i(this->link->color, 1);
 	}
 	
     // Sums and stuff (triplets)

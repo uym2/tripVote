@@ -7,7 +7,7 @@ import os
 import argparse
 import time
 
-MY_VERSION='1.0.0'
+MY_VERSION='1.0.1'
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")

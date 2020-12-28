@@ -39,8 +39,8 @@ class HDT
 {
 	public:
 		enum NodeType {I, C, G, NotConverted};
-		void initialize(CountingArray *countingVars, NodeType type, int numD, RootedTree *link = NULL, bool doLink = true);
-		static HDT* constructHDT(RootedTree *t, int numD, HDTFactory *copyStuffFromFactory, bool doLink = true);
+		void initialize(NodeType type, int numD, RootedTree *link = NULL, bool doLink = true);
+		static HDT* constructHDT(RootedTree *t, int numD, HDTFactory *factory, bool doLink = true);
 
 		void forceLinks();
 		void toDot();
@@ -73,7 +73,7 @@ class HDT
 		int degree;
 
 		// Soda13 color 0+1+...+d
-		CountingArray *countingVars;
+		CountingArray countingVars;
 		INTTYPE_REST n_circ;
 		INTTYPE_REST n_circ_square;
         INTTYPE_REST n_parent_circ_square;
@@ -92,7 +92,6 @@ class HDT
 		HDT* round(HDTFactory *factory);
 		inline bool isDownwardsClosed();
 		void toDotImpl();
-		//RootedTree *extractAndGoBackImpl(RootedTree *addToMe, RootedTreeFactory *factory);
 		void handleLeaf();
 		void handleCCToC();
 		void handleIGToC();

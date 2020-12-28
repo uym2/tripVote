@@ -28,7 +28,6 @@ bool TripletRooting::compute_tripScore(){
         return false;
     }
     // construct HDT for myRef
-    //std::cout << "Degree: " << myTree->maxDegree + 1 << std::endl;
     hdt = HDT::constructHDT(myRef, myTree->maxDegree + 1, dummyHDTFactory);
 
     count(myTree);
@@ -121,6 +120,7 @@ TripletRooting::~TripletRooting(){
         this->optimaltripRoots = this->optimaltripRoots->next;
         delete curr;
     }
+    delete dummyHDTFactory;
 }
 
 void TripletRooting::update_tI(unsigned int nodeIdx, bool count_unresolved){
