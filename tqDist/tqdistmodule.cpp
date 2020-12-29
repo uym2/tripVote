@@ -35,8 +35,9 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         rt2 = ut2->convertToRootedTree(rt1->factory);
 
         TripletDistanceCalculator tripletCalc;
-        INTTYPE_REST dtrpl = tripletCalc.calculateTripletDistance(rt1, rt2);
-        PyObject* result = PyLong_FromLong(dtrpl);
+        double dtrpl = tripletCalc.calculateTripletDistance(rt1, rt2);
+        double total = tripletCalc.get_totalNoTriplets();
+        PyObject* result = PyFloat_FromDouble(dtrpl/total);
 
         if (ut1 != NULL) delete ut1;
         if (ut2 != NULL) delete ut2;
@@ -65,8 +66,9 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         ut2 = parser.parseStr(nw2); 
         
         QuartetDistanceCalculator quartetCalc;
-        INTTYPE_N4 dquart = quartetCalc.calculateQuartetDistance(ut1, ut2);
-        PyObject* result = PyLong_FromLong(dquart);
+        double dquart = quartetCalc.calculateQuartetDistance(ut1, ut2);
+        double total = quartetCalc.get_totalNoQuartets();
+        PyObject* result = PyFloat_FromDouble(dquart/total);
         
         if (ut1 != NULL) delete ut1;
         if (ut2 != NULL) delete ut2;

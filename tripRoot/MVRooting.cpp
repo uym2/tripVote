@@ -1,6 +1,6 @@
 #include "MVRooting.h"
-#include "hdt.h"
-#include "hdt_factory.h"
+#include "rooted_tree.h"
+
 
 MVRooting::MVRooting(){
     this->myTree = NULL;
@@ -96,7 +96,7 @@ void MVRooting::__compute_ST__(RootedTree *t){
 
 void MVRooting::__compute_var__(RootedTree *t){
     for (TemplatedLinkedList<RootedTree*> *i = t->children; i != NULL; i = i->next){
-        double alpha, beta, a, b, c, x_star;
+        double alpha, beta, a, b, x_star;
 
         alpha = (2*this->mvCount->ST[t->idx] - 4*(this->mvCount->SI[i->data->idx] + i->data->n*i->data->edge_length))/this->myTree->n;
         beta = 1 - 2*(double)i->data->n/this->myTree->n;

@@ -6,8 +6,10 @@ import sys
 import os
 import argparse
 import time
+from tqdist import quartet_distance
+from triproot import MVroot
 
-MY_VERSION='1.0.1'
+MY_VERSION='1.0.2b'
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
@@ -23,46 +25,45 @@ start = time.time()
 print("Running tripVote version " + MY_VERSION)
 print("tripVote was called as follow: " + " ".join(sys.argv))
 
+trees = []
+with open(args.input,'r') as f:
+    for line in f:
+        trees.append(line.strip())
+
 print("Step1a: processing reference trees")
+reftrees = []
 if args.references is not None:
-    refTrees = args.references
+    self_vote = False
+    refFile = args.references
+    with open(refFile,'r') as f:
+        for line in f:
+            reftrees.append(line.strip())
 else:
+    self_vote = True    
     print("Running MV to use as references")
-    if args.mv == "temp":
-        MVrootedTrees = NamedTemporaryFile(mode='w+t', delete=False)
-        call(["MVRoot", args.input, MVrootedTrees.name])
-        refTrees = MVrootedTrees.name
-    else: 
-        call(["MVRoot", args.input, args.mv])
-        refTrees = args.mv
+    for tree in trees:
+        reftrees.append(MVroot(tree))
+    if args.mv is not None:
+        refFile = args.mv
+        with open(refFile,'w') as fout:
+            for tree in reftrees:
+                fout.write(tree + "\n")
 
 print("Step1b: computing weight matrix")
+n = len(trees)
+m = len(reftrees)
 
-f = open(refTrees)    
-trees = f.readlines()
-f.close()
+weightMatrix = [[0]*m for i in range(n)]
 
-weightsFileTemp = NamedTemporaryFile(mode='w+t', delete=False) if args.weight is None else None
-weightsFile = weightsFileTemp.name if weightsFileTemp else args.weight
-
-if weightsFileTemp:
-    call(["matrix_quartet_dist_to_ref", refTrees, weightsFile])
-
-numTree = len(trees)
-weightMatrix = [[0]*numTree for i in range(numTree)]
-
-f = open(weightsFile)
-ws = f.read().split()
-k = 0
-for i in range(numTree):
-    for j in range(i+1):
-        weightMatrix[i][j] = float(ws[k])
-        k += 1
-        
-for i in range(numTree):
-    for j in range(i+1,numTree):        
-        weightMatrix[i][j] = weightMatrix[j][i]
-f.close()
+if self_vote:
+    for i in range(n):
+        for j in range(i+1):
+            weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
+            weightMatrix[j][i] = weightMatrix[i][j]
+else:
+    for i in range(n):
+        for j in range(m):
+            weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
 
 print("Step2: running all-pairs tripRoot")
 count = 1
@@ -74,13 +75,13 @@ for tree in trees:
     tempOut = NamedTemporaryFile(mode='w+t', delete=False) 
     tempWeights = NamedTemporaryFile(mode='w+t', delete=False)
 
-    tempIn.write(tree) # write() method takes input in bytes
+    tempIn.write(tree + "\n") # write() method takes input in bytes
     tempIn.close()
     
     tempWeights.writelines("%s\n" % x for x in weightMatrix[count - 1])
     tempWeights.close()
         
-    call(["tripVote", tempIn.name, tempOut.name, refTrees, tempWeights.name])
+    call(["tripVote", tempIn.name, tempOut.name, refFile, tempWeights.name])
     
     tempOut.seek(0)
     line = tempOut.readlines()[0]

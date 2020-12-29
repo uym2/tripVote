@@ -21,7 +21,7 @@ sources = ["tqdistmodule.cpp",
 
 def main():
     setup(name="tqdist",
-          version="1.0.1b",
+          version="1.0.2b",
           description="Python interface for the tqdist C library function",
           author="uym2",
           author_email="umai@gmail.com",

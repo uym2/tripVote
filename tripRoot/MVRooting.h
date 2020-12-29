@@ -1,15 +1,9 @@
 #ifndef MV_ROOTING_H
 #define MV_ROOTING_H
 
-#include "int_stuff.h"
-#include "triplet_calc.h"
-#include "quartet_calc.h"
 #include "MinVarCounter.h"
-#include "TripletRooting.h"
 
-#ifndef CONTRACT_MAX_EXTRA_SIZE
-#define CONTRACT_MAX_EXTRA_SIZE 20000
-#endif
+class RootedTree;
 
 class MVRooting {
  public:

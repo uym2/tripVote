@@ -5,7 +5,6 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "int_stuff.h"
 #include "templated_linked_list.h"
 #include "TripletCounter.h"
 #include <stack>
