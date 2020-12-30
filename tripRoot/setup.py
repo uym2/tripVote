@@ -17,7 +17,9 @@ sources = [ "triprootmodule.cpp",
             "NewickParser.cpp",
             "RootedTree.cpp",
             "RootedTreeFactory.cpp",
-            "int_stuff.cpp"]
+            "int_stuff.cpp",
+            "TripletCounter.cpp",
+            "TripletRooting.cpp",]
 def main():
     setup(name="triproot",
           version="1.0.2b",
