@@ -9,6 +9,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ctime>
 
 #ifndef _MSC_VER
 #define _stricmp strcasecmp
@@ -113,7 +114,8 @@ void usage(char *programName) {
 }
 
 int main(int argc, char** argv) {
-  if(argc < 4) {
+  clock_t start = clock();
+  if(argc < 4 or argc > 5) {
     usage(argv[0]);
     return 0;
   }
@@ -121,8 +123,10 @@ int main(int argc, char** argv) {
   char *refTreeFile = argv[3];
   char *inTreeFile = argv[1];
   char *outputTree = argv[2];
-  char *weightFile = argv[4];
-
+  char *weightFile = NULL;
+  if (argc == 4)
+      char *weightFile = argv[4];
+  
   NewickParser parser;
   unsigned int i = 1;
 
@@ -148,15 +152,21 @@ int main(int argc, char** argv) {
   }
   fin.close();
 
-  fin.open(weightFile);
-  string w;
-  while (1){
-      std::getline(fin,w);
-      if (fin.eof())
-          break;
-      weights.push_back(exp(-10*atof(w.c_str())));
+  if (weightFile){
+      fin.open(weightFile);
+      string w;
+      while (1){
+          std::getline(fin,w);
+          if (fin.eof())
+              break;
+          weights.push_back(exp(-10*atof(w.c_str())));
+      }
+      fin.close();
+  } else{
+      for (int i =0; i< refTreeStrs.size(); i++){
+          weights.push_back(1);
+      }
   }
-  fin.close();
    
   string outTreeStr = rootFromVotes(inTreeStr, refTreeStrs,weights);    
  
@@ -164,6 +174,8 @@ int main(int argc, char** argv) {
   fout.open(outputTree);
   fout << outTreeStr << endl;
   fout.close();
-  
+  clock_t stop = clock();
+  double duration = double(stop - start) / CLOCKS_PER_SEC;
+  cout << "TripVote runtime: " << duration << std::endl;
   return 0;
 }
