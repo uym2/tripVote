@@ -39,7 +39,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         //double total = tripletCalc.get_totalNoTriplets();
         //PyObject* result = PyFloat_FromDouble(dtrpl/total);
         tripletCalc.calculateTripletDistance(rt1, rt1);
-        double total = tripletCalc.get_resolvedTriplets()
+        double total = tripletCalc.get_resolvedTriplets();
         tripletCalc.calculateTripletDistance(rt1, rt2);
         double dtrpl = (total-tripletCalc.get_resolvedTriplets())/total;
         PyObject* result = PyFloat_FromDouble(dtrpl);
@@ -76,9 +76,10 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         //PyObject* result = PyFloat_FromDouble(dquart/total);
         
         quartetCalc.calculateQuartetDistance(ut1, ut1);
-        double total = quartetCalc.get_resolvedQuartets()
+        double total = quartetCalc.get_resolvedQuartetsAgree() + quartetCalc.get_resolvedQuartetsAgreeDiag() + quartetCalc.get_resolvedQuartetsAgreeUpper(); 
         quartetCalc.calculateQuartetDistance(ut1, ut2);
-        double dquart = (total-quartetCalc.get_resolvedQuartets())/total;
+        double agree = quartetCalc.get_resolvedQuartetsAgree() + quartetCalc.get_resolvedQuartetsAgreeDiag() + quartetCalc.get_resolvedQuartetsAgreeUpper(); 
+        double dquart = (total-agree)/total;
         PyObject* result = PyFloat_FromDouble(dquart);
         
         if (ut1 != NULL) delete ut1;
