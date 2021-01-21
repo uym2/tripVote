@@ -87,6 +87,7 @@ bool RootedTree::read_newick_str(string str){
 			    ++it;
 
             } else if (c == ';'){
+				this->__set_label__(stk,label,wait_for_int_lab);
 				stk.pop();
 				break;
 

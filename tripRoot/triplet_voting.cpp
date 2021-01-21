@@ -88,9 +88,16 @@ string rootFromVotes(string treeStr, vector<string> refTreeStrs, vector<double> 
             best_node_idx = i;
         }
     }
+
+    unsigned int Ambiguity = 0;
+    for (int i=0; i<N; i++){
+        if (abs(allCounts[i]-best_vote) < 0.0001){
+            Ambiguity++;
+        }
+    }
     
     cout << "Best vote score: " << best_vote << endl;
-    //cout << "Ambiguity: " << Ambiguity << endl;       
+    cout << "Ambiguity: " << Ambiguity << endl;       
     cout << "Optimal root index: " << best_node_idx << endl;
 
     //cout << "MV score at original root: " << mvRoot.mvCount->minVar[myTree->idx] << endl;

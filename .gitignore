@@ -7,3 +7,6 @@ trees/*
 *.trees
 *txt
 *cmake
+tqDist_hasbugs/
+*.log
+*.so
