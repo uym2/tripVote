@@ -7,7 +7,7 @@ import time
 from tripVote.tripvote_lib import *
 
 def main():
-    MY_VERSION='1.0.2b'
+    MY_VERSION='1.0.3b'
 
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
@@ -58,15 +58,15 @@ def main():
         a = alphas[0]
         alphas = [a]*n
             
-    if self_vote:
-        for i in range(n):
-            for j in range(i+1):
-                weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
-                weightMatrix[j][i] = weightMatrix[i][j]
-    else:
-        for i in range(n):
-            for j in range(m):
-                weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
+    #if self_vote:
+    #    for i in range(n):
+    #        for j in range(i+1):
+    #            weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
+    #            weightMatrix[j][i] = weightMatrix[i][j]
+    #else:
+    for i in range(n):
+        for j in range(m):
+            weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
 
     print("Step2: running all-pairs tripRoot")
     count = 1
