@@ -5,6 +5,9 @@ import os
 import argparse
 import time
 from tripVote.tripvote_lib import *
+from statistics import median
+from math import exp, log
+
 
 def main():
     MY_VERSION='1.0.3b'
@@ -16,7 +19,7 @@ def main():
     parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
     parser.add_argument('-w', '--weight', required=False, default=None, help="A file that contains the weight matrix. Given as a LOWER triangular matrix")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
-    parser.add_argument('-a', '--alpha',help="Weighting hyper-parameter. Can be a float number or a list of numbers whose length is the same as the number of input trees. Default: 10")
+    #parser.add_argument('-a', '--alpha',help="Weighting hyper-parameter. Can be a float number or a list of numbers whose length is the same as the number of input trees. Default: 10")
 
     args = parser.parse_args()
 
@@ -53,10 +56,10 @@ def main():
     m = len(reftrees)
 
     weightMatrix = [[0]*m for i in range(n)]
-    alphas = [float(x) for x in args.alpha.split()] if args.alpha is not None else [10]*n
-    if len(alphas) == 1:
-        a = alphas[0]
-        alphas = [a]*n
+    #alphas = [float(x) for x in args.alpha.split()] if args.alpha is not None else [10]*n
+    #if len(alphas) == 1:
+    #    a = alphas[0]
+    #    alphas = [a]*n
             
     #if self_vote:
     #    for i in range(n):
@@ -68,12 +71,21 @@ def main():
         for j in range(m):
             weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
 
+    Ws = []
+    for W in weightMatrix:
+        Ws += W
+    qm = median(Ws)
+    a,b = sigmoid_param(qm,qh=2/3)
+
     print("Step2: running all-pairs tripRoot")
     count = 1
     outtrees = []
-    for alpha,tree in zip(alphas,trees):
-        print("Processing tree {}".format(count) + ". alpha = " + str(alpha) )
-        rerooted,_,_ = tripVote(tree,reftrees,weightMatrix[count-1],alpha=alpha)
+    #for alpha,tree in zip(alphas,trees):
+    for tree in trees:
+        #print("Processing tree {}".format(count) + ". alpha = " + str(alpha) )
+        print("Processing tree {}".format(count))
+        #rerooted,_,_ = tripVote(tree,reftrees,weightMatrix[count-1],alpha=alpha)
+        rerooted,_,_ = tripVote(tree,reftrees,weightMatrix[count-1],a,b)
         outtrees.append(rerooted)
         count += 1
 

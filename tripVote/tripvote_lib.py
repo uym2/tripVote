@@ -157,7 +157,19 @@ def tripVote_crossValidate(refTrees,fraction_test=0.1,n_vote_groups=10,alphas=li
                 
     return alpha_scoring            
 
-def tripVote(myTree,refTrees,weights,alpha=10,do_indexing=True):
+def sigmoid(a,b,d):
+    # d is the quarter distance
+    return 1/(1+exp((d-b)*a))
+
+def sigmoid_param(qm,qh=2/3):
+    # qm: the "medium" quartet distance. This will be calibrated to get weight 0.5
+    # ql: the "high" quartet distance. This will be calibrated to get weight 0.01
+    b = qm
+    a = log(99)/(qh-qm)
+    return a,b
+
+#def tripVote(myTree,refTrees,weights,alpha=10,do_indexing=True):
+def tripVote(myTree,refTrees,weights,a,b,do_indexing=True):
     myTree_obj = read_tree_newick(myTree)
 
     # indexing
@@ -176,7 +188,8 @@ def tripVote(myTree,refTrees,weights,alpha=10,do_indexing=True):
     id2score = {}
     for w,rtree in zip(weights,refTrees):
         mystr = tripRootScore(rtree,treestr)
-        myweight = exp(-alpha*w)
+        #myweight = exp(-alpha*w)
+        myweight = sigmoid(a,b,w)
         for item in mystr.split(','):
             ID,s = item.split(':')
             score = myweight*float(s)
