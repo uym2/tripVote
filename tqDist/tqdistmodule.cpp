@@ -89,8 +89,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
     }
 
     static PyMethodDef TQMethods[] = {
-        {"triplet_distance", method_TripletDistance, METH_VARARGS, "Compute triplet distance"},
-        {"quartet_distance", method_QuartetDistance, METH_VARARGS, "Compute quartet distance"},
+        {"triplet_distance_norm", method_TripletDistance, METH_VARARGS, "Compute triplet distance"},
+        {"quartet_distance_norm", method_QuartetDistance, METH_VARARGS, "Compute quartet distance"},
         {NULL, NULL, 0, NULL}
     };
 

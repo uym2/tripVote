@@ -69,7 +69,7 @@ def main():
     #else:
     for i in range(n):
         for j in range(m):
-            weightMatrix[i][j] = quartet_distance(trees[i],reftrees[j])
+            weightMatrix[i][j] = quartet_distance_norm(trees[i],reftrees[j])
 
     Ws = []
     for W in weightMatrix:
