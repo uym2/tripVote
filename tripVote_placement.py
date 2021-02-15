@@ -32,7 +32,7 @@ def main():
         refTrees = f.read().strip().split('\n')
 
     missing_taxon = args.placement
-    lb,d = place_one_taxon(inputTree,refTrees,missing_taxon) 
+    lb,d = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth="log2") 
 
     print(lb,d)
     end = time.time()

@@ -79,7 +79,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         tripRoot.find_optimal_root();
         
         TripletCounter* myCount = tripRoot.tripCount;
-        double M = double(refTree->n)*(refTree->n-1)*(refTree->n-2)/6;
+        //double M = double(refTree->n)*(refTree->n-1)*(refTree->n-2)/6;
+        double M = double(myTree->n)*(myTree->n-1)*(myTree->n-2)/6;
         
         string myScore;
         get_myScore(myTree, myCount, M, myScore);

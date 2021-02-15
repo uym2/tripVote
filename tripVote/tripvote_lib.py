@@ -40,10 +40,10 @@ def reroot_at_edge(tree, node, length):
 
 
     while tail is not tree.root:
-        q = head.parent
         head = tail
         tail = p
         p = tail.parent
+        q = head.parent
 
         br2currRoot += 1
         d2currRoot += l
@@ -157,7 +157,7 @@ def tripVote_crossValidate(refTrees,fraction_test=0.1,n_vote_groups=10,alphas=li
                 
     return alpha_scoring            
 
-def tripVote(myTree,refTrees,weights,alpha=10,do_indexing=True):
+def tripVote(myTree,refTrees,do_indexing=True):
     myTree_obj = read_tree_newick(myTree)
 
     # indexing
@@ -174,17 +174,19 @@ def tripVote(myTree,refTrees,weights,alpha=10,do_indexing=True):
 
     # calling tripRootScore    
     id2score = {}
-    for w,rtree in zip(weights,refTrees):
+    #i=0
+    for rtree in refTrees:
         mystr = tripRootScore(rtree,treestr)
-        myweight = exp(-alpha*w)
+        #print(i+1,mystr)
+        #i+=1
         for item in mystr.split(','):
             ID,s = item.split(':')
-            score = myweight*float(s)
+            score = float(s)
             if ID not in id2score:
                 id2score[ID] = score
             else:
                 id2score[ID] += score    
-    
+
     best_id = None
     max_score = -1    
     for ID in id2score:
@@ -211,6 +213,7 @@ def tripVote(myTree,refTrees,weights,alpha=10,do_indexing=True):
     if optimal_root is not None: 
         reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
     
+    print(max_score) 
     return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
 
 if __name__ == "__main__":
