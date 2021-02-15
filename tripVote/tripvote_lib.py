@@ -213,7 +213,7 @@ def tripVote(myTree,refTrees,do_indexing=True):
     if optimal_root is not None: 
         reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
     
-    print(max_score) 
+    print("Triplet score: " + str(max_score))
     return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
 
 if __name__ == "__main__":

@@ -34,7 +34,7 @@ def main():
     missing_taxon = args.placement
     lb,d = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth="log2") 
 
-    print(lb,d)
+    print("Placement: " + str(lb) + " " + str(d))
     end = time.time()
     print("Runtime: ", end - start) 
 
