@@ -76,7 +76,7 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max'):
             break
     node = placement_node
     d = 0
-    while not node.is_root():
-        node = node.get_parent()
+    while not node.is_root() and not node.parent.is_root():
         d += 1
+        node = node.get_parent()
     return placement_label, d                    

@@ -16,7 +16,7 @@ def main():
     parser.add_argument('-i', '--input', required=True, help="Input tree")
     parser.add_argument('-r', '--references', required=True, help="Reference trees")
     parser.add_argument('-p', '--placement', required=True, help="The taxon to do placement")
-    #parser.add_argument('-o', '--output', required=True, help="Output file")
+    parser.add_argument('-d', '--depth', required=False, help="The maximum depth of any voting triplet. Can be a positive integer or string 'max' or 'log2'. Default: log2 of treesize.")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
 
     args = parser.parse_args()
@@ -32,7 +32,13 @@ def main():
         refTrees = f.read().strip().split('\n')
 
     missing_taxon = args.placement
-    lb,d = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth="log2") 
+    if args.depth is None:
+        d = "log2"
+    elif args.depth == 'max' or args.depth == 'log2':
+        d = args.depth
+    else:
+        d = int(args.depth)
+    lb,d = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d) 
 
     print("Placement: " + str(lb) + " " + str(d))
     end = time.time()
