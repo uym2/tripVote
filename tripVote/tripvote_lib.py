@@ -1,72 +1,9 @@
 from treeswift import *
 from tqdist import *
 from triproot import *
-from math import exp,log
+from math import exp,log,ceil,sqrt
 import random
-
-def reroot_at_edge(tree, node, length):
-# change edge to opt_root
-    length1 = node.edge_length-length
-    length2 = length
-    if not node:
-        return
-
-    head = node #opt_root = v = node
-    tail = node.parent #u parent of opt_root
-    if not tail:
-        return
-
-    if (length2 == 0) and head.is_leaf():
-        return 0, 0
-
-    new_root = Node()
-
-    tail.remove_child(head)
-
-    new_root.add_child(head)
-    head.edge_length=length2
-
-    p = tail.parent
-    l = tail.edge_length
-
-    new_root.add_child(tail)
-    tail.edge_length = length1
-
-    br2currRoot = 0
-    d2currRoot = length1
-
-    if (tail is tree.root):
-        head = new_root
-
-
-    while tail is not tree.root:
-        head = tail
-        tail = p
-        p = tail.parent
-        q = head.parent
-
-        br2currRoot += 1
-        d2currRoot += l
-        l1 = tail.edge_length
-        tail.remove_child(head)
-        head.parent = q
-        head.add_child(tail)
-        tail.edge_length=l
-        l = l1
-
-    # out of while loop: tail IS now tree.root
-    if tail.num_children() == 1:
-        # merge the 2 branches of the old root and adjust the branch length
-        sis = tail.child_nodes()[0]
-        l = sis.edge_length
-        tail.remove_child(sis)    
-        head.add_child(sis)
-        sis.edge_length = l + tail.edge_length
-        head.remove_child(tail)
-
-    tree.root = new_root
-
-    return d2currRoot,br2currRoot
+from tripVote.utils import sample_by_depth, prune_long, reroot_at_edge
 
 def entropy(C):
 # compute entropy 
@@ -174,11 +111,8 @@ def tripVote(myTree,refTrees,do_indexing=True):
 
     # calling tripRootScore    
     id2score = {}
-    #i=0
     for rtree in refTrees:
         mystr = tripRootScore(rtree,treestr)
-        #print(i+1,mystr)
-        #i+=1
         for item in mystr.split(','):
             ID,s = item.split(':')
             score = float(s)
@@ -216,6 +150,42 @@ def tripVote(myTree,refTrees,do_indexing=True):
     print("Triplet score: " + str(max_score))
     return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
 
+def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None):
+    new_refTrees = []
+    for rstr in refTrees:
+        tree_obj = read_tree_newick(rstr)
+        n = len(list(tree_obj.traverse_leaves()))
+        if max_depth == 'max':
+            d = n
+        elif max_depth == 'log2':
+            d = ceil(log2(n))
+        else:
+            d = int(max_depth)    
+        # prune deep nodes
+        if d < n:
+            prune_long(tree_obj,d)    
+        # sampling
+        if (len(list(tree_obj.traverse_leaves())) >= 3):
+            if nsample is None:
+                new_tree = tree_obj.newick()
+                new_refTrees.append(new_tree)
+            else:
+                nleaf = len(list(tree_obj.traverse_leaves()))
+                new_refTrees += sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
+    rerooted_tree,_,root_label = tripVote(myTree,new_refTrees)
+    tree_obj = read_tree_newick(myTree)
+    root_node = None
+    for node in tree_obj.traverse_preorder():
+        if node.label == root_label:
+            root_node = node
+            break
+    node = root_node
+    d = 0
+    while not node.is_root() and not node.parent.is_root():
+        d += 1
+        node = node.get_parent()
+    return rerooted_tree, d                    
+            
 if __name__ == "__main__":
     infile = "test_cases/MV.trees" 
     with open(infile,'r') as fin:
