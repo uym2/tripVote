@@ -18,6 +18,7 @@ def main():
     parser.add_argument('-p', '--placement', required=True, help="The taxon to do placement")
     parser.add_argument('-d', '--depth', required=False, help="The maximum depth of any voting triplet. Can be a positive integer or string 'max' or 'log2'. Default: max of tree height.")
     parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
+    parser.add_argument('--usebrlen', action='store_true', help="Use branch length to do sampling. Default: FALSE")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
 
     args = parser.parse_args()
@@ -46,7 +47,7 @@ def main():
         sample_size, nsample = args.sampling.strip().split()
         nsample = int(nsample)        
 
-    lb,d2root = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample) 
+    lb,d2root = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen) 
 
     print("Placement: " + str(lb) + " " + str(d2root))
     end = time.time()
