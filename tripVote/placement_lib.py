@@ -1,14 +1,14 @@
 from tqdist import *
 from triproot import *
 from tripVote.tripvote_lib import tripVote 
-from tripVote.utils import reroot_at_edge, sample_by_depth, prune_long
+from tripVote.utils import reroot_at_edge, sample_by_depth, prune_long, sample_by_brlen
 from treeswift import *
 from math import log2, ceil, sqrt
 from random import choices
 
                 
 
-def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='full',nsample=None):
+def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='full',nsample=None,use_brlen=False):
 # remove all trees in refTrees that do not have the missing_taxon
 # and assume myTree is missing the missing_taxon
 # myTree: a newick string. Assume it has unique labeling for all nodes
@@ -55,7 +55,8 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='f
                     rerooted_refTrees.append(rerooted)
                 else:
                     nleaf = len(list(tree_obj.traverse_leaves()))
-                    rerooted_refTrees += sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
+                    f_sample = sample_by_brlen if use_brlen else sample_by_depth
+                    rerooted_refTrees += f_sample(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
 
     _,_,placement_label = tripVote(myTree,rerooted_refTrees)
     tree_obj = read_tree_newick(myTree)

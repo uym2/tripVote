@@ -88,6 +88,29 @@ def sample_by_depth(tree,nleaf,nsample):
         
     return smpl_trees                    
 
+def sample_by_brlen(tree,nleaf,nsample,pseudo=1e-5):
+    leaf_labels = []
+    leaf_weights = []
+    for node in tree.traverse_preorder():
+        if node.is_root():
+            node.p = 1.0
+        n = len(node.children)-1    
+        s = n*sum(c.edge_length + pseudo for c in node.children)
+        if node.is_leaf():
+            leaf_labels.append(node.label)
+            leaf_weights.append(node.p)
+        else:
+            for c in node.children:
+                c.p = c.parent.p * (s-n*(c.edge_length+pseudo))/n/s
+
+    smpl_trees = []
+    for s in range(nsample):
+        sample = set(choices(leaf_labels,weights=leaf_weights,k=nleaf))
+        if len(sample) >= 3:
+            smpl_trees.append(tree.extract_tree_with(sample, suppress_unifurcations=True).newick())
+        
+    return smpl_trees                    
+
 def prune_long(tree,max_depth):
     cutting_list = []
     for node in tree.traverse_preorder():
