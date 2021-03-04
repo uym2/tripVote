@@ -8,7 +8,7 @@ from random import choices
 
                 
 
-def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='full',nsample=None,use_brlen=False):
+def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='full',nsample=None,use_brlen=False,pseudo=1e-3):
 # remove all trees in refTrees that do not have the missing_taxon
 # and assume myTree is missing the missing_taxon
 # myTree: a newick string. Assume it has unique labeling for all nodes
@@ -56,7 +56,10 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='f
                 else:
                     nleaf = len(list(tree_obj.traverse_leaves()))
                     f_sample = sample_by_brlen if use_brlen else sample_by_depth
-                    rerooted_refTrees += f_sample(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
+                    if use_brlen:
+                        rerooted_refTrees += sample_by_brlen(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample,pseudo=1e-3)
+                    else: 
+                        rerooted_refTrees += sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
 
     _,_,placement_label = tripVote(myTree,rerooted_refTrees)
     tree_obj = read_tree_newick(myTree)

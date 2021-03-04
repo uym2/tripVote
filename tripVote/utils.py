@@ -88,7 +88,7 @@ def sample_by_depth(tree,nleaf,nsample):
         
     return smpl_trees                    
 
-def sample_by_brlen(tree,nleaf,nsample,pseudo=1e-5):
+def sample_by_brlen(tree,nleaf,nsample,pseudo=1e-3):
     leaf_labels = []
     leaf_weights = []
     for node in tree.traverse_preorder():
