@@ -14,6 +14,7 @@ def main():
     parser.add_argument('-r', '--references', required=False, default=None, help="Reference trees (i.e. OG, MV, MP). If not given, the input trees will be rooted by MV first, then the MV trees are used as references. Default: None")
     parser.add_argument('-d', '--depth', required=False, help="The maximum depth of any voting triplet. Can be a positive integer or string 'max' or 'log2'. Default: max of tree height.")
     parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
+    parser.add_argument('--alpha', required=False, type=float,default=0,help="The alpha parameter of weights. Default: 0")
     parser.add_argument('-o', '--output', required=True, help="Output rooted Trees")
     parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
@@ -67,7 +68,7 @@ def main():
 
     for tree in trees:
         print("Processing tree {}".format(count))
-        rerooted,d2root = tripVote_root(tree,reftrees,max_depth=d,sample_size=sample_size,nsample=nsample)
+        rerooted,d2root = tripVote_root(tree,reftrees,max_depth=d,sample_size=sample_size,nsample=nsample,alpha=args.alpha)
         outtrees.append(rerooted)
         print("Distance to original root: " + str(d2root))
         count += 1

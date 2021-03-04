@@ -149,9 +149,12 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True):
     print("Triplet score: " + str(max_score))
     return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
 
-def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None):
+def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None,alpha=0):
     new_refTrees = []
+    W = []
     for rstr in refTrees:
+        qdist = quartet_distance(rstr,myTree)
+        w = exp(-alpha*qdist)
         tree_obj = read_tree_newick(rstr)
         n = len(list(tree_obj.traverse_leaves()))
         if max_depth == 'max':
@@ -168,10 +171,13 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
             if nsample is None:
                 new_tree = tree_obj.newick()
                 new_refTrees.append(new_tree)
+                W.append(w)
             else:
                 nleaf = len(list(tree_obj.traverse_leaves()))
-                new_refTrees += sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
-    rerooted_tree,_,root_label = tripVote(myTree,new_refTrees)
+                S = sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
+                new_refTrees += S
+                W += [w]*len(S)
+    rerooted_tree,_,root_label = tripVote(myTree,new_refTrees,W=W)
     tree_obj = read_tree_newick(myTree)
     root_node = None
     for node in tree_obj.traverse_preorder():
