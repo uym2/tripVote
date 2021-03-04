@@ -20,6 +20,7 @@ def main():
     parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
     parser.add_argument('--usebrlen', action='store_true', help="Use branch length to do sampling. Default: FALSE")
     parser.add_argument('--pseudo', required=False, default=0.003, type=float, help="The pseudo count added to each branch length; only used with --usebrlen. Default: 1e-3.")
+    parser.add_argument('--alpha', required=False, default=0, type=float, help="The parameter to control the weights per reference tree (w = exp(-alpha*qdist). Default: 0")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
 
     args = parser.parse_args()
@@ -48,7 +49,7 @@ def main():
         sample_size, nsample = args.sampling.strip().split()
         nsample = int(nsample)        
 
-    lb,d2root = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo) 
+    lb,d2root = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha) 
 
     print("Placement: " + str(lb) + " " + str(d2root))
     end = time.time()

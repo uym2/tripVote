@@ -94,8 +94,10 @@ def tripVote_crossValidate(refTrees,fraction_test=0.1,n_vote_groups=10,alphas=li
                 
     return alpha_scoring            
 
-def tripVote(myTree,refTrees,do_indexing=True):
+def tripVote(myTree,refTrees,W=None,do_indexing=True):
     myTree_obj = read_tree_newick(myTree)
+    if W is None:
+        W = [1.0]*len(refTrees)
 
     # indexing
     if do_indexing:
@@ -111,15 +113,15 @@ def tripVote(myTree,refTrees,do_indexing=True):
 
     # calling tripRootScore    
     id2score = {}
-    for rtree in refTrees:
+    for rtree,w in zip(refTrees,W):
         mystr = tripRootScore(rtree,treestr)
         for item in mystr.split(','):
             ID,s = item.split(':')
             score = float(s)
             if ID not in id2score:
-                id2score[ID] = score
+                id2score[ID] = w*score
             else:
-                id2score[ID] += score    
+                id2score[ID] += w*score    
 
     best_id = None
     max_score = -1    
@@ -139,9 +141,6 @@ def tripVote(myTree,refTrees,do_indexing=True):
             optimal_root = node
         if not node.is_leaf() and do_indexing:
             node.label = id2lb[node.label]
-    
-    #print("Score at original root: " + str(id2score['I0']))
-    #print("Optimal score: " + str(max_score))
     
     # reroot
     if optimal_root is not None: 
