@@ -85,7 +85,8 @@ typedef struct UnrootedTree
 			}
 
 			t->dontRecurceOnMe = NULL;
-			RootedTreeFactory *factory = new RootedTreeFactory(oldFactory);
+			//RootedTreeFactory *factory = new RootedTreeFactory(oldFactory);
+			RootedTreeFactory *factory = new RootedTreeFactory();
 			RootedTree *rooted = t->convertToRootedTreeImpl(factory);
 
 			// Make sure the root always recurses on everything! (e.g. so that we can cleanup properly!)

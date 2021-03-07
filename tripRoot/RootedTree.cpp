@@ -436,7 +436,8 @@ RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
 RootedTree* RootedTree::down_root(RootedTree *u) {
     
     // we assume that u is a grandchild of the root
-	RootedTreeFactory *factory = new RootedTreeFactory(NULL);
+	//RootedTreeFactory *factory = new RootedTreeFactory(NULL);
+	RootedTreeFactory *factory = new RootedTreeFactory();
     RootedTree *v = factory->getRootedTree();
     RootedTree *v1 = factory->getRootedTree();
     RootedTree *v2 = u->copyTree(factory);
@@ -754,7 +755,8 @@ RootedTree* RootedTree::contractImpl(RootedTreeFactory *factory)
 {
 	if (isLeaf()) return this; // reuse leaves!!
 
-	if (factory == NULL) factory = new RootedTreeFactory(this->factory);
+	//if (factory == NULL) factory = new RootedTreeFactory(this->factory);
+	if (factory == NULL) factory = new RootedTreeFactory();
 
 	INTTYPE_REST totalNumZeroes = 0;
 	RootedTree *firstNonZeroChild = NULL;
