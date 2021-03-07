@@ -16,7 +16,6 @@ HDTFactory::HDTFactory(int numD)
 
 HDTFactory::~HDTFactory()
 {
-    //std::cout << "HDTFactory: destructor" << std::endl;
     for (vector<HDT*>::iterator it = createdHDTs.begin(); it != createdHDTs.end(); ++it) {
         delete *it;
         *it = NULL;

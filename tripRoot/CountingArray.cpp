@@ -54,11 +54,6 @@ void CountingArray::initialize(unsigned int degree){
     }
 }
 
-CountingArray::CountingArray(){
-    this->n_i = this->n_i_circ = this->n_parent_ii = this->n_i_arrow_circ = NULL;
-    this->n_i_j = this->n_i_arrow_j = NULL;
-}
-
 CountingArray::~CountingArray(){
     //std::cout << "Calling CountingArray destructor" << std::endl;
     delete [] this->n_i;
@@ -75,6 +70,12 @@ CountingArray::~CountingArray(){
     delete [] this->n_i_j;
     delete [] this->n_i_arrow_j;  
 }
+
+CountingArray::CountingArray(){
+    this->n_i = this->n_i_circ = this->n_parent_ii = this->n_i_arrow_circ = NULL;
+    this->n_i_j = this->n_i_arrow_j = NULL;
+}
+
 
 INTTYPE_REST CountingArray::get_n_ij(unsigned int i, unsigned int j){
     unsigned int i_star, j_star;

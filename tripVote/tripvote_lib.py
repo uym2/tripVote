@@ -122,7 +122,6 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True):
                 id2score[ID] = w*score
             else:
                 id2score[ID] += w*score    
-
     best_id = None
     max_score = -1    
     for ID in id2score:
@@ -146,7 +145,6 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True):
     if optimal_root is not None: 
         reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
     
-    print("Triplet score: " + str(max_score))
     return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
 
 def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None,alpha=0):

@@ -249,7 +249,8 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
     double eu = u->edge_length;
 
 
-    RootedTreeFactory *tFactory = new RootedTreeFactory();
+    //RootedTreeFactory *tFactory = new RootedTreeFactory();
+    RootedTreeFactory *tFactory = node->factory;
     RootedTree *newRoot = tFactory->getRootedTree();
     newRoot->factory = tFactory;
 

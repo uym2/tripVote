@@ -84,10 +84,11 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         
         string myScore;
         get_myScore(myTree, myCount, M, myScore);
-        myScore.pop_back(); // remove the last comma which is redundant
+        myScore.pop_back(); // remove the last comma which is redundant */
         
         PyObject* result;
         result = PyUnicode_FromString(myScore.c_str());
+        //result = PyUnicode_FromString("Empty for now!");
 
         delete factory;
          

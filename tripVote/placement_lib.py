@@ -78,6 +78,9 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='f
             break
     node = placement_node
     d = 0
+    if node is None:
+        print("Warning: Could not find optimal placement by tripVote. Aborting ...")
+        return None,None
     while not node.is_root() and not node.parent.is_root():
         d += 1
         node = node.get_parent()
