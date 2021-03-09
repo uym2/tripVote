@@ -7,7 +7,7 @@ import time
 from tripVote.placement_lib import place_one_taxon, place_one_taxon_iter
 from statistics import median
 from math import exp, log
-
+import random
 
 def main():
     MY_VERSION='1.0.4b'
@@ -23,8 +23,10 @@ def main():
     parser.add_argument('--alpha', required=False, default=0, type=float, help="The parameter to control the weights per reference tree (w = exp(-alpha*qdist). Default: 0")
     parser.add_argument('--doiter', action='store_true', help="Turn on iteration search. Must be used with -s")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
-
+    
     args = parser.parse_args()
+
+    random.seed(a=1105)
 
     start = time.time()
     print("Running tripVote_placement version " + MY_VERSION)
