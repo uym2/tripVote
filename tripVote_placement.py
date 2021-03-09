@@ -21,6 +21,7 @@ def main():
     parser.add_argument('--usebrlen', action='store_true', help="Use branch length to do sampling. Default: FALSE")
     parser.add_argument('--pseudo', required=False, default=0.003, type=float, help="The pseudo count added to each branch length; only used with --usebrlen. Default: 1e-3.")
     parser.add_argument('--alpha', required=False, default=0, type=float, help="The parameter to control the weights per reference tree (w = exp(-alpha*qdist). Default: 0")
+    parser.add_argument('--doiter', action='store_true', help="Turn on iteration search. Must be used with -s")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
 
     args = parser.parse_args()
@@ -49,12 +50,14 @@ def main():
         sample_size, nsample = args.sampling.strip().split()
         nsample = int(nsample)        
 
-    #lb,tripScore,d2root,_ = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha) 
-    placement_edge,d2root = place_one_taxon_iter(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample) 
-
-    print("Placement: " + placement_edge[0] + " " + placement_edge[1] + " " + str(d2root))
-    #print("Placement: " + lb + " " + str(d2root))
-    #print("Triplet score: " + str(tripScore))
+    if args.doiter:
+        placement_edge,d2root = place_one_taxon_iter(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample) 
+        print("Placement: " + placement_edge[0] + " " + placement_edge[1] + " " + str(d2root))
+    else:
+        lb,tripScore,d2root,_ = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha)  
+        print("Placement: " + lb + " " + str(d2root))
+        print("Triplet score: " + str(tripScore))
+    
     end = time.time()
     print("Runtime: ", end - start) 
 

@@ -6,7 +6,7 @@ from treeswift import *
 from math import log2, ceil, sqrt, exp
 from random import choices
 
-def __local_search__(tree_obj,refTrees,diam,nsample=1):
+def __local_search__(tree_obj,refTrees,diam,nsample=1,sample_size='sqrt'):
 # tree_obj is a TreeSwift object; refTrees are Newick strings
 # Assume: 1. tree_obj has been rerooted at the desired center of the local search 
 #         2. all ref trees have been preprocessed to be rooted at the missing taxon and removed it out
@@ -31,7 +31,7 @@ def __local_search__(tree_obj,refTrees,diam,nsample=1):
         sample = [x for x in close_leaves]
         for u in subtrees:
             T = tree_obj.extract_subtree(u)
-            nleaf = ceil(sqrt(len(list(T.traverse_leaves()))))
+            nleaf =len(list(T.traverse_leaves())) if sample_size=='full' else ceil(sqrt(len(list(T.traverse_leaves()))))
             s = sample_by_depth(T,nleaf,1,do_extract=False)
             sample += s       
 
@@ -124,7 +124,7 @@ def place_one_taxon_iter(myTree,refTrees,missing_taxon,max_depth='max',sample_si
         if not new_root_node is tree_obj.root:
             reroot_at_edge(tree_obj,new_root_node,new_root_node.edge_length/2,root_label="ROOT") 
         # find new placement
-        placement_edge,_ = __local_search__(tree_obj,refTrees,diam,nsample=nsample)
+        placement_edge,_ = __local_search__(tree_obj,refTrees,diam,nsample=nsample,sample_size=sample_size)
         d = compute_d2root(myTree,placement_edge)
         print("Diameter " + str(diam) + ": " + str(placement_edge) + " " + str(d))
         # reduce d to go to the next iteration
