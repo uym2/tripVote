@@ -73,7 +73,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
         myTree->set_all_idx(0);
         myTree->count_nodes();
         myTree->countChildren();
-    
+   
+         
         TripletRooting tripRoot;
         tripRoot.initialize(refTree,myTree);
         tripRoot.find_optimal_root();

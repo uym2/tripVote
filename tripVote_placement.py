@@ -4,7 +4,7 @@ import sys
 import os
 import argparse
 import time
-from tripVote.placement_lib import place_one_taxon
+from tripVote.placement_lib import place_one_taxon, place_one_taxon_iter
 from statistics import median
 from math import exp, log
 
@@ -49,9 +49,12 @@ def main():
         sample_size, nsample = args.sampling.strip().split()
         nsample = int(nsample)        
 
-    lb,d2root = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha) 
+    #lb,tripScore,d2root,_ = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha) 
+    placement_edge,d2root = place_one_taxon_iter(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample) 
 
-    print("Placement: " + str(lb) + " " + str(d2root))
+    print("Placement: " + placement_edge[0] + " " + placement_edge[1] + " " + str(d2root))
+    #print("Placement: " + lb + " " + str(d2root))
+    #print("Triplet score: " + str(tripScore))
     end = time.time()
     print("Runtime: ", end - start) 
 

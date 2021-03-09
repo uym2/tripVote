@@ -94,11 +94,11 @@ def tripVote_crossValidate(refTrees,fraction_test=0.1,n_vote_groups=10,alphas=li
                 
     return alpha_scoring            
 
-def tripVote(myTree,refTrees,W=None,do_indexing=True):
+def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
     myTree_obj = read_tree_newick(myTree)
     if W is None:
         W = [1.0]*len(refTrees)
-
+    
     # indexing
     if do_indexing:
         id2lb = {}
@@ -121,17 +121,19 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True):
             if ID not in id2score:
                 id2score[ID] = w*score
             else:
-                id2score[ID] += w*score    
+                id2score[ID] += w*score  
     best_id = None
     max_score = -1    
     for ID in id2score:
         if id2score[ID] > max_score:
-           best_id = ID
-           max_score = id2score[ID]
+           lb = id2lb[ID] if ID in id2lb else ID
+           if (search_space is None) or (lb in search_space):
+               best_id = ID
+               max_score = id2score[ID]
 
-    for ID in id2score:
-        if abs(id2score[ID]-max_score) < 1e-4 and ID != best_id:
-            break
+    #for ID in id2score:
+    #    if abs(id2score[ID]-max_score) < 1e-4 and ID != best_id:
+    #        break
 
     # turn back the original label and find the rooting position
     optimal_root = None
@@ -142,10 +144,11 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True):
             node.label = id2lb[node.label]
     
     # reroot
-    if optimal_root is not None: 
-        reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
+    #if optimal_root is not None: 
+    #    reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
     
-    return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
+    #return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
+    return best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id, max_score
 
 def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None,alpha=0):
     new_refTrees = []
@@ -175,7 +178,8 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
                 S = sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
                 new_refTrees += S
                 W += [w]*len(S)
-    rerooted_tree,_,root_label = tripVote(myTree,new_refTrees,W=W)
+    #rerooted_tree,_,root_label = tripVote(myTree,new_refTrees,W=W)
+    _,root_label,_ = tripVote(myTree,new_refTrees,W=W)
     tree_obj = read_tree_newick(myTree)
     root_node = None
     for node in tree_obj.traverse_preorder():
@@ -187,6 +191,10 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
     while not node.is_root() and not node.parent.is_root():
         d += 1
         node = node.get_parent()
+
+    reroot_at_edge(tree_obj,root_node,root_node.edge_length/2)
+    rerooted_tree = tree_obj.newick()
+
     return rerooted_tree, d                    
             
 if __name__ == "__main__":

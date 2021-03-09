@@ -17,13 +17,17 @@ HDTFactory::HDTFactory(int numD)
 HDTFactory::~HDTFactory()
 {
     for (vector<HDT*>::iterator it = createdHDTs.begin(); it != createdHDTs.end(); ++it) {
-        delete *it;
-        *it = NULL;
+        if (*it) {
+            delete *it;
+            *it = NULL;
+        }
     }
     
     for (vector<TemplatedLinkedList<HDT*>* >::iterator it = createdTLL.begin(); it != createdTLL.end(); ++it) {
-        delete *it;
-        *it = NULL;
+        if (*it){
+            delete *it;
+            *it = NULL;
+        }
     }
 }
 

@@ -113,13 +113,21 @@ bool TrplMVRooting::find_optimal_root(){
     countChildren(myTree);
 
     if (this->compute_varScore() && this->compute_tripScore()){
-        this->optimalRoot = this->optimaltripRoots->data;
+        //this->optimalRoot = this->optimaltripRoots->data;
+        this->optimalRoot = this->optimaltripRoots[0];
         double mvScore = this->mvCount->minVar[this->optimalRoot->idx];
         
-        for (TemplatedLinkedList<RootedTree*> *i = this->optimaltripRoots->next; i != NULL; i = i->next){
+        /*for (TemplatedLinkedList<RootedTree*> *i = this->optimaltripRoots->next; i != NULL; i = i->next){
             if (mvCount->minVar[i->data->idx] < mvScore){
                 this->optimalRoot = i->data;
                 mvScore = mvCount->minVar[i->data->idx];
+            }
+        } */   
+        for (int i=1; i< this->optimaltripRoots.size(); i++){
+            RootedTree* curr = this->optimaltripRoots[i];
+            if (mvCount->minVar[curr->idx] < mvScore){
+                this->optimalRoot = curr;
+                mvScore = mvCount->minVar[curr->idx];
             }
         }    
         return true;

@@ -7,6 +7,9 @@
 #include "hdt.h"
 #include "TripletCounter.h"
 #include "rooted_tree_factory.h"
+#include <vector>
+
+using namespace std;
 
 #ifndef CONTRACT_MAX_EXTRA_SIZE
 #define CONTRACT_MAX_EXTRA_SIZE 20000
@@ -35,7 +38,8 @@ class TripletRooting {
   TripletCounter *tripCount;
   INTTYPE_REST optimalTripScore;
   unsigned int ambiguity;
-  TemplatedLinkedList<RootedTree*> *optimaltripRoots; // the nodes that have optimal tripScore
+  //TemplatedLinkedList<RootedTree*> *optimaltripRoots; // the nodes that have optimal tripScore
+  vector<RootedTree*> optimaltripRoots; // the nodes that have optimal tripScore
   RootedTree *optimalRoot; // the node in myTree where the optimal root placed above
 
 private:

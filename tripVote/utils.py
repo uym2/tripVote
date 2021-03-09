@@ -2,7 +2,7 @@ from treeswift import *
 from math import log2, ceil, sqrt
 from random import choices
 
-def reroot_at_edge(tree, node, length):
+def reroot_at_edge(tree, node, length, root_label=None):
 # change edge to opt_root
     length1 = node.edge_length-length
     length2 = length
@@ -18,6 +18,7 @@ def reroot_at_edge(tree, node, length):
         return 0, 0
 
     new_root = Node()
+    new_root.label = root_label
 
     tail.remove_child(head)
 
@@ -67,7 +68,9 @@ def reroot_at_edge(tree, node, length):
     return d2currRoot,br2currRoot
 
 
-def sample_by_depth(tree,nleaf,nsample):
+def sample_by_depth(tree,nleaf,nsample,do_extract=True):
+# return a list of newick trees if do_extract is True
+# otherwise, return a nested list of labels
     leaf_labels = []
     leaf_weights = []
     for node in tree.traverse_preorder():
@@ -83,8 +86,11 @@ def sample_by_depth(tree,nleaf,nsample):
     smpl_trees = []
     for s in range(nsample):
         sample = set(choices(leaf_labels,weights=leaf_weights,k=nleaf))
-        if len(sample) >= 3:
-            smpl_trees.append(tree.extract_tree_with(sample, suppress_unifurcations=True).newick())
+        if do_extract:
+            if len(sample) >= 3:
+                smpl_trees.append(tree.extract_tree_with(sample, suppress_unifurcations=True).newick())
+        else:
+            smpl_trees += list(sample)
         
     return smpl_trees                    
 

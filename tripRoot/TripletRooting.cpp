@@ -15,7 +15,8 @@ bool TripletRooting::pairing(){
 
 bool TripletRooting::find_optimal_root(){
     if (this->compute_tripScore()){
-        this->optimalRoot = optimaltripRoots->data;
+        //this->optimalRoot = optimaltripRoots->data;
+        this->optimalRoot = optimaltripRoots[0];
         return true;
     } else{
         return false;
@@ -34,7 +35,7 @@ bool TripletRooting::compute_tripScore(){
 
     unsigned int r = myTree->idx;
 
-    this->optimaltripRoots = NULL;
+    //this->optimaltripRoots = NULL;
     this->optimalTripScore = -1;
 
     this->tripCount->tripScore[r] = this->compute_root_tripScore();
@@ -65,18 +66,21 @@ void TripletRooting::__downroot__(RootedTree *t, INTTYPE_REST parent_score, bool
         }
         if (parent_active || sister_active){
             if (current_score == this->optimalTripScore && t != this->myTree){
-                TemplatedLinkedList<RootedTree*> *newItem = new TemplatedLinkedList<RootedTree*>;
+                /*TemplatedLinkedList<RootedTree*> *newItem = new TemplatedLinkedList<RootedTree*>;
                 newItem->data =  current->data;
                 newItem->next = this->optimaltripRoots;
-                this->optimaltripRoots = newItem;
+                this->optimaltripRoots = newItem; */
+                this->optimaltripRoots.push_back(current->data);
                 this->ambiguity += 1;
             }
             else if (current_score > this->optimalTripScore){
-                TemplatedLinkedList<RootedTree*> *newItem = new TemplatedLinkedList<RootedTree*>;
+                /*TemplatedLinkedList<RootedTree*> *newItem = new TemplatedLinkedList<RootedTree*>;
                 newItem->data =  current->data;
                 this->optimalTripScore = current_score;
                 newItem->next = NULL;
-                this->optimaltripRoots = newItem;
+                this->optimaltripRoots = newItem;*/
+                this->optimalTripScore = current_score;
+                this->optimaltripRoots.push_back(current->data);
                 this->ambiguity = 1;
             }
         }
@@ -93,6 +97,7 @@ TripletRooting::TripletRooting(){
     this->dummyHDTFactory = NULL;
     this->ambiguity = 0;
     this->factory = NULL;
+    //this->optimaltripRoots = NULL;
 }
 
 bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
@@ -114,11 +119,11 @@ bool TripletRooting::initialize(RootedTree *ref, RootedTree *tree){
 TripletRooting::~TripletRooting(){
     delete this->tripCount;
     delete this->factory;
-    while (this->optimaltripRoots != NULL){
+    /*while (this->optimaltripRoots != NULL){
         TemplatedLinkedList<RootedTree*> *curr = this->optimaltripRoots;
         this->optimaltripRoots = this->optimaltripRoots->next;
         delete curr;
-    }
+    }*/
     delete dummyHDTFactory;
 }
 
