@@ -56,7 +56,7 @@ def main():
         placement_edge,d2root = place_one_taxon_iter(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample) 
         print("Placement: " + placement_edge[0] + " " + placement_edge[1] + " " + str(d2root))
     else:
-        lb,tripScore,d2root,_ = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha)  
+        lb,tripScore,d2root,_,_ = place_one_taxon(inputTree,refTrees,missing_taxon,max_depth=d,sample_size=sample_size,nsample=nsample,use_brlen=args.usebrlen,pseudo=args.pseudo,alpha=args.alpha)  
         print("Placement: " + lb + " " + str(d2root))
         print("Triplet score: " + str(tripScore))
     

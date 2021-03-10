@@ -4,8 +4,8 @@ from random import choices
 
 def reroot_at_edge(tree, node, length, root_label=None):
 # change edge to opt_root
-    length1 = node.edge_length-length
-    length2 = length
+    length1 = node.edge_length-length if node.edge_length is not None else None
+    length2 = length if length is not None else None
     if not node:
         return
 
@@ -45,7 +45,7 @@ def reroot_at_edge(tree, node, length, root_label=None):
         q = head.parent
 
         br2currRoot += 1
-        d2currRoot += l
+        d2currRoot = d2currRoot + l if d2currRoot is not None else None
         l1 = tail.edge_length
         tail.remove_child(head)
         head.parent = q
@@ -60,7 +60,7 @@ def reroot_at_edge(tree, node, length, root_label=None):
         l = sis.edge_length
         tail.remove_child(sis)    
         head.add_child(sis)
-        sis.edge_length = l + tail.edge_length
+        sis.edge_length = l + tail.edge_length if tail.edge_length is not None else None
         head.remove_child(tail)
 
     tree.root = new_root

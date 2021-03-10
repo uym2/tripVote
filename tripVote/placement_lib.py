@@ -89,7 +89,7 @@ def compute_d2root(myTree,placement_edge):
 
 def place_one_taxon_iter(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample=None):               
 # get initial guess
-    placement_label,score,d,rerooted_refTrees = place_one_taxon(myTree,refTrees,missing_taxon,max_depth=max_depth,sample_size=sample_size,nsample=nsample,use_brlen=False,alpha=0)
+    placement_label,score,d,rerooted_refTrees,_ = place_one_taxon(myTree,refTrees,missing_taxon,max_depth=max_depth,sample_size=sample_size,nsample=nsample,use_brlen=False,alpha=0)
     print("Initial guess: " + placement_label + " " + str(score) + " " + str(d))
     
     tree_obj = read_tree_newick(myTree)
@@ -144,7 +144,7 @@ def __reroot_ref_tree__(tree_obj,missing_taxon):
     if new_root is None:
         return False
     
-    reroot_at_edge(tree_obj,new_root,new_root.edge_length/2)  
+    reroot_at_edge(tree_obj,new_root,new_root.edge_length/2 if new_root.edge_length is not None else None)  
     C = tree_obj.root.children
     c_star = None
     
@@ -225,4 +225,45 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
     while not node.is_root() and not node.parent.is_root():
         d += 1
         node = node.get_parent()
-    return placement_label, tripScore, d, rerooted_refTrees                    
+
+    # insert the missing_taxon onto the tree
+    new_node = Node()
+    new_node.label = missing_taxon
+    if placement_node.is_root():
+        new_root = Node()
+        new_root.add_child(placement_node)
+        new_root.add_child(new_node)
+        tree_obj.root = new_root
+    else:
+        v = placement_node
+        u = v.parent
+        u.remove_child(v)
+        w = Node()
+        u.add_child(w)
+        w.add_child(v)
+        w.add_child(new_node)    
+             
+    return placement_label, tripScore, d, rerooted_refTrees, tree_obj.newick()                    
+
+def complete_gene_trees(myTrees):
+    all_leaf_sets = []
+    taxon_dict = {} # mapping taxon name to frequency
+
+    for treeStr in myTrees:
+        tree_obj = read_tree_newick(treeStr)
+        leafset = set([leaf.label for leaf in tree_obj.traverse_leaves()])
+        all_leaf_sets.append(leafset)
+        for x in leafset:
+            taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
+
+    taxon_list = sorted(taxon_dict.items(), key=lambda item: item[1])    
+    completed_trees = []     
+    for i,treeStr in enumerate(myTrees):
+      updated_tree = treeStr
+      for x,_ in taxon_list:
+          refTrees = myTrees[:i] + myTrees[i+1:]
+          if x not in all_leaf_sets[i]:
+          # x is missing in this tree, now we insert it
+               _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,x,max_depth='max',sample_size='sqrt',nsample=1,use_brlen=False,pseudo=1e-3,alpha=0)
+      completed_trees.append(updated_tree)
+    return completed_trees             
