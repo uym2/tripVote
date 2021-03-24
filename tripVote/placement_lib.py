@@ -239,6 +239,7 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
     new_node.label = missing_taxon
     if placement_node.is_root():
         new_root = Node()
+        new_root.label = "p_" + missing_taxon
         new_root.add_child(placement_node)
         new_root.add_child(new_node)
         tree_obj.root = new_root
@@ -247,6 +248,7 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
         u = v.parent
         u.remove_child(v)
         w = Node()
+        w.label = "p_" + missing_taxon
         u.add_child(w)
         w.add_child(v)
         w.add_child(new_node)    
