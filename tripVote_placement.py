@@ -26,7 +26,7 @@ def main():
     
     args = parser.parse_args()
 
-    random.seed(a=1105)
+    #random.seed(a=1105)
 
     start = time.time()
     print("Running tripVote_placement version " + MY_VERSION)

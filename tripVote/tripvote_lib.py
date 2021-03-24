@@ -113,8 +113,13 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
 
     # calling tripRootScore    
     id2score = {}
+    #count=1
     for rtree,w in zip(refTrees,W):
         mystr = tripRootScore(rtree,treestr)
+        #print("Finish running tripRootScore on tree " + str(count))
+        #count += 1
+        if not mystr: # empty string returned by tripRootScore; usually because the refTree is too small after pruning to pair with the query tree
+            continue
         for item in mystr.split(','):
             ID,s = item.split(':')
             score = float(s)

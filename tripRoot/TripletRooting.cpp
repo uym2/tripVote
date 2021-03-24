@@ -5,8 +5,13 @@
 bool TripletRooting::pairing(){
     if (!myRef->pairAltWorld(myTree,true,tripCount)) {    
     //if (myTree->isError()) {
-        std::cerr << "TripletRooting::pairing: Failed to pair the two trees. Aborting!" << std::endl;
+        //std::cerr << "TripletRooting::pairing: Failed to pair the two trees. Aborting!" << std::endl;
         return false;
+    }
+
+    if (myRef->count_leaves() < 3){
+    	//std::cerr << "TripletRooting::pairing: Reference tree after pairing has less than 3 leaves. Aborting!" << std::endl;
+	return false;
     }
 
     myTree->mark_active(tripCount);
@@ -25,7 +30,7 @@ bool TripletRooting::find_optimal_root(){
 
 bool TripletRooting::compute_tripScore(){
     if (!this->pairing()){
-        cerr << "TripletRooting::compute_tripScore: Could not pair the two trees. Aborting!" << endl;
+        //cerr << "TripletRooting::compute_tripScore: Could not pair the two trees. Aborting!" << endl;
         return false;
     }
     // construct HDT for myRef

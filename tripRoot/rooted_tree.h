@@ -73,6 +73,7 @@ class RootedTree
         bool remove_child(RootedTree *child);
         void countChildren();
         void count_nodes();
+        unsigned int count_leaves();
         void compute_d2root();
         vector<RootedTree*> sort_leaf_by_d2root();
         double mean_d2root(); 

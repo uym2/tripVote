@@ -77,23 +77,25 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
          
         TripletRooting tripRoot;
         tripRoot.initialize(refTree,myTree);
-        tripRoot.find_optimal_root();
+	PyObject* result;
         
-        TripletCounter* myCount = tripRoot.tripCount;
-        //double M = double(refTree->n)*(refTree->n-1)*(refTree->n-2)/6;
-        double M = double(myTree->n)*(myTree->n-1)*(myTree->n-2)/6;
-        
-        string myScore;
-        get_myScore(myTree, myCount, M, myScore);
-        myScore.pop_back(); // remove the last comma which is redundant */
-        
-        PyObject* result;
-        result = PyUnicode_FromString(myScore.c_str());
-        //result = PyUnicode_FromString("Empty for now!");
+	if (tripRoot.find_optimal_root()){
+		
+		TripletCounter* myCount = tripRoot.tripCount;
+		//double M = double(refTree->n)*(refTree->n-1)*(refTree->n-2)/6;
+		double M = double(myTree->n)*(myTree->n-1)*(myTree->n-2)/6;
+		
+		string myScore;
+		get_myScore(myTree, myCount, M, myScore);
+		myScore.pop_back(); // remove the last comma which is redundant */
+		
+		result = PyUnicode_FromString(myScore.c_str());
 
-        delete factory;
-         
-        return result;    
+	} else {
+		result = PyUnicode_FromString("");
+	}	
+	delete factory;
+	return result;   
     }
     
     static PyMethodDef tripRootMethods[] = {
