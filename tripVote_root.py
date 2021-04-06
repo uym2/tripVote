@@ -13,10 +13,10 @@ def main():
     parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
     parser.add_argument('-r', '--references', required=False, default=None, help="Reference trees (i.e. OG, MV, MP). If not given, the input trees will be rooted by MV first, then the MV trees are used as references. Default: None")
     parser.add_argument('-d', '--depth', required=False, help="The maximum depth of any voting triplet. Can be a positive integer or string 'max' or 'log2'. Default: max of tree height.")
-    parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
-    parser.add_argument('--alpha', required=False, type=float,default=0,help="The alpha parameter of weights. Default: 0")
+    parser.add_argument('-s', '--sampling', required=False, help="The sample size and number of sample. Default: sqrt 1")
+    #parser.add_argument('--alpha', required=False, type=float,default=0,help="The alpha parameter of weights. Default: 0")
     parser.add_argument('-o', '--output', required=True, help="Output rooted Trees")
-    parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
+    #parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
 
     args = parser.parse_args()
@@ -37,11 +37,15 @@ def main():
     else:
         d = int(args.depth)
 
+    #sample_size = 'sqrt'
+    #nsample = 1
     sample_size = None
     nsample = None
     if args.sampling is not None:
         sample_size, nsample = args.sampling.strip().split()
-        nsample = int(nsample)        
+        nsample = int(nsample)   
+        if sample_size != 'sqrt' and sample_size != 'full':     
+            sample_size = int(sample_size)
 
     print("Step1a: processing reference trees")
     reftrees = []
@@ -56,11 +60,11 @@ def main():
         print("Running MV to use as references")
         for tree in trees:
             reftrees.append(MVroot(tree))
-        if args.mv is not None:
-            refFile = args.mv
-            with open(refFile,'w') as fout:
-                for tree in reftrees:
-                    fout.write(tree + "\n")
+        #if args.mv is not None:
+        #    refFile = args.mv
+        #    with open(refFile,'w') as fout:
+        #        for tree in reftrees:
+        #            fout.write(tree + "\n")
 
     print("Step2: running all-pairs tripRoot")
     count = 1
@@ -68,7 +72,7 @@ def main():
 
     for tree in trees:
         print("Processing tree {}".format(count))
-        rerooted,d2root = tripVote_root(tree,reftrees,max_depth=d,sample_size=sample_size,nsample=nsample,alpha=args.alpha)
+        rerooted,d2root = tripVote_root(tree,reftrees,max_depth=d,sample_size=sample_size,nsample=nsample) #,alpha=args.alpha)
         outtrees.append(rerooted)
         print("Distance to original root: " + str(d2root))
         count += 1
