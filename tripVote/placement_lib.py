@@ -6,6 +6,8 @@ from treeswift import *
 from math import log2, ceil, sqrt, exp
 from random import choices
 
+MIN_SMPL_SIZE = 8
+
 def __local_search__(tree_obj,refTrees,diam,nsample=1,sample_size='sqrt'):
 # tree_obj is a TreeSwift object; refTrees are Newick strings
 # Assume: 1. tree_obj has been rerooted at the desired center of the local search 
@@ -162,12 +164,20 @@ def __reroot_ref_tree__(tree_obj,missing_taxon,active_leafset):
 
     return True, tree_obj
 
+def __label_tree__(tree_obj):
+    i = 0
+    for node in tree_obj.traverse_preorder():
+        if not node.is_leaf():
+            node.label = 'I' + str(i)
+            i += 1        
+
 def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample=None,use_brlen=False,pseudo=1e-3,alpha=0):
 # remove all trees in refTrees that do not have the missing_taxon
 # and assume myTree is missing the missing_taxon
 # myTree: a newick string. Assume it has unique labeling for all nodes
 # refTrees: a list of newick strings
 # missing_taxon: a leaf label (string)
+# IMPORTANT: assumming all trees have unique labeling for each node
 # max_depth: only count the triplets with depth up to max_depth.
 # Special case:     max_depth = 'max': include all triplets (default)
 #                   max_depth = 'log2': ceil(log2(n)) where n is the number of leaves
@@ -208,17 +218,24 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
                     sample_trees = [tree_obj.newick()]
                 else:
                     nleaf = len(list(tree_obj.traverse_leaves()))
+                    if sample_size == 'full':
+                        sample_size = nleaf
+                    elif sample_size == 'sqrt':
+                        sample_size = ceil(sqrt(nleaf))
+                    sample_size = max(MIN_SMPL_SIZE,sample_size)   
+
                     if use_brlen:
-                        sample_trees = sample_by_brlen(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample,pseudo=1e-3)
+                        sample_trees = sample_by_brlen(tree_obj,sample_size,nsample,pseudo=1e-3)
                     else: 
-                        sample_trees = sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
+                        sample_trees = sample_by_depth(tree_obj,sample_size,nsample)
+                        #sample_trees = sample_by_depth(tree_obj,16,nsample) # NOTE: hard code 16 here to test ...
             sample_refTrees += sample_trees
             W += [w]*len(sample_trees)
 
     #with open("temp_refs.trees",'w') as f:
     #    f.write('\n'.join(sample_refTrees))
 
-    _,placement_label,tripScore = tripVote(myTree,sample_refTrees,W)
+    _,placement_label,tripScore = tripVote(myTree,sample_refTrees,W,do_indexing=False)
     tree_obj = read_tree_newick(myTree)
     placement_node = None
     for node in tree_obj.traverse_preorder():
@@ -258,9 +275,12 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
 def complete_gene_trees(myTrees,sample_size='sqrt',nsample=1):
     all_leaf_sets = []
     taxon_dict = {} # mapping taxon name to frequency
-
+    myTrees_labeled = []
+    
     for treeStr in myTrees:
         tree_obj = read_tree_newick(treeStr)
+        __label_tree__(tree_obj)
+        myTrees_labeled.append(tree_obj.newick())
         leafset = set([leaf.label for leaf in tree_obj.traverse_leaves()])
         all_leaf_sets.append(leafset)
         for x in leafset:
@@ -268,10 +288,10 @@ def complete_gene_trees(myTrees,sample_size='sqrt',nsample=1):
 
     taxon_list = sorted(taxon_dict.items(), key=lambda item: -item[1])    
     completed_trees = []     
-    for i,treeStr in enumerate(myTrees):
+    for i,treeStr in enumerate(myTrees_labeled):
       updated_tree = treeStr
+      refTrees = myTrees_labeled[:i] + myTrees_labeled[i+1:]
       for x,c in taxon_list:
-          refTrees = myTrees[:i] + myTrees[i+1:]
           if x not in all_leaf_sets[i]:
           # x is missing in this tree, now we insert it
             print("Adding " + x + " to tree " + str(i+1) + ". Present in " + str(c) + " reference trees")

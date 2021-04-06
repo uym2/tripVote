@@ -31,6 +31,8 @@ def main():
     nsample = 1 # default
     if args.sampling is not None:
         sample_size, nsample = args.sampling.strip().split()
+        if sample_size != 'sqrt' and sample_size != 'full':
+            sample_size = int(sample_size)
         nsample = int(nsample)        
 
     with open(args.input,'r') as f:

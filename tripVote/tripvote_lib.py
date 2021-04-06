@@ -100,8 +100,8 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
         W = [1.0]*len(refTrees)
     
     # indexing
+    id2lb = {}
     if do_indexing:
-        id2lb = {}
         idx = 0
         for node in myTree_obj.traverse_preorder():
             if not node.is_leaf():
@@ -153,7 +153,7 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
     #    reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
     
     #return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
-    return best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id, max_score
+    return best_id,id2lb[best_id] if best_id in id2lb else best_id, max_score
 
 def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None,alpha=0):
     new_refTrees = []
