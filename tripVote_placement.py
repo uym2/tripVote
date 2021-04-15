@@ -10,7 +10,7 @@ from math import exp, log
 import random
 
 def main():
-    MY_VERSION='1.0.4b'
+    MY_VERSION='1.0.4'
 
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', required=True, help="Input tree")
