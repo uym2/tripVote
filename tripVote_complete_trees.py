@@ -11,10 +11,11 @@ import random
 from treeswift import *
 
 def main():
-    MY_VERSION='1.0.4'
+    MY_VERSION='1.0.5b'
 
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', required=True, help="Input trees")
+    parser.add_argument('-r', '--refs', required=False, help="Reference trees")
     parser.add_argument('-o', '--output', required=True, help="Output trees")
     parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
     parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
@@ -38,6 +39,13 @@ def main():
     with open(args.input,'r') as f:
         inputTrees = f.read().strip().split("\n")
 
+    if args.refs is None:
+        refTrees = None
+    else:
+        with open(args.refs,'r') as f:
+            refTrees = f.read().strip().split("\n")
+            
+
     inputTrees_nobrlen = []
     for treeStr in inputTrees:
         tree_obj = read_tree_newick(treeStr)
@@ -45,7 +53,7 @@ def main():
             node.edge_length = None
         inputTrees_nobrlen.append(tree_obj.newick())
 
-    outputTrees = complete_gene_trees(inputTrees_nobrlen,sample_size=sample_size,nsample=nsample)
+    outputTrees = complete_gene_trees(inputTrees_nobrlen,refTrees=refTrees,sample_size=sample_size,nsample=nsample)
     with open(args.output,'w') as f:
         f.write('\n'.join(outputTrees))
     
