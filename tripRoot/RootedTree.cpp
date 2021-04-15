@@ -249,7 +249,8 @@ RootedTree* RootedTree::reroot_at_edge(RootedTree* node, double x){
     double eu = u->edge_length;
 
 
-    RootedTreeFactory *tFactory = new RootedTreeFactory();
+    //RootedTreeFactory *tFactory = new RootedTreeFactory();
+    RootedTreeFactory *tFactory = node->factory;
     RootedTree *newRoot = tFactory->getRootedTree();
     newRoot->factory = tFactory;
 
@@ -391,6 +392,20 @@ void RootedTree::count_nodes(){
     }
 }
 
+unsigned int RootedTree::count_leaves(){
+    if (this->isLeaf())
+        return 1;
+    else{
+        unsigned int count = 0;
+        for(TemplatedLinkedList<RootedTree*> *i = children; i != NULL; i = i->next)
+        {
+            RootedTree *t = i->data;
+            count += t->count_leaves(); 
+        }
+	return count;
+    }
+}
+
 RootedTree* RootedTree::search_idx(unsigned int idx){
     if(this->idx == idx)
         return this;
@@ -435,7 +450,8 @@ RootedTree* RootedTree::copyTree(RootedTreeFactory *factory){
 RootedTree* RootedTree::down_root(RootedTree *u) {
     
     // we assume that u is a grandchild of the root
-	RootedTreeFactory *factory = new RootedTreeFactory(NULL);
+	//RootedTreeFactory *factory = new RootedTreeFactory(NULL);
+	RootedTreeFactory *factory = new RootedTreeFactory();
     RootedTree *v = factory->getRootedTree();
     RootedTree *v1 = factory->getRootedTree();
     RootedTree *v2 = u->copyTree(factory);
@@ -607,10 +623,11 @@ bool RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
                 // prune the leaf out from the first tree then continue
                 //cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
                 if (this->prune_subtree(leaf)){
+		    cerr << "Removed leaf " << leaf->name << endl;	
                     continue;
                 }
                 else {
-                    cerr << "Could not remove leaf. Aborting!" << endl;
+                    cerr << "Could not remove leaf. Aborting!" << " Leaf label: " << leaf->name << endl;
                     //error = true;
                     delete l;
                     return false;
@@ -638,10 +655,6 @@ bool RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
         if (tripCount != NULL){
             for(map<string,RootedTree*>::iterator i = altWorldLeaves.begin(); i != altWorldLeaves.end(); i++){
                 //cerr << i->first << " didn't exist in the first tree. It will be ignored in the second tree..." << endl;
-                /*if (t->prune_subtree(i->second)){
-                    cerr << "Success!" << endl;
-                } else
-                    cerr << "Failed to remove the species out!" << endl; */    
                 tripCount->isActive[i->second->idx] = false;      
              }
         } else {
@@ -753,7 +766,8 @@ RootedTree* RootedTree::contractImpl(RootedTreeFactory *factory)
 {
 	if (isLeaf()) return this; // reuse leaves!!
 
-	if (factory == NULL) factory = new RootedTreeFactory(this->factory);
+	//if (factory == NULL) factory = new RootedTreeFactory(this->factory);
+	if (factory == NULL) factory = new RootedTreeFactory();
 
 	INTTYPE_REST totalNumZeroes = 0;
 	RootedTree *firstNonZeroChild = NULL;
