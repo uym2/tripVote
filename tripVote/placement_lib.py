@@ -6,7 +6,7 @@ from treeswift import *
 from math import log2, ceil, sqrt, exp
 from random import choices
 
-MIN_SMPL_SIZE = 8
+MIN_SMPL_SIZE = 3
 
 def __local_search__(tree_obj,refTrees,diam,nsample=1,sample_size='sqrt'):
 # tree_obj is a TreeSwift object; refTrees are Newick strings
@@ -223,7 +223,6 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
                     elif sample_size == 'sqrt':
                         sample_size = ceil(sqrt(nleaf))
                     sample_size = max(MIN_SMPL_SIZE,sample_size)   
-
                     if use_brlen:
                         sample_trees = sample_by_brlen(tree_obj,sample_size,nsample,pseudo=1e-3)
                     else: 

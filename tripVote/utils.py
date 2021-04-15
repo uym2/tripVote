@@ -82,7 +82,6 @@ def sample_by_depth(tree,nleaf,nsample,do_extract=True):
         if node.is_leaf():
             leaf_labels.append(node.label)
             leaf_weights.append(2**(-node.log_p_inv))
-    
     smpl_trees = []
     for s in range(nsample):
         sample = set(choices(leaf_labels,weights=leaf_weights,k=nleaf))

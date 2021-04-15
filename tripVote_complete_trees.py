@@ -27,8 +27,8 @@ def main():
     print("Running tripVote_placement version " + MY_VERSION)
     print("tripVote_placement was called as follow: " + " ".join(sys.argv))
     
-    sample_size = 'sqrt' # default
-    nsample = 1 # default
+    sample_size = None # default
+    nsample = None # default
     if args.sampling is not None:
         sample_size, nsample = args.sampling.strip().split()
         if sample_size != 'sqrt' and sample_size != 'full':

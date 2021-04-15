@@ -116,8 +116,6 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
     #count=1
     for rtree,w in zip(refTrees,W):
         mystr = tripRootScore(rtree,treestr)
-        #print("Finish running tripRootScore on tree " + str(count))
-        #count += 1
         if not mystr: # empty string returned by tripRootScore; usually because the refTree is too small after pruning to pair with the query tree
             continue
         for item in mystr.split(','):
@@ -147,12 +145,6 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
             optimal_root = node
         if not node.is_leaf() and do_indexing:
             node.label = id2lb[node.label]
-    
-    # reroot
-    #if optimal_root is not None: 
-    #    reroot_at_edge(myTree_obj,optimal_root,optimal_root.edge_length/2)
-    
-    #return myTree_obj.newick(),best_id,id2lb[best_id] if do_indexing and best_id in id2lb else best_id
     return best_id,id2lb[best_id] if best_id in id2lb else best_id, max_score
 
 def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None): #,alpha=0):
