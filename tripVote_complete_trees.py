@@ -9,15 +9,14 @@ from statistics import median
 from math import exp, log
 import random
 from treeswift import *
+import tripVote
 
 def main():
-    MY_VERSION='1.0.5b'
-
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', required=True, help="Input trees")
     parser.add_argument('-r', '--refs', required=False, help="Reference trees")
     parser.add_argument('-o', '--output', required=True, help="Output trees")
-    parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
+    parser.add_argument('-v', '--version',action='version', version=tripVote.PROGRAM_VERSION, help="Show program version and exit")
     parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
     
     args = parser.parse_args()
@@ -25,8 +24,8 @@ def main():
     random.seed(a=1105)
 
     start = time.time()
-    print("Running tripVote_placement version " + MY_VERSION)
-    print("tripVote_placement was called as follow: " + " ".join(sys.argv))
+    print("Running " + tripVote.PROGRAM_NAME + " version " + tripVote.PROGRAM_VERSION)
+    print("tripVote_complete_trees was called as follow: " + " ".join(sys.argv))
     
     sample_size = None # default
     nsample = None # default

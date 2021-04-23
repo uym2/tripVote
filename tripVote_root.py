@@ -5,10 +5,9 @@ import os
 import argparse
 import time
 from tripVote.tripvote_lib import *
+import tripVote
 
 def main():
-    MY_VERSION='1.0.4'
-
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', required=True, help="Input Unrooted Trees")
     parser.add_argument('-r', '--references', required=False, default=None, help="Reference trees (i.e. OG, MV, MP). If not given, the input trees will be rooted by MV first, then the MV trees are used as references. Default: None")
@@ -17,12 +16,12 @@ def main():
     #parser.add_argument('--alpha', required=False, type=float,default=0,help="The alpha parameter of weights. Default: 0")
     parser.add_argument('-o', '--output', required=True, help="Output rooted Trees")
     #parser.add_argument('-m', '--mv', required=False, default="temp", help="MV Rooted Trees")
-    parser.add_argument('-v', '--version',action='version', version=MY_VERSION, help="Show program version and exit")
+    parser.add_argument('-v', '--version',action='version', version=tripVote.PROGRAM_VERSION, help="Show program version and exit")
 
     args = parser.parse_args()
 
     start = time.time()
-    print("Running tripVote version " + MY_VERSION)
+    print("Running " + tripVote.PROGRAM_NAME + " version " + tripVote.PROGRAM_VERSION)
     print("tripVote was called as follow: " + " ".join(sys.argv))
 
     trees = []

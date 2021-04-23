@@ -1,6 +1,37 @@
 from treeswift import *
 from math import log2, ceil, sqrt
 from random import choices
+from tqdist import *
+
+def restrict_to_same_leafset(nwk_str1,nwk_str2):
+    tree1 = read_tree_newick(nwk_str1)
+    tree2 = read_tree_newick(nwk_str2)
+
+    L1 = set(node.label for node in tree1.traverse_leaves())
+    L2 = set(node.label for node in tree2.traverse_leaves())
+    L = L1.intersection(L2)
+
+    tree1_L = tree1.extract_tree_with(L)
+    tree2_L = tree2.extract_tree_with(L)
+
+    return tree1_L.newick()[5:], tree2_L.newick()[5:]
+
+def distance_matrix(nwk_strs,metric,IDs=None):
+# metric can either be "quartet" for quartet_distance or "triplet" for triplet_distance 
+# if IDs is None, tree IDs will be assigned based on their order
+# otherwise, IDs must have the same length as nwk_strs
+    distance_func = quartet_distance if metric == 'quartet' else triplet_distance
+    N = len(nwk_strs)
+    D = {}
+
+    if IDs is None:
+        IDs = [str(i+1) for i in range(N)]
+
+    for i in range(N-1):
+        for j in range(i+1,N):
+            t1,t2 = restrict_to_same_leafset(nwk_strs[i],nwk_strs[j])
+            D[(IDs[i],IDs[j])] = distance_func(t1,t2)
+    return D        
 
 def reroot_at_edge(tree, node, length, root_label=None):
 # change edge to opt_root
