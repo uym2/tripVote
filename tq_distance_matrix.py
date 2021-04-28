@@ -12,12 +12,19 @@ parser.add_argument('-o', '--output', required=True, help="Output file")
 args = parser.parse_args()
 
 treefiles = args.input.split()
-prefixes = args.prefix.split()
+prefixes = args.prefix.split() if args.prefix is not None else None
 
 myTrees = []
 myIDs = []
+M = len(treefiles)
+
 for i,treefile in enumerate(treefiles):
-    prfx = prefixes[i] if args.prefix is not None else "group" + str(i+1)
+    if prefixes is not None:
+        prfx = prefixes[i]
+    elif M > 1:
+        prfx = "group" + str(i+1) 
+    else:
+        prfx = ''
     with open(treefile,'r') as f:
         trees = f.read().split("\n")[:-1]
     N = len(trees)
@@ -28,7 +35,8 @@ for i,treefile in enumerate(treefiles):
     myTrees += trees
     myIDs += names       
 
-D = distance_matrix(myTrees,args.metric,IDs=myIDs)
+#D = distance_matrix(myTrees,args.metric,IDs=myIDs)
 with open(args.output,'w') as fout: 
-    for t1,t2 in D:
-        fout.write(t1 + " " + t2 + " " + str(D[(t1,t2)]) + "\n")
+    distance_matrix(myTrees,args.metric,IDs=myIDs,fout=fout)
+    #for t1,t2 in D:
+    #    fout.write(t1 + " " + t2 + " " + str(D[(t1,t2)]) + "\n")
