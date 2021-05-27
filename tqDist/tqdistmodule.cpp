@@ -124,9 +124,13 @@ static PyObject *method_QuartetDistanceRaw(PyObject *self,PyObject *args) {
         ut2 = parser.parseStr(nw2); 
         
         QuartetDistanceCalculator quartetCalc;
+	double dummy = quartetCalc.calculateQuartetDistance(ut1, ut1);
+	double quart_total = quartetCalc.get_resolvedQuartetsAgree() + quartetCalc.get_resolvedQuartetsAgreeDiag() + quartetCalc.get_resolvedQuartetsAgreeUpper();
+
         double dquart = quartetCalc.calculateQuartetDistance(ut1, ut2);
-        double dquart_resolved = quartetCalc.get_totalNoQuartets() - quartetCalc.get_resolvedQuartetsAgree() - quartetCalc.get_resolvedQuartetsAgreeDiag() - quartetCalc.get_resolvedQuartetsAgreeUpper();
-        PyObject* result = PyFloat_FromDouble(dquart_resolved);
+        double quart_shared = quartetCalc.get_resolvedQuartetsAgree() + quartetCalc.get_resolvedQuartetsAgreeDiag() + quartetCalc.get_resolvedQuartetsAgreeUpper();
+	
+        PyObject* result = PyFloat_FromDouble(quart_total - quart_shared);
         
         if (ut1 != NULL) delete ut1;
         if (ut2 != NULL) delete ut2;

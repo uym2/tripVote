@@ -60,8 +60,8 @@ def reroot_at_edge(tree, node, length, root_label=None):
     if not tail:
         return
 
-    if (length2 == 0) and head.is_leaf():
-        return 0, 0
+    #if (length2 == 0) and head.is_leaf():
+    #    return 0, 0
 
     new_root = Node()
     new_root.label = root_label
