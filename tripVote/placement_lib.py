@@ -271,31 +271,40 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
              
     return placement_label, tripScore, d, rerooted_refTrees, tree_obj.newick()                    
 
-def complete_gene_trees(myTrees,sample_size='sqrt',nsample=1):
-    all_leaf_sets = []
-    taxon_dict = {} # mapping taxon name to frequency
+def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample=1):
+# If refTrees is None, then use the other trees in myTrees as references
     myTrees_labeled = []
     
     for treeStr in myTrees:
         tree_obj = read_tree_newick(treeStr)
         __label_tree__(tree_obj)
         myTrees_labeled.append(tree_obj.newick())
-        leafset = set([leaf.label for leaf in tree_obj.traverse_leaves()])
-        all_leaf_sets.append(leafset)
-        for x in leafset:
-            taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
 
-    taxon_list = sorted(taxon_dict.items(), key=lambda item: -item[1])    
     completed_trees = []     
     for i,treeStr in enumerate(myTrees_labeled):
+      # preprocess  
+      refs = refTrees if refTrees is not None else myTrees_labeled[:i] + myTrees_labeled[i+1:]
+      taxon_dict = {} # mapping taxon name to frequency
+      tree_obj = read_tree_newick(treeStr)
+      curr_leaf_set = set([leaf.label for leaf in tree_obj.traverse_leaves()])
+      for x in curr_leaf_set:
+        taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
+        
+      for tr in refs:
+        tree_obj = read_tree_newick(tr)
+        for taxon in tree_obj.traverse_leaves():
+            x = taxon.label
+            taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
+      
+      taxon_list = sorted(taxon_dict.items(), key=lambda item: -item[1])    
+
+      # complete this tree
       updated_tree = treeStr
-      refTrees = myTrees_labeled[:i] + myTrees_labeled[i+1:]
       for x,c in taxon_list:
-          if x not in all_leaf_sets[i]:
+          if x not in curr_leaf_set:
           # x is missing in this tree, now we insert it
             print("Adding " + x + " to tree " + str(i+1) + ". Present in " + str(c) + " reference trees")
-            _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,x,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
-            #print(updated_tree)
+            _,_,_,_,updated_tree = place_one_taxon(updated_tree,refs,x,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
       completed_trees.append(updated_tree)
       print("Completed tree " + str(i+1))
       print(updated_tree)

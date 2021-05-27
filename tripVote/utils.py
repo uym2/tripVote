@@ -1,6 +1,52 @@
 from treeswift import *
 from math import log2, ceil, sqrt
 from random import choices
+from tqdist import *
+from sys import stdout
+
+def restrict_to_same_leafset(nwk_str1,nwk_str2):
+    tree1 = read_tree_newick(nwk_str1)
+    tree2 = read_tree_newick(nwk_str2)
+
+    L1 = set(node.label for node in tree1.traverse_leaves())
+    L2 = set(node.label for node in tree2.traverse_leaves())
+    L = L1.intersection(L2)
+
+    tree1_L = tree1.extract_tree_with(L)
+    tree2_L = tree2.extract_tree_with(L)
+
+    return tree1_L.newick()[5:], tree2_L.newick()[5:]
+
+metrics = {'quartet':quartet_distance,'triplet':triplet_distance,'quartet_raw':quartet_distance_raw,'triplet_raw':triplet_distance_raw}
+
+def distance_matrix(nwk_strs,metric,IDs=None,fout=None):
+# metric can either be "quartet" for quartet_distance or "triplet" for triplet_distance 
+# if IDs is None, tree IDs will be assigned based on their order
+# otherwise, IDs must have the same length as nwk_strs
+    distance_func = metrics[metric]
+    N = len(nwk_strs)
+    D = {}
+
+    if IDs is None:
+        IDs = [str(i+1) for i in range(N)]
+
+    for i in range(N-1):
+        for j in range(i+1,N):
+            t1,t2 = restrict_to_same_leafset(nwk_strs[i],nwk_strs[j])
+            d = distance_func(t1,t2)
+            if fout is not None:
+                fout.write(IDs[i] + " " + IDs[j] + " " + str(d) + "\n")
+            else:    
+                D[(IDs[i],IDs[j])] = d
+    return D       
+
+def distance_to_refs(refs,trees,metric,fout=stdout):
+    distance_func = metrics[metric]
+    for i,r in enumerate(refs):
+        for j,t in enumerate(trees):
+            r_p,t_p = restrict_to_same_leafset(r,t)
+            d = distance_func(r_p,t_p)
+            fout.write(str(i+1) + " " + str(j+1) + " " + str(d) + "\n")
 
 def reroot_at_edge(tree, node, length, root_label=None):
 # change edge to opt_root
@@ -14,8 +60,8 @@ def reroot_at_edge(tree, node, length, root_label=None):
     if not tail:
         return
 
-    if (length2 == 0) and head.is_leaf():
-        return 0, 0
+    #if (length2 == 0) and head.is_leaf():
+    #    return 0, 0
 
     new_root = Node()
     new_root.label = root_label
