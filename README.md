@@ -26,3 +26,9 @@ python tripVote_complete_trees.py -h
 ```
 
 to see the help message.
+
+Below is an example:
+
+```
+python tripVote_complete_trees.py -i test_cases/incomplete.trees -o completed.trees
+```
