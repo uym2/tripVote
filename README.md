@@ -5,7 +5,7 @@ The core algorithm is the Maximum Triplet Rooting (MTR) problem:
 The algorithm and the code heavily depend on the tqDist software http://birc.au.dk/software/tqDist/. 
 We would like to thank the authors for the code and algorithmic ideas.
 
-############### Installation ############### 
+**Installation**
 
 First, install CMake https://cmake.org/download/
 
