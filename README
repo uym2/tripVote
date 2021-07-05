@@ -11,13 +11,13 @@ First, install CMake https://cmake.org/download/
 To build and install the library, clone the repo or download the zip file and unzip. Then execute the
 following commands in a terminal:
 
-```
+'''
 cd <path to tripVote>/tqDist/
 python setup.py install
 
 cd <path to tripVote>/tripVote/
 python setup.py install
-```
+'''
 
 Then you should be able to run the program. Type 
 
