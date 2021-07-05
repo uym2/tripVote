@@ -30,5 +30,5 @@ to see the help message.
 Below is an example:
 
 ```
-python tripVote_complete_trees.py -i test_cases/incomplete.trees -o completed.trees
+python tripVote_complete_trees.py -i <path to tripVote>/test_cases/incomplete.trees -o completed.trees
 ```
