@@ -171,7 +171,7 @@ def __label_tree__(tree_obj):
             node.label = 'I' + str(i)
             i += 1        
 
-def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample=None,use_brlen=False,pseudo=1e-3,alpha=0):
+def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample='default',use_brlen=False,pseudo=1e-3,alpha=0):
 # remove all trees in refTrees that do not have the missing_taxon
 # and assume myTree is missing the missing_taxon
 # myTree: a newick string. Assume it has unique labeling for all nodes
@@ -214,7 +214,7 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
             
             sample_trees = []
             if (len(list(tree_obj.traverse_leaves())) >= 3):
-                if nsample is None:
+                if not nsample:
                     sample_trees = [tree_obj.newick()]
                 else:
                     nleaf = len(list(tree_obj.traverse_leaves()))
@@ -222,12 +222,13 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
                         sample_size = nleaf
                     elif sample_size == 'sqrt':
                         sample_size = ceil(sqrt(nleaf))
-                    sample_size = max(MIN_SMPL_SIZE,sample_size)   
+                    sample_size = max(MIN_SMPL_SIZE,sample_size)
+                    if nsample == 'default':
+                        nsample = int(90/sample_size)
                     if use_brlen:
                         sample_trees = sample_by_brlen(tree_obj,sample_size,nsample,pseudo=1e-3)
                     else: 
                         sample_trees = sample_by_depth(tree_obj,sample_size,nsample)
-                        #sample_trees = sample_by_depth(tree_obj,16,nsample) # NOTE: hard code 16 here to test ...
             sample_refTrees += sample_trees
             W += [w]*len(sample_trees)
 
@@ -271,7 +272,7 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
              
     return placement_label, tripScore, d, rerooted_refTrees, tree_obj.newick()                    
 
-def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample=1):
+def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='default'):
 # If refTrees is None, then use the other trees in myTrees as references
     myTrees_labeled = []
     

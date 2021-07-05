@@ -5,7 +5,6 @@ import os
 import argparse
 import time
 from tripVote.placement_lib import place_one_taxon, place_one_taxon_iter, complete_gene_trees
-from statistics import median
 from math import exp, log
 import random
 from treeswift import *
@@ -13,11 +12,11 @@ import tripVote
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-i', '--input', required=True, help="Input trees")
-    parser.add_argument('-r', '--refs', required=False, help="Reference trees")
+    parser.add_argument('-i', '--input', required=True, help="Input trees to be completed")
+    parser.add_argument('-r', '--refs', required=False, help="Reference trees that are used to complete input trees. Default: None, so use the other trees in myTrees to complete each of them.")
     parser.add_argument('-o', '--output', required=True, help="Output trees")
     parser.add_argument('-v', '--version',action='version', version=tripVote.PROGRAM_VERSION, help="Show program version and exit")
-    parser.add_argument('-s', '--sampling', required=False, help="The sample size  and number of sample. Default: do not do sampling")
+    parser.add_argument('-s', '--sampling', required=False, help="The sample size (s) and the number of samples (r). E.g: to set s=10 and r=9, then put in -s \"10 9\", including the quotes. Set s and r to 0 to NOT do sampling. Default: s=sqrt(n) and r=90/s.")
     
     args = parser.parse_args()
 
@@ -27,8 +26,8 @@ def main():
     print("Running " + tripVote.PROGRAM_NAME + " version " + tripVote.PROGRAM_VERSION)
     print("tripVote_complete_trees was called as follow: " + " ".join(sys.argv))
     
-    sample_size = None # default
-    nsample = None # default
+    sample_size = 'sqrt' # default
+    nsample = 'default' # default: 90/sample_size
     if args.sampling is not None:
         sample_size, nsample = args.sampling.strip().split()
         if sample_size != 'sqrt' and sample_size != 'full':
