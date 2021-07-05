@@ -5,18 +5,24 @@ The core algorithm is the Maximum Triplet Rooting (MTR) problem:
 The algorithm and the code heavily depend on the tqDist software http://birc.au.dk/software/tqDist/. 
 We would like to thank the authors for the code and algorithmic ideas.
 
-############### Build procedure: ############### 
+############### Installation ############### 
 First, install CMake https://cmake.org/download/
 
-To build and install the library, clone the repo or download the zip file and unzip. Then execute the
+Next, install treeswift:
+
+```bash
+pip install treeswift
+```
+
+To build and install the tripVote library, clone this repo or download the zip file and unzip. Then execute the
 following commands in a terminal:
 
 ``` bash
 cd <path to tripVote>/tqDist/
-python setup.py install
+python setup.py install --user
 
-cd <path to tripVote>/tripVote/
-python setup.py install
+cd <path to tripVote>/tripRoot/
+python setup.py install --user
 ```
 
 Then you should be able to run the program. Type 
