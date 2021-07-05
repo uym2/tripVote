@@ -1,4 +1,4 @@
-This is an implementation of tripVote: complete a set of gene trees to maximize the quartet score
+This is an implementation of tripVote: complete a set of gene trees to maximize the quartet score.
 The core algorithm is the Maximum Triplet Rooting (MTR) problem:
     Root a tree T according to a reference tree R such that the triplet score of T and R is maximized.
 
