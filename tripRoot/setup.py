@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 
 extra_compile_args= ["-Wno-long-long", "-m64", "-O3"]
@@ -22,7 +22,7 @@ sources = [ "triprootmodule.cpp",
             "TripletRooting.cpp",]
 def main():
     setup(name="triproot",
-          version="1.0.2b",
+          version="1.0.4",
           description="Python interface for the triproot C library function",
           author="uym2",
           author_email="umai@gmail.com",
