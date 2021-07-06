@@ -22,7 +22,7 @@ sources = [ "triprootmodule.cpp",
             "TripletRooting.cpp",]
 def main():
     setup(name="triproot",
-          version="1.0.4",
+          version="1.0",
           description="Python interface for the triproot C library function",
           author="uym2",
           author_email="umai@gmail.com",
