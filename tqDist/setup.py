@@ -32,8 +32,10 @@ def main():
     setup(name="tqdist",
           version="1.0",
           description="Python interface for the tqdist C library",
+          long_description="Python interface for the tqdist C library, extended from https://users-cs.au.dk/cstorm/software/tqdist/",
           author="uym2",
           author_email="ceciliamaitouyen@gmail.com",
+          url="https://github.com/uym2/tripVote/tree/master/tqDist",
           ext_modules=[Extension("tqdist",sources=sources,
                               extra_compile_args=extra_compile_args)])
 
