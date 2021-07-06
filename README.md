@@ -7,26 +7,14 @@ We would like to thank the authors for the code and algorithmic ideas.
 
 **Installation**
 
-First, install CMake https://cmake.org/download/
-
-Next, install treeswift:
+First, use pip to install treeswift, tqdist, and triproot:
 
 ```bash
-pip install treeswift
+pip install treeswift tqdist triproot
+
 ```
 
-To build and install the tripVote library, clone this repo or download the zip file and unzip. Then execute the
-following commands in a terminal:
-
-``` bash
-cd <path to tripVote>/tqDist/
-python setup.py install --user
-
-cd <path to tripVote>/tripRoot/
-python setup.py install --user
-```
-
-Then you should be able to run the program. Type 
+Then you should be able to run the tripVote program. Type 
 
 ``` bash
 python tripVote_complete_trees.py -h
