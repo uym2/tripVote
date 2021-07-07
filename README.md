@@ -19,7 +19,7 @@ tripVote_complete_trees.py -h
 
 to learn how to use.
 
-Below is an example (to run, you can download the file incomplete.trees under folder `test_cases` of this repo):
+Below is an example (to run, you can download the file [incomplete.trees](test_cases/incomplete.trees) under folder `test_cases` of this repo):
 
 ```
 tripVote_complete_trees.py -i incomplete.trees -o completed.trees
