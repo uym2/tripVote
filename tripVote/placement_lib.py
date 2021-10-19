@@ -281,23 +281,22 @@ def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='defaul
         __label_tree__(tree_obj)
         myTrees_labeled.append(tree_obj.newick())
 
+    taxon_dict = {} # mapping taxon name to frequency
+    refs = refTrees if refTrees is not None else myTrees_labeled
+      
+    for tr in refs:
+      tree_obj = read_tree_newick(tr)
+      for taxon in tree_obj.traverse_leaves():
+        x = taxon.label
+        taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
+    taxon_list = sorted(taxon_dict.items(), key=lambda item: -item[1])    
+
     completed_trees = []     
     for i,treeStr in enumerate(myTrees_labeled):
       # preprocess  
       refs = refTrees if refTrees is not None else myTrees_labeled[:i] + myTrees_labeled[i+1:]
-      taxon_dict = {} # mapping taxon name to frequency
       tree_obj = read_tree_newick(treeStr)
       curr_leaf_set = set([leaf.label for leaf in tree_obj.traverse_leaves()])
-      for x in curr_leaf_set:
-        taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
-        
-      for tr in refs:
-        tree_obj = read_tree_newick(tr)
-        for taxon in tree_obj.traverse_leaves():
-            x = taxon.label
-            taxon_dict[x] = taxon_dict[x] + 1 if x in taxon_dict else 1
-      
-      taxon_list = sorted(taxon_dict.items(), key=lambda item: -item[1])    
 
       # complete this tree
       updated_tree = treeStr
