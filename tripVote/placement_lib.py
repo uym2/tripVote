@@ -272,6 +272,15 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
              
     return placement_label, tripScore, d, rerooted_refTrees, tree_obj.newick()                    
 
+def place_taxa(myTree,refTrees,missing_taxa,sample_size='sqrt',nsample='default'):
+    tree_obj = read_tree_newick(myTree)
+    __label_tree__(tree_obj)
+    updated_tree = tree_obj.newick()
+    for taxon in missing_taxa:
+        _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,taxon,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
+    return updated_tree    
+
+
 def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='default'):
 # If refTrees is None, then use the other trees in myTrees as references
     myTrees_labeled = []
