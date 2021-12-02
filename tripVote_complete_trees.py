@@ -13,6 +13,7 @@ import tripVote
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', required=True, help="Input trees to be completed")
+    parser.add_argument('-p', '--placement', required=False, help="A list of taxa to be placed onto input trees. If not specified, all trees will be completed to their union leaf sets.")
     parser.add_argument('-r', '--refs', required=False, help="Reference trees that are used to complete input trees. Default: None, so use the other trees in myTrees to complete each of them.")
     parser.add_argument('-o', '--output', required=True, help="Output trees")
     parser.add_argument('-v', '--version',action='version', version=tripVote.PROGRAM_VERSION, help="Show program version and exit")
@@ -26,6 +27,7 @@ def main():
     print("Running " + tripVote.PROGRAM_NAME + " version " + tripVote.PROGRAM_VERSION)
     print("tripVote_complete_trees was called as follow: " + " ".join(sys.argv))
     
+    placement_set = args.placement.strip().split()
     sample_size = 'sqrt' # default
     nsample = 'default' # default: 90/sample_size
     if args.sampling is not None:
@@ -51,9 +53,11 @@ def main():
             node.edge_length = None
         inputTrees_nobrlen.append(tree_obj.newick())
 
-    outputTrees = complete_gene_trees(inputTrees_nobrlen,refTrees=refTrees,sample_size=sample_size,nsample=nsample)
+    outputTrees = complete_gene_trees(inputTrees_nobrlen,refTrees=refTrees,sample_size=sample_size,nsample=nsample,placement_taxa=placement_set)
     with open(args.output,'w') as f:
-        f.write('\n'.join(outputTrees))
+        for tr in outputTrees[:-1]:
+            f.write(tr + "\n")
+        f.write(outputTrees[-1])    
     
     end = time.time()
     print("Runtime: ", end - start) 
