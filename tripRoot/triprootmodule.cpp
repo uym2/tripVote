@@ -44,7 +44,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved) {
     }
    
     bool get_tripScore(RootedTree *myTree, TripletCounter* myCount, double M, string &myScore){
-        double currScore = double(myCount->tripScore[myTree->idx])/M;
+        //double currScore = double(myCount->tripScore[myTree->idx])/M;
+        double currScore = double(myCount->tripScore[myTree->idx]);
         myScore += myTree->name +  ":" + to_string(currScore) + ",";
         
         for(TemplatedLinkedList<RootedTree*> *i = myTree->children; i != NULL; i = i->next)

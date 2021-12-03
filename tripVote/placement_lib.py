@@ -91,7 +91,7 @@ def compute_d2root(myTree,placement_edge):
 
 def place_one_taxon_iter(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample=None):               
 # get initial guess
-    placement_label,score,d,rerooted_refTrees,_ = place_one_taxon(myTree,refTrees,missing_taxon,max_depth=max_depth,sample_size=sample_size,nsample=nsample,use_brlen=False,alpha=0)
+    placement_label,score,d,rerooted_refTrees,_ = place_one_taxon(myTree,refTrees,missing_taxon,max_depth=max_depth,sample_size=sample_size,nsample=nsample)
     print("Initial guess: " + placement_label + " " + str(score) + " " + str(d))
     
     tree_obj = read_tree_newick(myTree)
@@ -171,7 +171,7 @@ def __label_tree__(tree_obj):
             node.label = 'I' + str(i)
             i += 1        
 
-def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample='default',use_brlen=False,pseudo=1e-3,alpha=0):
+def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample='default'):
 # remove all trees in refTrees that do not have the missing_taxon
 # and assume myTree is missing the missing_taxon
 # myTree: a newick string. Assume it has unique labeling for all nodes
@@ -203,12 +203,6 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
         if success_flag:    
             rerooted_refTrees.append(tree_obj.newick())
              
-            if alpha != 0:
-                qdist = quartet_distance(myTree,tree_obj.newick())
-                w = exp(-alpha*qdist)
-            else:
-                w = 1    
-            
             if D < n:
                 prune_long(tree_obj,D)    
             
@@ -225,16 +219,12 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
                     sample_size = max(MIN_SMPL_SIZE,sample_size)
                     if nsample == 'default':
                         nsample = ceil(90/sample_size)
-                    if use_brlen:
-                        sample_trees = sample_by_brlen(tree_obj,sample_size,nsample,pseudo=1e-3)
-                    else: 
-                        sample_trees = sample_by_depth(tree_obj,sample_size,nsample)
+                    sample_trees = sample_by_depth(tree_obj,sample_size,nsample)
             sample_refTrees += sample_trees
-            W += [w]*len(sample_trees)
+            #W += [w]*len(sample_trees)
 
-    #with open("temp_refs.trees",'w') as f:
-    #    f.write('\n'.join(sample_refTrees))
-
+    nrefs = len(sample_refTrees)
+    W = [1.0/nrefs]*nrefs
     _,placement_label,tripScore = tripVote(myTree,sample_refTrees,W,do_indexing=False)
     tree_obj = read_tree_newick(myTree)
     placement_node = None
@@ -277,10 +267,31 @@ def place_taxa(myTree,refTrees,missing_taxa,sample_size='sqrt',nsample='default'
     __label_tree__(tree_obj)
     updated_tree = tree_obj.newick()
     for taxon in missing_taxa:
-        _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,taxon,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
+        _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,taxon,max_depth='max',sample_size=sample_size,nsample=nsample)
     return updated_tree    
 
-
+def replace_taxa(myTree,refTrees,queries,sample_size='sqrt',nsample='default',relabel=True):
+# remove each taxon in the 'queries' list and place it back (independently of each other)
+# return a list of tuple [(query,placement_node1),(query2,placement_node2),...]
+    if relabel:
+        tree_obj = read_tree_newick(myTree)
+        __label_tree__(tree_obj)
+        myTree = tree_obj.newick()
+    
+    my_placements = []
+    for query in queries:
+        tree_obj = read_tree_newick(myTree)   
+        # remove this query from tree_obj
+        #for node in tree_obj.traverse_leaves():
+        #    if node.label == query:
+        #        parent = node.parent
+        #        parent.remove_child(node)
+        #        tree_obj.suppress_unifurcations()                
+        tree_obj = tree_obj.extract_tree_without([query])
+        placement_label,_,_,_,_ = place_one_taxon(tree_obj.newick(),refTrees,query,max_depth='max',sample_size=sample_size,nsample=nsample)
+        my_placements.append((query,placement_label))
+    return my_placements    
+        
 def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='default',placement_taxa=None):
 # If refTrees is None, then use the other trees in myTrees as references
     myTrees_labeled = []
@@ -316,7 +327,7 @@ def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='defaul
           if x not in curr_leaf_set:
           # x is missing in this tree, now we insert it
             print("Adding " + x + " to tree " + str(i+1)) # + ". Present in " + str(c) + " reference trees")
-            _,_,_,_,updated_tree = place_one_taxon(updated_tree,refs,x,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
+            _,_,_,_,updated_tree = place_one_taxon(updated_tree,refs,x,max_depth='max',sample_size=sample_size,nsample=nsample)
       completed_trees.append(updated_tree)
       print("Completed tree " + str(i+1))
       print(updated_tree)

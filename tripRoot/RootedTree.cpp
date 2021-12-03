@@ -623,7 +623,7 @@ bool RootedTree::pairAltWorld(RootedTree *t, bool do_pruning, TripletCounter *tr
                 // prune the leaf out from the first tree then continue
                 //cerr << leaf->name << " didn't exist in the second tree. Pruning it out from the first tree..." << endl;
                 if (this->prune_subtree(leaf)){
-		    cerr << "Removed leaf " << leaf->name << endl;	
+		    //cerr << "Removed leaf " << leaf->name << endl;	
                     continue;
                 }
                 else {
