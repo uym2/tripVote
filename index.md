@@ -1,4 +1,4 @@
-## Completing gene trees without species trees in sub-quadratic  AQ17time
+## Completing gene trees without species trees in sub-quadratic time
 Github page for [the tripVote software](https://github.com/uym2/tripVote).
 
 ### Datasets
