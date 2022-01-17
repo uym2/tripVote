@@ -30,7 +30,7 @@ sources =  ["tqdistmodule.cpp",
 
 def main():
     setup(name="tqdist",
-          version="1.0",
+          version="1.1",
           description="Python interface for the tqdist C library",
           long_description="Python interface for the tqdist C library, extended from https://users-cs.au.dk/cstorm/software/tqdist/",
           author="uym2",

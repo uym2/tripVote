@@ -27,7 +27,7 @@ def main():
     print("Running " + tripVote.PROGRAM_NAME + " version " + tripVote.PROGRAM_VERSION)
     print("tripVote_complete_trees was called as follow: " + " ".join(sys.argv))
     
-    placement_set = args.placement.strip().split()
+    placement_set = args.placement.strip().split() if args.placement else None
     sample_size = 'sqrt' # default
     nsample = 'default' # default: 90/sample_size
     if args.sampling is not None:
