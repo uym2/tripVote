@@ -10,9 +10,10 @@ with open(argv[1],'r') as fin:
 with open(argv[2],'r') as fin:
     refTrees = fin.read().strip().split()
 
-queries = argv[3:]
+nsample=int(argv[3])
+queries = argv[4:]
 
-results = replace_taxa(myTree,refTrees,queries)
+results = replace_taxa(myTree,refTrees,queries,nsample=nsample)
 
 for (q,p) in results:
     print(q + " " + p)

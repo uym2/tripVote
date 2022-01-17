@@ -270,7 +270,7 @@ def place_taxa(myTree,refTrees,missing_taxa,sample_size='sqrt',nsample='default'
         _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,taxon,max_depth='max',sample_size=sample_size,nsample=nsample)
     return updated_tree    
 
-def replace_taxa(myTree,refTrees,queries,sample_size='sqrt',nsample='default',relabel=True):
+def replace_taxa(myTree,refTrees,queries,sample_size='sqrt',nsample='default',relabel=False):
 # remove each taxon in the 'queries' list and place it back (independently of each other)
 # return a list of tuple [(query,placement_node1),(query2,placement_node2),...]
     if relabel:
@@ -278,15 +278,15 @@ def replace_taxa(myTree,refTrees,queries,sample_size='sqrt',nsample='default',re
         __label_tree__(tree_obj)
         myTree = tree_obj.newick()
     
+    tree_obj = read_tree_newick(myTree)
+    L = set([x.label for x in tree_obj.traverse_leaves()])
     my_placements = []
     for query in queries:
+        if query not in L:
+            my_placements.append((query,"N/A"))
+            continue
         tree_obj = read_tree_newick(myTree)   
         # remove this query from tree_obj
-        #for node in tree_obj.traverse_leaves():
-        #    if node.label == query:
-        #        parent = node.parent
-        #        parent.remove_child(node)
-        #        tree_obj.suppress_unifurcations()                
         tree_obj = tree_obj.extract_tree_without([query])
         placement_label,_,_,_,_ = place_one_taxon(tree_obj.newick(),refTrees,query,max_depth='max',sample_size=sample_size,nsample=nsample)
         my_placements.append((query,placement_label))
