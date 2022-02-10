@@ -282,14 +282,14 @@ def replace_taxa(myTree,refTrees,queries,sample_size='sqrt',nsample='default',re
     L = set([x.label for x in tree_obj.traverse_leaves()])
     my_placements = []
     for query in queries:
-        if query not in L:
-            my_placements.append((query,"N/A"))
-            continue
+        #if query not in L:
+        #    my_placements.append((query,"N/A"))
+        #    continue
         tree_obj = read_tree_newick(myTree)   
         # remove this query from tree_obj
         tree_obj = tree_obj.extract_tree_without([query])
-        placement_label,_,_,_,_ = place_one_taxon(tree_obj.newick(),refTrees,query,max_depth='max',sample_size=sample_size,nsample=nsample)
-        my_placements.append((query,placement_label))
+        placement_label,tripScore,_,_,_ = place_one_taxon(tree_obj.newick(),refTrees,query,max_depth='max',sample_size=sample_size,nsample=nsample)
+        my_placements.append((query,placement_label,tripScore))
     return my_placements    
         
 def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='default',placement_taxa=None):
