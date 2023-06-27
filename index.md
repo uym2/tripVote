@@ -2,10 +2,10 @@
 Github page for [the tripVote software](https://github.com/uym2/tripVote).
 
 ### Datasets
-All data used in the paper can be found [here](https://drive.google.com/drive/folders/1zoiOuJkDA2lO5FHKoAQzU-H-D3ex_VR9?usp=sharing)
+All data used in the paper can be found on [Dryad at](https://datadryad.org/stash/dataset/doi:10.6076/D1N30V)
 ### Contact
 Uyen Mai    
-umai@eng.ucsd.edu
+um6916@princeton.edu
 
 Siavash Mirarab
 smirarabbaygi@eng.ucsd.edu 
