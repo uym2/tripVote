@@ -24,3 +24,9 @@ Below is an example (to run, you need to download the file [incomplete.trees](te
 ```
 tripVote_complete_trees.py -i incomplete.trees -o completed.trees
 ```
+
+To root input trees with respect to rooted reference trees, use:
+
+``` bash
+tripVote_root_trees.py -i unrooted.trees -r refTrees.trees -o rooted.trees
+```

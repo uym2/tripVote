@@ -11,7 +11,7 @@ def main():
           author="uym2",
           author_email="ceciliamaitouyen@gmail.com",
           python_requires='>=3',
-          scripts=["tripVote_complete_trees.py"],
+          scripts=["tripVote_complete_trees.py","tripVote_root_trees.py"],
           install_requires=["tqdist","treeswift","triproot","setuptools","wheel"],
           packages=["tripVote"],
           classifiers=["Environment :: Console",

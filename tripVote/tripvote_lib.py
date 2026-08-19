@@ -1,7 +1,7 @@
 from treeswift import *
 from tqdist import *
 from triproot import *
-from math import exp,log,ceil,sqrt
+from math import exp,log,log2,ceil,sqrt
 import random
 from tripVote.utils import sample_by_depth, prune_long, reroot_at_edge
 
@@ -145,6 +145,8 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
             optimal_root = node
         if not node.is_leaf() and do_indexing:
             node.label = id2lb[node.label]
+    if best_id is None:
+        raise ValueError("Could not find an optimal root for the input tree")
     return best_id,id2lb[best_id] if best_id in id2lb else best_id, max_score
 
 def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None): #,alpha=0):
@@ -172,7 +174,13 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
                 #W.append(w)
             else:
                 nleaf = len(list(tree_obj.traverse_leaves()))
-                S = sample_by_depth(tree_obj,nleaf if sample_size == 'full' else ceil(sqrt(nleaf)),nsample)
+                if sample_size == 'full':
+                    sampled_nleaf = nleaf
+                elif sample_size == 'sqrt':
+                    sampled_nleaf = ceil(sqrt(nleaf))
+                else:
+                    sampled_nleaf = int(sample_size)
+                S = sample_by_depth(tree_obj,sampled_nleaf,nsample)
                 new_refTrees += S
                 #W += [w]*len(S)
     # read and label myTree
@@ -193,12 +201,15 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
             break
     node = root_node
     d2root = 0
+    if root_node is None:
+        raise ValueError("Could not find optimal root node in the input tree")
     while not node.is_root() and not node.parent.is_root():
         d2root += 1
         node = node.get_parent()
 
-    if not root_node.is_root:
-        reroot_at_edge(tree_obj,root_node,root_node.edge_length/2)
+    if not root_node.is_root():
+        root_length = root_node.edge_length/2 if root_node.edge_length is not None else None
+        reroot_at_edge(tree_obj,root_node,root_length)
     
     rerooted_tree = tree_obj.newick()
 
