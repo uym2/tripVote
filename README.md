@@ -8,7 +8,7 @@ We would like to thank the authors for the code and algorithmic ideas.
 **Installation: using pip**
 
 ```bash
-pip install TripletVoting
+pip install tripvote
 ```
 
 Now you should be able to run the TripletVoting program. Type 
@@ -30,3 +30,7 @@ To root input trees with respect to rooted reference trees, use:
 ``` bash
 tripVote_root_trees.py -i unrooted.trees -r refTrees.trees -o rooted.trees
 ```
+
+**Notes:**
+
+* Older releases were distributed on PyPI as `TripletVoting`. Maintained releases are now distributed as `tripvote`.
