@@ -149,7 +149,7 @@ def tripVote(myTree,refTrees,W=None,do_indexing=True,search_space=None):
         raise ValueError("Could not find an optimal root for the input tree")
     return best_id,id2lb[best_id] if best_id in id2lb else best_id, max_score
 
-def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None): #,alpha=0):
+def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=None,preserve_old_root=False): #,alpha=0):
     new_refTrees = []
     #W = []
     for rstr in refTrees:
@@ -185,10 +185,12 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
                 #W += [w]*len(S)
     # read and label myTree
     tree_obj = read_tree_newick(myTree)
+    id2lb = {}
     idx = 0
     for node in tree_obj.traverse_preorder():
         if not node.is_leaf():
             ID = 'I' + str(idx)
+            id2lb[ID] = node.label
             node.label = ID 
             idx += 1
     _,root_label,score = tripVote(tree_obj.newick(),new_refTrees,do_indexing=False) #,W=W)
@@ -209,7 +211,16 @@ def tripVote_root(myTree,refTrees,max_depth='max',sample_size='full',nsample=Non
 
     if not root_node.is_root():
         root_length = root_node.edge_length/2 if root_node.edge_length is not None else None
-        reroot_at_edge(tree_obj,root_node,root_length)
+        reroot_at_edge(
+            tree_obj,
+            root_node,
+            root_length,
+            preserve_branch_labels=True,
+            suppress_old_root=not preserve_old_root,
+        )
+    for node in tree_obj.traverse_preorder():
+        if not node.is_leaf() and node.label in id2lb:
+            node.label = id2lb[node.label]
     
     rerooted_tree = tree_obj.newick()
 

@@ -165,11 +165,20 @@ def __reroot_ref_tree__(tree_obj,missing_taxon,active_leafset):
     return True, tree_obj
 
 def __label_tree__(tree_obj):
+    id2label = {}
     i = 0
     for node in tree_obj.traverse_preorder():
         if not node.is_leaf():
-            node.label = 'I' + str(i)
+            label = 'I' + str(i)
+            id2label[label] = node.label
+            node.label = label
             i += 1        
+    return id2label
+
+def __restore_internal_labels__(tree_obj,id2label):
+    for node in tree_obj.traverse_preorder():
+        if not node.is_leaf() and node.label in id2label:
+            node.label = id2label[node.label]
 
 def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='sqrt',nsample='default',use_brlen=False,pseudo=1e-3,alpha=0):
 # remove all trees in refTrees that do not have the missing_taxon
@@ -274,20 +283,23 @@ def place_one_taxon(myTree,refTrees,missing_taxon,max_depth='max',sample_size='s
 
 def place_taxa(myTree,refTrees,missing_taxa,sample_size='sqrt',nsample='default'):
     tree_obj = read_tree_newick(myTree)
-    __label_tree__(tree_obj)
+    id2label = __label_tree__(tree_obj)
     updated_tree = tree_obj.newick()
     for taxon in missing_taxa:
         _,_,_,_,updated_tree = place_one_taxon(updated_tree,refTrees,taxon,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
-    return updated_tree    
+    tree_obj = read_tree_newick(updated_tree)
+    __restore_internal_labels__(tree_obj,id2label)
+    return tree_obj.newick()
 
 
 def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='default',placement_taxa=None):
 # If refTrees is None, then use the other trees in myTrees as references
     myTrees_labeled = []
+    input_id2labels = []
     
     for treeStr in myTrees:
         tree_obj = read_tree_newick(treeStr)
-        __label_tree__(tree_obj)
+        input_id2labels.append(__label_tree__(tree_obj))
         myTrees_labeled.append(tree_obj.newick())
 
     taxon_dict = {} # mapping taxon name to frequency
@@ -317,6 +329,9 @@ def complete_gene_trees(myTrees,refTrees=None,sample_size='sqrt',nsample='defaul
           # x is missing in this tree, now we insert it
             print("Adding " + x + " to tree " + str(i+1)) # + ". Present in " + str(c) + " reference trees")
             _,_,_,_,updated_tree = place_one_taxon(updated_tree,refs,x,max_depth='max',sample_size=sample_size,nsample=nsample,use_brlen=False,pseudo=1e-3,alpha=0)
+      tree_obj = read_tree_newick(updated_tree)
+      __restore_internal_labels__(tree_obj,input_id2labels[i])
+      updated_tree = tree_obj.newick()
       completed_trees.append(updated_tree)
       print("Completed tree " + str(i+1))
       print(updated_tree)

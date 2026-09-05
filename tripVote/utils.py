@@ -48,7 +48,7 @@ def distance_to_refs(refs,trees,metric,fout=stdout):
             d = distance_func(r_p,t_p)
             fout.write(str(i+1) + " " + str(j+1) + " " + str(d) + "\n")
 
-def reroot_at_edge(tree, node, length, root_label=None):
+def reroot_at_edge(tree, node, length, root_label=None, preserve_branch_labels=False, suppress_old_root=True):
 # change edge to opt_root
     length1 = node.edge_length-length if node.edge_length is not None else None
     length2 = length if length is not None else None
@@ -59,6 +59,15 @@ def reroot_at_edge(tree, node, length, root_label=None):
     tail = node.parent #u parent of opt_root
     if not tail:
         return
+
+    if preserve_branch_labels:
+        split_tail = tail
+        rerooted_branch_labels = {}
+        curr = tail
+        while curr is not tree.root:
+            parent = curr.parent
+            rerooted_branch_labels[parent] = curr.label
+            curr = parent
 
     #if (length2 == 0) and head.is_leaf():
     #    return 0, 0
@@ -100,14 +109,19 @@ def reroot_at_edge(tree, node, length, root_label=None):
         l = l1
 
     # out of while loop: tail IS now tree.root
-    if tail.num_children() == 1:
+    if suppress_old_root and tail.num_children() == 1:
         # merge the 2 branches of the old root and adjust the branch length
         sis = tail.child_nodes()[0]
         l = sis.edge_length
         tail.remove_child(sis)    
         head.add_child(sis)
-        sis.edge_length = l + tail.edge_length if tail.edge_length is not None else None
+        sis.edge_length = l + tail.edge_length if l is not None and tail.edge_length is not None else None
         head.remove_child(tail)
+
+    if preserve_branch_labels:
+        split_tail.label = None
+        for label_node, label in rerooted_branch_labels.items():
+            label_node.label = label
 
     tree.root = new_root
 

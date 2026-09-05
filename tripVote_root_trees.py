@@ -45,6 +45,8 @@ def main():
                         help='Maximum reference-tree depth to use: max, log2, or an integer')
     parser.add_argument('-s', '--sampling', type=parse_sampling,
                         help='Sample size and number of samples, e.g. "sqrt 10" or "full 5"; use "0 0" for no sampling')
+    parser.add_argument('--preserve-old-root', action='store_true',
+                        help='Keep the old root as a unary internal node instead of suppressing it')
     parser.add_argument('-v', '--version', action='version', version=tripVote.PROGRAM_VERSION,
                         help='Show program version and exit')
 
@@ -69,6 +71,7 @@ def main():
             max_depth=args.max_depth,
             sample_size=sample_size,
             nsample=nsample,
+            preserve_old_root=args.preserve_old_root,
         )
         rooted_trees.append(rooted_tree)
         print("Rooted tree " + str(i + 1) + "; distance to original root: " + str(d2root))

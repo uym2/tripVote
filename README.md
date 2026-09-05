@@ -31,6 +31,8 @@ To root input trees with respect to rooted reference trees, use:
 tripVote_root_trees.py -i unrooted.trees -r refTrees.trees -o rooted.trees
 ```
 
+By default, the rooting command suppresses the old root if rerooting would otherwise leave a unary internal node. To keep the old root node and preserve that branch-length split exactly, add `--preserve-old-root`.
+
 **Notes:**
 
 * Older releases were distributed on PyPI as `TripletVoting`. Maintained releases are now distributed as `tripvote`.
